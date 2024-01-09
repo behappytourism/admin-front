@@ -277,14 +277,14 @@ const ThemeRoutes = [
                     </DashboardPrivateRoute>
                 ),
             },
-            {
-                path: "/dashboard/hotel",
-                element: (
-                    <HotelDashboardPrivateRoute>
-                        <HotelDashboardPage />
-                    </HotelDashboardPrivateRoute>
-                ),
-            },
+            // {
+            //     path: "/dashboard/hotel",
+            //     element: (
+            //         <HotelDashboardPrivateRoute>
+            //             <HotelDashboardPage />
+            //         </HotelDashboardPrivateRoute>
+            //     ),
+            // },
             {
                 path: "/dashboard/attraction",
                 element: <AttractionDashboardPage />,
@@ -365,344 +365,344 @@ const ThemeRoutes = [
                 element: <EditGuidePage />,
             },
 
-            {
-                path: "/hotels",
-                element: <HotelsListPage />,
-            },
-            {
-                path: "/hotels/comparison-list",
-                element: <HotelComparisonList />,
-            },
-            {
-                path: "/hotels/cache-settings",
-                element: <CacheSettingsPage />,
-            },
-            {
-                path: "/hotels/banner-ads",
-                element: <HotelBannerAdsPage />,
-            },
-            {
-                path: "/hotels/featured-hotels",
-                element: <FeaturedHotelsPage />,
-            },
-            {
-                path: "/hotels/room-occupancies",
-                element: <RoomOccupacniesListPage />,
-            },
-            {
-                path: "/hotels/room-occupancies/add",
-                element: <AddRoomOccupanciesPage />,
-            },
-            {
-                path: "/hotels/room-occupancies/:occupancyId/edit",
-                element: <EditRoomOccupanciesPage />,
-            },
-            {
-                path: "/hotels/add",
-                element: <AddHotelPage />,
-            },
-            {
-                path: "/hotels/:id/edit",
-                element: <EditHotelPage />,
-            },
-            {
-                path: "/hotels/:id/room-types/add",
-                element: <AddRoomTypePage />,
-            },
-            {
-                path: "/hotels/:id/room-types/:roomTypeId/edit",
-                element: <EditRoomTypePage />,
-            },
-            {
-                path: "/hotels/boards",
-                element: <HotelBoardTypesPage />,
-            },
-            {
-                path: "/hotels/groups",
-                element: <HotelsGroupsPage />,
-            },
-            {
-                path: "/hotels/chains",
-                element: <HotelChainsListPage />,
-            },
-            {
-                path: "/hotels/star-categories",
-                element: <HotelStarCategoriesPage />,
-            },
-            {
-                path: "/hotels/requests",
-                element: <HotelRequestsPage />,
-            },
-            {
-                path: "/hotels/amenities",
-                element: <HotelAmenitiesPage />,
-            },
-            {
-                path: "/hotels/amenities/:id/sub-amenities",
-                element: <HotelSubAmenitiesPage />,
-            },
-            {
-                path: "/hotels/:id",
-                element: <EditHotelLayout />,
-                children: [
-                    {
-                        path: "contract-groups",
-                        element: <HotelContractGroupsPage />,
-                    },
-                    {
-                        path: "contract-groups/:contractGroupId/contracts",
-                        element: <HotelContractGroupsContractPage />,
-                    },
-                    {
-                        path: "contracts",
-                        element: <HotelContractPage />,
-                    },
-                    {
-                        path: "promotions",
-                        element: <HotelPromortionsPage />,
-                    },
-                    {
-                        path: "add-ons",
-                        element: <HotelAddOnsPage />,
-                    },
-                    {
-                        path: "add-allocation",
-                        element: <AddAllocationPage />,
-                    },
-                    {
-                        path: "room-types",
-                        element: <HotelRoomTypePage />,
-                    },
-                    {
-                        path: "hb-room-types",
-                        element: <HotelBedRoomTypesPage />,
-                    },
-                ],
-            },
-            {
-                path: "/hotels/:id/contract-groups/:contractGroupId/contracts/add",
-                element: <AddContractPage />,
-            },
-            {
-                path: "/hotels/:id/contract-groups/:contractGroupId/contracts/:contractId/edit",
-                element: <EditContractPage />,
-            },
-            {
-                path: "/hotels/:id/promotions/add",
-                element: <AddPromotionPage />,
-            },
-            {
-                path: "/hotels/:id/promotions/:promotionId/edit",
-                element: <EditPromotionPage />,
-            },
-            {
-                path: "/hotels/:id/promotions/:promotionId/banner",
-                element: <PromotionBannerUpdatePage />,
-            },
-            {
-                path: "/hotels/:id/add-ons/add",
-                element: <AddAddOnsPage />,
-            },
-            {
-                path: "/hotels/:id/add-ons/:addOnsId/edit",
-                element: <EditAddOnsPage />,
-            },
-            {
-                path: "/hotels/availability",
-                element: <HotelAvailabilityPage />,
-            },
             // {
-            //     path: "/hotels/availability/:id/change",
-            //     element: <ChangeAvailabilityPage />,
+            //     path: "/hotels",
+            //     element: <HotelsListPage />,
             // },
-            {
-                path: "/hotels/reservation",
-                element: <HotelReservation />,
-            },
-            {
-                path: "/hotels/reservation/expiring/paylater",
-                element: <HotelExpiringPayLaterOrdersPage />,
-            },
-            {
-                path: "/hotels/reservation/cancellation-requests",
-                element: <HotelCancellationRequestsPage />,
-            },
-            {
-                path: "/hotels/reservation/top-hotels",
-                element: <TopSellingHotelsPage />,
-            },
-            {
-                path: "/hotels/reservation/top-resellers",
-                element: <TopHotelSellingResllersPage />,
-            },
-            {
-                path: "/hotels/reservation/:id",
-                element: <HotelOrderDetailsPage />,
-            },
-            {
-                path: "/hotels/accommodation-types",
-                element: <AccommodationTypesPage />,
-            },
-            {
-                path: "/visa",
-                element: <VisaTypePage />,
-            },
-            {
-                path: "/visa/nationalities",
-                element: <B2cVisaNationalityPage />,
-            },
-            {
-                path: "/visa/nationalities/:id/edit",
-                element: <AddVisaTypeNationality />,
-            },
-            {
-                path: "/visa/nationalities/:id/edit/:section/add",
-                element: <AddVisaTypeNationalityPage />,
-            },
-            {
-                path: "/visa/nationalities/:id/edit/:section/edit/:visaId",
-                element: <EditVisaTypeNationalityPage />,
-            },
-            {
-                path: "/visa/add",
-                element: <VisaAddPage />,
-            },
-            {
-                path: "/visa/:id/edit",
-                element: <VisaAddPage />,
-            },
-            {
-                path: "/visa/country",
-                element: <VisaCountry />,
-            },
-            {
-                path: "/visa/country/add",
-                element: <VisaAddCountryPage />,
-            },
-            {
-                path: "/visa/country/:id/edit",
-                element: <VisaAddCountryPage />,
-            },
-            {
-                path: "/visa/request",
-                element: <VisaRequestPage />,
-            },
-            {
-                path: "/visa/:orderedBy/:id/application/:travellerId",
-                element: <SingleVisaApplication />,
-            },
-            {
-                path: "/visa/enquires",
-                element: <VisaEnquiryPage />,
-            },
-            {
-                path: "/a2a",
-                element: <A2AListPage />,
-            },
-            {
-                path: "/a2a/:id",
-                element: <A2ATicketListPage />,
-            },
-            {
-                path: "/a2a/add",
-                element: <AddA2APage />,
-            },
-            {
-                path: "/a2a/:id/quota/:ticketId",
-                element: <A2aQuotaPage />,
-            },
-            {
-                path: "/a2a/:id/add",
-                element: <A2aAddTicketPage />,
-            },
-            {
-                path: "/a2a/:id/edit/:ticketId",
-                element: <A2AEditTicketPage />,
-            },
-            {
-                path: "/a2a/enquiry",
-                element: <A2AEnquiryPage />,
-            },
-            {
-                path: "/a2a/summary",
-                element: <A2aSummaryPage />,
-            },
-            {
-                path: "/a2a/statistics",
-                element: <A2aStatisticsPage />,
-            },
-            {
-                path: "/vouchers",
-                element: (
-                    <PrivateRoute name="tour-schedules" permission="view">
-                        <VouchersListPage />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "/vouchers/v2",
-                element: <VouchersV2ListPage />,
-            },
-            {
-                path: "/vouchers/v2/:voucherId/tours/:tourId/transfer",
-                element: <SingleTourTransferPage />,
-            },
-            {
-                path: "/vouchers/daily-reports",
-                element: (
-                    <PrivateRoute name="daily-reports" permission="view">
-                        <VouchersDailyReportPage />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "/vouchers/v2/daily-reports",
-                element: <VouchersV2DailyReportPage />,
-            },
-            {
-                path: "/vouchers/v2/add",
-                element: <AddVoucherPageV2 />,
-            },
-            {
-                path: "/vouchers/add",
-                element: (
-                    <PrivateRoute name="tour-schedules" permission="create">
-                        <AddVoucherPage />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "/vouchers/:id",
-                element: (
-                    <PrivateRoute name="tour-schedules" permission="view">
-                        <SingleVoucherPage />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "/vouchers/v2/:id",
-                element: <SingleVoucherV2Page />,
-            },
-            {
-                path: "/vouchers/:id/edit",
-                element: (
-                    <PrivateRoute name="tour-schedules" permission="update">
-                        <EditVoucherPage />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "/vouchers/v2/:id/edit",
-                element: <EditVoucherV2Page />,
-            },
-            {
-                path: "/vouchers/settings",
-                element: <VoucherSettingsPage />,
-            },
-            {
-                path: "/confirmed-quotations",
-                element: <ConfirmedQuotationsListPage />,
-            },
+            // {
+            //     path: "/hotels/comparison-list",
+            //     element: <HotelComparisonList />,
+            // },
+            // {
+            //     path: "/hotels/cache-settings",
+            //     element: <CacheSettingsPage />,
+            // },
+            // {
+            //     path: "/hotels/banner-ads",
+            //     element: <HotelBannerAdsPage />,
+            // },
+            // {
+            //     path: "/hotels/featured-hotels",
+            //     element: <FeaturedHotelsPage />,
+            // },
+            // {
+            //     path: "/hotels/room-occupancies",
+            //     element: <RoomOccupacniesListPage />,
+            // },
+            // {
+            //     path: "/hotels/room-occupancies/add",
+            //     element: <AddRoomOccupanciesPage />,
+            // },
+            // {
+            //     path: "/hotels/room-occupancies/:occupancyId/edit",
+            //     element: <EditRoomOccupanciesPage />,
+            // },
+            // {
+            //     path: "/hotels/add",
+            //     element: <AddHotelPage />,
+            // },
+            // {
+            //     path: "/hotels/:id/edit",
+            //     element: <EditHotelPage />,
+            // },
+            // {
+            //     path: "/hotels/:id/room-types/add",
+            //     element: <AddRoomTypePage />,
+            // },
+            // {
+            //     path: "/hotels/:id/room-types/:roomTypeId/edit",
+            //     element: <EditRoomTypePage />,
+            // },
+            // {
+            //     path: "/hotels/boards",
+            //     element: <HotelBoardTypesPage />,
+            // },
+            // {
+            //     path: "/hotels/groups",
+            //     element: <HotelsGroupsPage />,
+            // },
+            // {
+            //     path: "/hotels/chains",
+            //     element: <HotelChainsListPage />,
+            // },
+            // {
+            //     path: "/hotels/star-categories",
+            //     element: <HotelStarCategoriesPage />,
+            // },
+            // {
+            //     path: "/hotels/requests",
+            //     element: <HotelRequestsPage />,
+            // },
+            // {
+            //     path: "/hotels/amenities",
+            //     element: <HotelAmenitiesPage />,
+            // },
+            // {
+            //     path: "/hotels/amenities/:id/sub-amenities",
+            //     element: <HotelSubAmenitiesPage />,
+            // },
+            // {
+            //     path: "/hotels/:id",
+            //     element: <EditHotelLayout />,
+            //     children: [
+            //         {
+            //             path: "contract-groups",
+            //             element: <HotelContractGroupsPage />,
+            //         },
+            //         {
+            //             path: "contract-groups/:contractGroupId/contracts",
+            //             element: <HotelContractGroupsContractPage />,
+            //         },
+            //         {
+            //             path: "contracts",
+            //             element: <HotelContractPage />,
+            //         },
+            //         {
+            //             path: "promotions",
+            //             element: <HotelPromortionsPage />,
+            //         },
+            //         {
+            //             path: "add-ons",
+            //             element: <HotelAddOnsPage />,
+            //         },
+            //         {
+            //             path: "add-allocation",
+            //             element: <AddAllocationPage />,
+            //         },
+            //         {
+            //             path: "room-types",
+            //             element: <HotelRoomTypePage />,
+            //         },
+            //         {
+            //             path: "hb-room-types",
+            //             element: <HotelBedRoomTypesPage />,
+            //         },
+            //     ],
+            // },
+            // {
+            //     path: "/hotels/:id/contract-groups/:contractGroupId/contracts/add",
+            //     element: <AddContractPage />,
+            // },
+            // {
+            //     path: "/hotels/:id/contract-groups/:contractGroupId/contracts/:contractId/edit",
+            //     element: <EditContractPage />,
+            // },
+            // {
+            //     path: "/hotels/:id/promotions/add",
+            //     element: <AddPromotionPage />,
+            // },
+            // {
+            //     path: "/hotels/:id/promotions/:promotionId/edit",
+            //     element: <EditPromotionPage />,
+            // },
+            // {
+            //     path: "/hotels/:id/promotions/:promotionId/banner",
+            //     element: <PromotionBannerUpdatePage />,
+            // },
+            // {
+            //     path: "/hotels/:id/add-ons/add",
+            //     element: <AddAddOnsPage />,
+            // },
+            // {
+            //     path: "/hotels/:id/add-ons/:addOnsId/edit",
+            //     element: <EditAddOnsPage />,
+            // },
+            // {
+            //     path: "/hotels/availability",
+            //     element: <HotelAvailabilityPage />,
+            // },
+            // // {
+            // //     path: "/hotels/availability/:id/change",
+            // //     element: <ChangeAvailabilityPage />,
+            // // },
+            // {
+            //     path: "/hotels/reservation",
+            //     element: <HotelReservation />,
+            // },
+            // {
+            //     path: "/hotels/reservation/expiring/paylater",
+            //     element: <HotelExpiringPayLaterOrdersPage />,
+            // },
+            // {
+            //     path: "/hotels/reservation/cancellation-requests",
+            //     element: <HotelCancellationRequestsPage />,
+            // },
+            // {
+            //     path: "/hotels/reservation/top-hotels",
+            //     element: <TopSellingHotelsPage />,
+            // },
+            // {
+            //     path: "/hotels/reservation/top-resellers",
+            //     element: <TopHotelSellingResllersPage />,
+            // },
+            // {
+            //     path: "/hotels/reservation/:id",
+            //     element: <HotelOrderDetailsPage />,
+            // },
+            // {
+            //     path: "/hotels/accommodation-types",
+            //     element: <AccommodationTypesPage />,
+            // },
+            // {
+            //     path: "/visa",
+            //     element: <VisaTypePage />,
+            // },
+            // {
+            //     path: "/visa/nationalities",
+            //     element: <B2cVisaNationalityPage />,
+            // },
+            // {
+            //     path: "/visa/nationalities/:id/edit",
+            //     element: <AddVisaTypeNationality />,
+            // },
+            // {
+            //     path: "/visa/nationalities/:id/edit/:section/add",
+            //     element: <AddVisaTypeNationalityPage />,
+            // },
+            // {
+            //     path: "/visa/nationalities/:id/edit/:section/edit/:visaId",
+            //     element: <EditVisaTypeNationalityPage />,
+            // },
+            // {
+            //     path: "/visa/add",
+            //     element: <VisaAddPage />,
+            // },
+            // {
+            //     path: "/visa/:id/edit",
+            //     element: <VisaAddPage />,
+            // },
+            // {
+            //     path: "/visa/country",
+            //     element: <VisaCountry />,
+            // },
+            // {
+            //     path: "/visa/country/add",
+            //     element: <VisaAddCountryPage />,
+            // },
+            // {
+            //     path: "/visa/country/:id/edit",
+            //     element: <VisaAddCountryPage />,
+            // },
+            // {
+            //     path: "/visa/request",
+            //     element: <VisaRequestPage />,
+            // },
+            // {
+            //     path: "/visa/:orderedBy/:id/application/:travellerId",
+            //     element: <SingleVisaApplication />,
+            // },
+            // {
+            //     path: "/visa/enquires",
+            //     element: <VisaEnquiryPage />,
+            // },
+            // {
+            //     path: "/a2a",
+            //     element: <A2AListPage />,
+            // },
+            // {
+            //     path: "/a2a/:id",
+            //     element: <A2ATicketListPage />,
+            // },
+            // {
+            //     path: "/a2a/add",
+            //     element: <AddA2APage />,
+            // },
+            // {
+            //     path: "/a2a/:id/quota/:ticketId",
+            //     element: <A2aQuotaPage />,
+            // },
+            // {
+            //     path: "/a2a/:id/add",
+            //     element: <A2aAddTicketPage />,
+            // },
+            // {
+            //     path: "/a2a/:id/edit/:ticketId",
+            //     element: <A2AEditTicketPage />,
+            // },
+            // {
+            //     path: "/a2a/enquiry",
+            //     element: <A2AEnquiryPage />,
+            // },
+            // {
+            //     path: "/a2a/summary",
+            //     element: <A2aSummaryPage />,
+            // },
+            // {
+            //     path: "/a2a/statistics",
+            //     element: <A2aStatisticsPage />,
+            // },
+            // {
+            //     path: "/vouchers",
+            //     element: (
+            //         <PrivateRoute name="tour-schedules" permission="view">
+            //             <VouchersListPage />
+            //         </PrivateRoute>
+            //     ),
+            // },
+            // {
+            //     path: "/vouchers/v2",
+            //     element: <VouchersV2ListPage />,
+            // },
+            // {
+            //     path: "/vouchers/v2/:voucherId/tours/:tourId/transfer",
+            //     element: <SingleTourTransferPage />,
+            // },
+            // {
+            //     path: "/vouchers/daily-reports",
+            //     element: (
+            //         <PrivateRoute name="daily-reports" permission="view">
+            //             <VouchersDailyReportPage />
+            //         </PrivateRoute>
+            //     ),
+            // },
+            // {
+            //     path: "/vouchers/v2/daily-reports",
+            //     element: <VouchersV2DailyReportPage />,
+            // },
+            // {
+            //     path: "/vouchers/v2/add",
+            //     element: <AddVoucherPageV2 />,
+            // },
+            // {
+            //     path: "/vouchers/add",
+            //     element: (
+            //         <PrivateRoute name="tour-schedules" permission="create">
+            //             <AddVoucherPage />
+            //         </PrivateRoute>
+            //     ),
+            // },
+            // {
+            //     path: "/vouchers/:id",
+            //     element: (
+            //         <PrivateRoute name="tour-schedules" permission="view">
+            //             <SingleVoucherPage />
+            //         </PrivateRoute>
+            //     ),
+            // },
+            // {
+            //     path: "/vouchers/v2/:id",
+            //     element: <SingleVoucherV2Page />,
+            // },
+            // {
+            //     path: "/vouchers/:id/edit",
+            //     element: (
+            //         <PrivateRoute name="tour-schedules" permission="update">
+            //             <EditVoucherPage />
+            //         </PrivateRoute>
+            //     ),
+            // },
+            // {
+            //     path: "/vouchers/v2/:id/edit",
+            //     element: <EditVoucherV2Page />,
+            // },
+            // {
+            //     path: "/vouchers/settings",
+            //     element: <VoucherSettingsPage />,
+            // },
+            // {
+            //     path: "/confirmed-quotations",
+            //     element: <ConfirmedQuotationsListPage />,
+            // },
             {
                 path: "/markup/profile",
                 element: <ProfileListPage />,
@@ -900,10 +900,10 @@ const ThemeRoutes = [
                         path: "market-strategy",
                         element: <ResellerMarketStrategyPage />,
                     },
-                    {
-                        path: "hotel-settings",
-                        element: <SingleResellerHotelSettingsPage />,
-                    },
+                    // {
+                    //     path: "hotel-settings",
+                    //     element: <SingleResellerHotelSettingsPage />,
+                    // },
                 ],
             },
             {
@@ -1005,42 +1005,42 @@ const ThemeRoutes = [
                 path: "/attractions/itineraries/:id/edit",
                 element: <EditAttractionItineraryPage />,
             },
-            {
-                path: "/flights/bookings",
-                element: <FlightBookingsListPage />,
-            },
-            {
-                path: "/flights/bookings/:bookingId",
-                element: <SingleFlightBookingDetailsPage />,
-            },
-            {
-                path: "/airports",
-                element: <AirportsListPage />,
-            },
-            {
-                path: "/airports/add",
-                element: <AddAirportPage />,
-            },
-            {
-                path: "/airports/:id/edit",
-                element: <EditAirportPage />,
-            },
-            {
-                path: "/airports/:id/terminal",
-                element: <TerminalPage />,
-            },
-            {
-                path: "/airlines",
-                element: <AirlinesListPage />,
-            },
-            {
-                path: "/airlines/add",
-                element: <AddAirlinePage />,
-            },
-            {
-                path: "/airlines/:id/edit",
-                element: <EditAirlinePage />,
-            },
+            // {
+            //     path: "/flights/bookings",
+            //     element: <FlightBookingsListPage />,
+            // },
+            // {
+            //     path: "/flights/bookings/:bookingId",
+            //     element: <SingleFlightBookingDetailsPage />,
+            // },
+            // {
+            //     path: "/airports",
+            //     element: <AirportsListPage />,
+            // },
+            // {
+            //     path: "/airports/add",
+            //     element: <AddAirportPage />,
+            // },
+            // {
+            //     path: "/airports/:id/edit",
+            //     element: <EditAirportPage />,
+            // },
+            // {
+            //     path: "/airports/:id/terminal",
+            //     element: <TerminalPage />,
+            // },
+            // {
+            //     path: "/airlines",
+            //     element: <AirlinesListPage />,
+            // },
+            // {
+            //     path: "/airlines/add",
+            //     element: <AddAirlinePage />,
+            // },
+            // {
+            //     path: "/airlines/:id/edit",
+            //     element: <EditAirlinePage />,
+            // },
             {
                 path: "/attractions/tickets/inventory",
                 element: <AttractionTicketInventoryPage />,
@@ -1131,52 +1131,52 @@ const ThemeRoutes = [
 
             //quotation
 
-            {
-                path: "/quotations",
-                element: <QuotationListPage />,
-            },
-            {
-                path: "/quotations/dashboard",
-                element: <QuotationDashboard />,
-            },
-            {
-                path: "/quotations/:quotationNumber",
-                element: <SingleQuotationDetailPage />,
-            },
-            {
-                path: "/quotations/:quotationNumber/email/:amendementNumber",
-                element: <QuotationSingleEmailPage />,
-            },
-            {
-                path: "/quotations/:quotationNumber/edit/:amendementNumber",
-                element: <EditQuotationPage />,
-            },
-            {
-                path: "/quotations/add",
-                element: <AddQuotationPage />,
-            },
-            {
-                path: "/quotations/reseller",
-                element: <QuotationB2bListPage />,
-            },
-            {
-                path: "/quotations/reseller/:resellerId",
-                element: <QuotationsSingleResellerListPage />,
-            },
+            // {
+            //     path: "/quotations",
+            //     element: <QuotationListPage />,
+            // },
+            // {
+            //     path: "/quotations/dashboard",
+            //     element: <QuotationDashboard />,
+            // },
+            // {
+            //     path: "/quotations/:quotationNumber",
+            //     element: <SingleQuotationDetailPage />,
+            // },
+            // {
+            //     path: "/quotations/:quotationNumber/email/:amendementNumber",
+            //     element: <QuotationSingleEmailPage />,
+            // },
+            // {
+            //     path: "/quotations/:quotationNumber/edit/:amendementNumber",
+            //     element: <EditQuotationPage />,
+            // },
+            // {
+            //     path: "/quotations/add",
+            //     element: <AddQuotationPage />,
+            // },
+            // {
+            //     path: "/quotations/reseller",
+            //     element: <QuotationB2bListPage />,
+            // },
+            // {
+            //     path: "/quotations/reseller/:resellerId",
+            //     element: <QuotationsSingleResellerListPage />,
+            // },
 
             // Insurance
-            {
-                path: "/insurance/plans",
-                element: <InsurancePlanListingPage />,
-            },
-            {
-                path: "/insurance/enquiries",
-                element: <InsursanceEnquiryPage />,
-            },
-            {
-                path: "/insurance/enquiries/:contractId",
-                element: <SingelInsuranceEnquiryDetailsPage />,
-            },
+            // {
+            //     path: "/insurance/plans",
+            //     element: <InsurancePlanListingPage />,
+            // },
+            // {
+            //     path: "/insurance/enquiries",
+            //     element: <InsursanceEnquiryPage />,
+            // },
+            // {
+            //     path: "/insurance/enquiries/:contractId",
+            //     element: <SingelInsuranceEnquiryDetailsPage />,
+            // },
 
             //affiliate
 
@@ -1253,22 +1253,22 @@ const ThemeRoutes = [
                 element: <AttractionTransactionsPage />,
             },
 
-            {
-                path: "/order/a2a",
-                element: <CreateA2aOrder />,
-            },
-            {
-                path: "/order/visa",
-                element: <CreateVisaOrderPage />,
-            },
-            {
-                path: "/order/visa/:orderId",
-                element: <VisaDocumentUploadPage />,
-            },
-            {
-                path: "/order/flight",
-                element: <CreateFlightOrderPage />,
-            },
+            // {
+            //     path: "/order/a2a",
+            //     element: <CreateA2aOrder />,
+            // },
+            // {
+            //     path: "/order/visa",
+            //     element: <CreateVisaOrderPage />,
+            // },
+            // {
+            //     path: "/order/visa/:orderId",
+            //     element: <VisaDocumentUploadPage />,
+            // },
+            // {
+            //     path: "/order/flight",
+            //     element: <CreateFlightOrderPage />,
+            // },
             {
                 path: "/bank-accounts",
                 element: <BankAccountsListPage />,
@@ -1281,34 +1281,34 @@ const ThemeRoutes = [
                 path: "/bank-accounts/:id/edit",
                 element: <UpdateBankAccountPage />,
             },
-            {
-                path: "/order/flight/:tbId/:resellerId",
-                element: <CompleteFlightOrderPage />,
-            },
-            {
-                path: "/tour-packages",
-                element: <TourPackagesListPage />,
-            },
-            {
-                path: "/tour-packages/add",
-                element: <AddTourPackagePage />,
-            },
-            {
-                path: "/tour-packages/themes",
-                element: <TourPackageThemesPage />,
-            },
-            {
-                path: "/tour-packages/:tPackageId/edit",
-                element: <EditTourPackagePage />,
-            },
-            {
-                path: "/tour-packages/enquiries",
-                element: <TourPackageEnquiriesPage />,
-            },
-            {
-                path: "/tour-packages/:tPackageId",
-                element: <SingleTourPackagePage />,
-            },
+            // {
+            //     path: "/order/flight/:tbId/:resellerId",
+            //     element: <CompleteFlightOrderPage />,
+            // },
+            // {
+            //     path: "/tour-packages",
+            //     element: <TourPackagesListPage />,
+            // },
+            // {
+            //     path: "/tour-packages/add",
+            //     element: <AddTourPackagePage />,
+            // },
+            // {
+            //     path: "/tour-packages/themes",
+            //     element: <TourPackageThemesPage />,
+            // },
+            // {
+            //     path: "/tour-packages/:tPackageId/edit",
+            //     element: <EditTourPackagePage />,
+            // },
+            // {
+            //     path: "/tour-packages/enquiries",
+            //     element: <TourPackageEnquiriesPage />,
+            // },
+            // {
+            //     path: "/tour-packages/:tPackageId",
+            //     element: <SingleTourPackagePage />,
+            // },
             {
                 path: "/banners",
                 element: <BannerListPage />,

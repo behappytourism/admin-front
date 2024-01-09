@@ -52,170 +52,170 @@ const navPages = [
         name: "Attraction Order Statistics",
         path: "/attractions/statistics",
     },
-    {
-        name: "All Hotels",
-        path: "/hotels",
-    },
-    {
-        name: "Add Hotel",
-        path: "/hotels/add",
-    },
-    {
-        name: "Hotel Boards",
-        path: "/hotels/boards",
-    },
-    {
-        name: "Hotel Groups",
-        path: "/hotels/groups",
-    },
-    {
-        name: "Hotel Chains",
-        path: "/hotels/chains",
-    },
-    {
-        name: "Hotel Star Categories",
-        path: "/hotels/star-categories",
-    },
-    {
-        name: "Hotel Amenities",
-        path: "/hotels/amenities",
-    },
-    {
-        name: "Accommodation Types",
-        path: "/hotels/accommodation-types",
-    },
-    {
-        name: "Room Occupancies",
-        path: "/hotels/room-occupancies",
-    },
-    {
-        name: "Add Room Occupancy",
-        path: "/hotels/room-occupancies/add",
-    },
-    {
-        name: "Hotel Inventory Control",
-        path: "/hotels/availability",
-    },
-    {
-        name: "Hotel Requests",
-        path: "/hotels/requests",
-    },
-    {
-        name: "Hotel Reservation",
-        path: "/hotels/reservation",
-    },
-    {
-        name: "Featured Hotels",
-        path: "/hotels/featured-hotels",
-    },
-    {
-        name: "Hotel Banned Ads",
-        path: "/hotels/banner-ads",
-    },
-    {
-        name: "Flight Bookings",
-        path: "/flights/bookings",
-    },
-    {
-        name: "Airports",
-        path: "/airports",
-    },
-    {
-        name: "Add Airport",
-        path: "/airports/add",
-    },
-    {
-        name: "Airlines",
-        path: "/airlines",
-    },
-    {
-        name: "Add Airlines",
-        path: "/airlines/add",
-    },
-    {
-        name: "Visa Types",
-        path: "/visa",
-    },
-    {
-        name: "Add Visa Type",
-        path: "/visa/add",
-    },
-    {
-        name: "Visa Requests",
-        path: "/visa/request",
-    },
-    {
-        name: "Visa Countries",
-        path: "/visa/country",
-    },
-    {
-        name: "Add Visa Country",
-        path: "/visa/country/add",
-    },
-    {
-        name: "Visa Enquiries",
-        path: "/visa/enquires",
-    },
-    {
-        name: "A2A List",
-        path: "/a2a",
-    },
-    {
-        name: "Add A2A",
-        path: "/a2a/add",
-    },
-    {
-        name: "A2A Enquiries",
-        path: "/a2a/enquiry",
-    },
-    {
-        name: "A2A Summary",
-        path: "/a2a/summary",
-    },
-    {
-        name: "A2A Statistics",
-        path: "/a2a/statistics",
-    },
-    {
-        name: "Quotation Dashboard",
-        path: "/quotations/dashboard",
-    },
-    {
-        name: "Create Quotation",
-        path: "/quotations/add",
-    },
-    {
-        name: "Quotations List",
-        path: "/quotations",
-    },
-    {
-        name: "Quotation Resellers",
-        path: "/quotations/reseller",
-    },
-    {
-        name: "Insurance Plans",
-        path: "/insurance/plans",
-    },
-    {
-        name: "Insurance Enquiries",
-        path: "/insurance/enquiries",
-    },
-    {
-        name: "Tour Packages",
-        path: "/tour-packages",
-    },
-    {
-        name: "Add Tour Package",
-        path: "/tour-packages/add",
-    },
-    {
-        name: "Tour Package Themes",
-        path: "/tour-packages/themes",
-    },
-    {
-        name: "Tour Package Enquiries",
-        path: "/tour-packages/enquiries",
-    },
+    // {
+    //     name: "All Hotels",
+    //     path: "/hotels",
+    // },
+    // {
+    //     name: "Add Hotel",
+    //     path: "/hotels/add",
+    // },
+    // {
+    //     name: "Hotel Boards",
+    //     path: "/hotels/boards",
+    // },
+    // {
+    //     name: "Hotel Groups",
+    //     path: "/hotels/groups",
+    // },
+    // {
+    //     name: "Hotel Chains",
+    //     path: "/hotels/chains",
+    // },
+    // {
+    //     name: "Hotel Star Categories",
+    //     path: "/hotels/star-categories",
+    // },
+    // {
+    //     name: "Hotel Amenities",
+    //     path: "/hotels/amenities",
+    // },
+    // {
+    //     name: "Accommodation Types",
+    //     path: "/hotels/accommodation-types",
+    // },
+    // {
+    //     name: "Room Occupancies",
+    //     path: "/hotels/room-occupancies",
+    // },
+    // {
+    //     name: "Add Room Occupancy",
+    //     path: "/hotels/room-occupancies/add",
+    // },
+    // {
+    //     name: "Hotel Inventory Control",
+    //     path: "/hotels/availability",
+    // },
+    // {
+    //     name: "Hotel Requests",
+    //     path: "/hotels/requests",
+    // },
+    // {
+    //     name: "Hotel Reservation",
+    //     path: "/hotels/reservation",
+    // },
+    // {
+    //     name: "Featured Hotels",
+    //     path: "/hotels/featured-hotels",
+    // },
+    // {
+    //     name: "Hotel Banned Ads",
+    //     path: "/hotels/banner-ads",
+    // },
+    // {
+    //     name: "Flight Bookings",
+    //     path: "/flights/bookings",
+    // },
+    // {
+    //     name: "Airports",
+    //     path: "/airports",
+    // },
+    // {
+    //     name: "Add Airport",
+    //     path: "/airports/add",
+    // },
+    // {
+    //     name: "Airlines",
+    //     path: "/airlines",
+    // },
+    // {
+    //     name: "Add Airlines",
+    //     path: "/airlines/add",
+    // },
+    // {
+    //     name: "Visa Types",
+    //     path: "/visa",
+    // },
+    // {
+    //     name: "Add Visa Type",
+    //     path: "/visa/add",
+    // },
+    // {
+    //     name: "Visa Requests",
+    //     path: "/visa/request",
+    // },
+    // {
+    //     name: "Visa Countries",
+    //     path: "/visa/country",
+    // },
+    // {
+    //     name: "Add Visa Country",
+    //     path: "/visa/country/add",
+    // },
+    // {
+    //     name: "Visa Enquiries",
+    //     path: "/visa/enquires",
+    // },
+    // {
+    //     name: "A2A List",
+    //     path: "/a2a",
+    // },
+    // {
+    //     name: "Add A2A",
+    //     path: "/a2a/add",
+    // },
+    // {
+    //     name: "A2A Enquiries",
+    //     path: "/a2a/enquiry",
+    // },
+    // {
+    //     name: "A2A Summary",
+    //     path: "/a2a/summary",
+    // },
+    // {
+    //     name: "A2A Statistics",
+    //     path: "/a2a/statistics",
+    // },
+    // {
+    //     name: "Quotation Dashboard",
+    //     path: "/quotations/dashboard",
+    // },
+    // {
+    //     name: "Create Quotation",
+    //     path: "/quotations/add",
+    // },
+    // {
+    //     name: "Quotations List",
+    //     path: "/quotations",
+    // },
+    // {
+    //     name: "Quotation Resellers",
+    //     path: "/quotations/reseller",
+    // },
+    // {
+    //     name: "Insurance Plans",
+    //     path: "/insurance/plans",
+    // },
+    // {
+    //     name: "Insurance Enquiries",
+    //     path: "/insurance/enquiries",
+    // },
+    // {
+    //     name: "Tour Packages",
+    //     path: "/tour-packages",
+    // },
+    // {
+    //     name: "Add Tour Package",
+    //     path: "/tour-packages/add",
+    // },
+    // {
+    //     name: "Tour Package Themes",
+    //     path: "/tour-packages/themes",
+    // },
+    // {
+    //     name: "Tour Package Enquiries",
+    //     path: "/tour-packages/enquiries",
+    // },
     {
         name: "Admins",
         path: "/admins",
@@ -284,22 +284,22 @@ const navPages = [
         name: "Markets",
         path: "/markets",
     },
-    {
-        name: "Tour Schedules",
-        path: "/vouchers",
-    },
-    {
-        name: "Add Tour Schedule",
-        path: "/vouchers/add",
-    },
-    {
-        name: "Daily Reports (Tour Schedule)",
-        path: "/vouchers/daily-reports",
-    },
-    {
-        name: "Voucher Settings",
-        path: "/vouchers/settings",
-    },
+    // {
+    //     name: "Tour Schedules",
+    //     path: "/vouchers",
+    // },
+    // {
+    //     name: "Add Tour Schedule",
+    //     path: "/vouchers/add",
+    // },
+    // {
+    //     name: "Daily Reports (Tour Schedule)",
+    //     path: "/vouchers/daily-reports",
+    // },
+    // {
+    //     name: "Voucher Settings",
+    //     path: "/vouchers/settings",
+    // },
     {
         name: "Transactions",
         path: "/transactions",

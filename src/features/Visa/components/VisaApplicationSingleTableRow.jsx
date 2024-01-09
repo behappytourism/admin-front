@@ -8,7 +8,8 @@ import { MdOutlineEmail } from "react-icons/md";
 import ApproveVisaModal from "./ApproveVisaModal";
 import StatusModal from "./StatusModal";
 import { config } from "../../../constants";
-import samplevisa from "../../../../public/samplevisa.jpg";
+// import samplevisa from "../../../../public/samplevisa.jpg";
+
 function VisaApplicationSingleTableRow({
     singleVisaApplication,
     item,
@@ -223,7 +224,7 @@ function VisaApplicationSingleTableRow({
                                                     .toLowerCase()
                                                     .endsWith(".pdf") ? (
                                                     <img
-                                                        src={samplevisa}
+                                                        // src={samplevisa}
                                                         alt="Sample Visa"
                                                         className="w-full h-full object-cover"
                                                     />
@@ -262,7 +263,7 @@ function VisaApplicationSingleTableRow({
                                                     .toLowerCase()
                                                     .endsWith(".pdf") ? (
                                                     <img
-                                                        src={samplevisa}
+                                                        // src={samplevisa}
                                                         alt="Sample Visa"
                                                         className="w-full h-full object-cover"
                                                     />
@@ -301,7 +302,7 @@ function VisaApplicationSingleTableRow({
                                                     .toLowerCase()
                                                     .endsWith(".pdf") ? (
                                                     <img
-                                                        src={samplevisa}
+                                                        // src={samplevisa}
                                                         alt="Sample Visa"
                                                         className="w-full h-full object-cover"
                                                     />
@@ -340,7 +341,7 @@ function VisaApplicationSingleTableRow({
                                                     .toLowerCase()
                                                     .endsWith(".pdf") ? (
                                                     <img
-                                                        src={samplevisa}
+                                                        // src={samplevisa}
                                                         alt="Sample Visa"
                                                         className="w-full h-full object-cover"
                                                     />
@@ -379,7 +380,7 @@ function VisaApplicationSingleTableRow({
                                                     .toLowerCase()
                                                     .endsWith(".pdf") ? (
                                                     <img
-                                                        src={samplevisa}
+                                                        // src={samplevisa}
                                                         alt="Sample Visa"
                                                         className="w-full h-full object-cover"
                                                     />

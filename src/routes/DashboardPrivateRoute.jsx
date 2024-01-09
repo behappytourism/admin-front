@@ -16,9 +16,9 @@ function DashboardPrivateRoute({ children, ...rest }) {
         "top-hotel-reservation-resellers",
     ];
 
-    if (hasAnyViewPermission({ roles: admin?.roles || [], names })) {
-        return <Navigate replace to="/dashboard/hotel" />;
-    }
+    // if (hasAnyViewPermission({ roles: admin?.roles || [], names })) {
+    //     return <Navigate replace to="/dashboard/hotel" />;
+    // }
 
     return children;
 }

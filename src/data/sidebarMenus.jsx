@@ -61,11 +61,11 @@ const sidebarMenus = {
             link: "/",
             icon: <RxDashboard />,
         },
-        {
-            name: "Hotel",
-            link: "/dashboard/hotel",
-            icon: <BiHotel />,
-        },
+        // {
+        //     name: "Hotel",
+        //     link: "/dashboard/hotel",
+        //     icon: <BiHotel />,
+        // },
         // {
         //     name: "Attraction",
         //     link: "/dashboard/attraction",
@@ -172,242 +172,220 @@ const sidebarMenus = {
     //         ],
     //     },
     // ],
-    Hotel: [
-        {
-            name: "Hotels List",
-            icon: <BiHotel />,
-            link: "/hotels",
-            permission: ["hotels", "view"],
-        },
-        {
-            name: "Boards List",
-            icon: <MdOutlineFastfood />,
-            link: "/hotels/boards",
-            permission: ["hotel-boards", "view"],
-        },
-        {
-            name: "Hotel Groups",
-            icon: <AiOutlineGroup />,
-            link: "/hotels/groups",
-            permission: ["hotel-groups", "view"],
-        },
-        {
-            name: "Hotel Chains",
-            icon: <AiOutlineUngroup />,
-            link: "/hotels/chains",
-            permission: ["hotel-chains", "view"],
-        },
-        {
-            name: "Star Categories",
-            icon: <MdOutlineHotelClass />,
-            link: "/hotels/star-categories",
-            permission: ["star-categories", "view"],
-        },
-        {
-            name: "Hotel Amenities",
-            icon: <RiHotelFill />,
-            link: "/hotels/amenities",
-            permission: ["hotel-amenities", "view"],
-        },
-        {
-            name: "Accommodation Types",
-            icon: <RiHotelLine />,
-            link: "/hotels/accommodation-types",
-            permission: ["accommodation-types", "view"],
-        },
-        {
-            name: "Room Occupancies",
-            icon: <HiOutlineUsers />,
-            link: "/hotels/room-occupancies",
-            permission: ["room-occupancies", "view"],
-        },
-        {
-            name: "Inventory Control",
-            icon: <MdEventAvailable />,
-            link: "/hotels/availability",
-            permission: ["hotel-availability", "view"],
-        },
-        {
-            name: "Hotel Requests",
-            icon: <BiMessageDetail />,
-            link: "/hotels/requests",
-            permission: ["hotel-requests", "view"],
-        },
-        {
-            name: "Reservation",
-            icon: <AiOutlineShoppingCart />,
-            link: "/hotels/reservation",
-            permission: ["reservations", "view"],
-        },
-        // {
-        //     name: "Comparison List",
-        //     icon: <BiGitCompare />,
-        //     link: "/hotels/comparison-list",
-        //     permission: ["hotels", "view"],
-        // },
-        {
-            name: "Hotel Settings",
-            icon: <MdAdminPanelSettings />,
-            link: "#",
-            dropdown: [
-                {
-                    name: "Featured Hotels",
-                    link: "/hotels/featured-hotels",
-                    permission: ["hotels-settings", "view"],
-                },
-                {
-                    name: "Hotel Banner Ads",
-                    link: "/hotels/banner-ads",
-                    permission: ["hotels-settings", "view"],
-                },
-                {
-                    name: "Cache Settings",
-                    link: "/hotels/cache-settings",
-                    permission: ["hotels-settings", "view"],
-                },
-            ],
-        },
-    ],
-    Flight: [
-        {
-            name: "Bookings",
-            icon: <AiOutlineShoppingCart />,
-            link: "/flights/bookings",
-            permission: ["flight-bookings", "view"],
-        },
-        {
-            name: "Airports",
-            icon: <MdLocalAirport />,
-            link: "/airports",
-            permission: ["airports", "view"],
-        },
-        {
-            name: "Airlines",
-            icon: <SiAmericanairlines />,
-            link: "/airlines",
-            permission: ["airlines", "view"],
-        },
-    ],
-    Visa: [
-        {
-            name: "Visa Types",
-            icon: <MdSegment />,
-            link: "/visa",
-            permission: ["visa-types", "view"],
-        },
-        {
-            name: "B2c Visa Naitionalities",
-            link: "/visa/nationalities",
-            icon: <MdOutlineSummarize />,
-            permission: ["b2c-visa-nationalitites", "view"],
-        },
-        {
-            name: "Visa Request",
-            icon: <HiOutlineDocumentText />,
-            link: "/visa/request",
-            permission: ["visa-requests", "view"],
-        },
-        {
-            name: "Visa Countries",
-            link: "/visa/country",
-            icon: <FaGlobe />,
-            permission: ["visa-countries", "view"],
-        },
-        {
-            name: "Visa Enquires",
-            link: "/visa/enquires",
-            icon: <MdOutlineSummarize />,
-            permission: ["visa-enquires", "view"],
-        },
-    ],
-    A2A: [
-        // {
-        //     name: "A2A",
-        //     icon: <ImAirplane />,
-        //     link: "#",
-        //     dropdown: [
-        //         {
-        //             name: "A2A List",
-        //             link: "/a2a",
-        //             permission: ["a2a", "view"],
-        //         },
-        //         {
-        //             name: "A2A Enquiry",
-        //             link: "/a2a/enquiry",
-        //             permission: ["a2a", "view"],
-        //         },
-        //         {
-        //             name: "A2A Summary",
-        //             link: "/a2a/summary",
-        //             permission: ["a2a", "view"],
-        //         },
-        //     ],
-        // },
-        {
-            name: "A2A List",
-            icon: <ImAirplane />,
-            link: "/a2a",
-            permission: ["a2a-list", "view"],
-        },
-        {
-            name: "A2A Enquiry",
-            icon: <HiOutlineDocumentText />,
-            link: "/a2a/enquiry",
-            permission: ["a2a-enquiry", "view"],
-        },
-        {
-            name: "A2A Summary",
-            icon: <MdOutlineSummarize />,
-            link: "/a2a/summary",
-            permission: ["a2a-summary", "view"],
-        },
-        {
-            name: "A2A Staistics",
-            icon: <MdOutlineSummarize />,
-            link: "/a2a/statistics",
-            permission: ["a2a-statistics", "view"],
-        },
-    ],
-    Quotation: [
-        {
-            name: "Quotation Dashboard",
-            icon: <RxDashboard />,
-            link: "/quotations/dashboard",
-            permission: ["quotations-dashboard", "view"],
-        },
-        {
-            name: "Create Quotation",
-            icon: <BsFillChatLeftQuoteFill />,
-            link: "/quotations/add",
-            permission: ["create-quotations", "view"],
-        },
-        {
-            name: "Quotation List",
-            icon: <FaThList />,
-            link: "/quotations",
-            permission: ["quotations-list", "view"],
-        },
-        {
-            name: "Quotation Reseller List",
-            icon: <BiSolidUserAccount />,
-            link: "/quotations/reseller",
-            permission: ["quotations-reseller-list", "view"],
-        },
-    ],
-    Insurance: [
-        {
-            name: "Insurance Plans",
-            icon: <MdOutlineSummarize />,
-            link: "/insurance/plans",
-            permission: ["insurance-plans", "view"],
-        },
-        {
-            name: "Insurance Enquiries",
-            icon: <HiOutlineDocumentText />,
-            link: "/insurance/enquiries",
-            permission: ["insurance-enquiries", "view"],
-        },
-    ],
+    // Hotel: [
+    //     {
+    //         name: "Hotels List",
+    //         icon: <BiHotel />,
+    //         link: "/hotels",
+    //         permission: ["hotels", "view"],
+    //     },
+    //     {
+    //         name: "Boards List",
+    //         icon: <MdOutlineFastfood />,
+    //         link: "/hotels/boards",
+    //         permission: ["hotel-boards", "view"],
+    //     },
+    //     {
+    //         name: "Hotel Groups",
+    //         icon: <AiOutlineGroup />,
+    //         link: "/hotels/groups",
+    //         permission: ["hotel-groups", "view"],
+    //     },
+    //     {
+    //         name: "Hotel Chains",
+    //         icon: <AiOutlineUngroup />,
+    //         link: "/hotels/chains",
+    //         permission: ["hotel-chains", "view"],
+    //     },
+    //     {
+    //         name: "Star Categories",
+    //         icon: <MdOutlineHotelClass />,
+    //         link: "/hotels/star-categories",
+    //         permission: ["star-categories", "view"],
+    //     },
+    //     {
+    //         name: "Hotel Amenities",
+    //         icon: <RiHotelFill />,
+    //         link: "/hotels/amenities",
+    //         permission: ["hotel-amenities", "view"],
+    //     },
+    //     {
+    //         name: "Accommodation Types",
+    //         icon: <RiHotelLine />,
+    //         link: "/hotels/accommodation-types",
+    //         permission: ["accommodation-types", "view"],
+    //     },
+    //     {
+    //         name: "Room Occupancies",
+    //         icon: <HiOutlineUsers />,
+    //         link: "/hotels/room-occupancies",
+    //         permission: ["room-occupancies", "view"],
+    //     },
+    //     {
+    //         name: "Inventory Control",
+    //         icon: <MdEventAvailable />,
+    //         link: "/hotels/availability",
+    //         permission: ["hotel-availability", "view"],
+    //     },
+    //     {
+    //         name: "Hotel Requests",
+    //         icon: <BiMessageDetail />,
+    //         link: "/hotels/requests",
+    //         permission: ["hotel-requests", "view"],
+    //     },
+    //     {
+    //         name: "Reservation",
+    //         icon: <AiOutlineShoppingCart />,
+    //         link: "/hotels/reservation",
+    //         permission: ["reservations", "view"],
+    //     },
+    //     // {
+    //     //     name: "Comparison List",
+    //     //     icon: <BiGitCompare />,
+    //     //     link: "/hotels/comparison-list",
+    //     //     permission: ["hotels", "view"],
+    //     // },
+    //     {
+    //         name: "Hotel Settings",
+    //         icon: <MdAdminPanelSettings />,
+    //         link: "#",
+    //         dropdown: [
+    //             {
+    //                 name: "Featured Hotels",
+    //                 link: "/hotels/featured-hotels",
+    //                 permission: ["hotels-settings", "view"],
+    //             },
+    //             {
+    //                 name: "Hotel Banner Ads",
+    //                 link: "/hotels/banner-ads",
+    //                 permission: ["hotels-settings", "view"],
+    //             },
+    //             {
+    //                 name: "Cache Settings",
+    //                 link: "/hotels/cache-settings",
+    //                 permission: ["hotels-settings", "view"],
+    //             },
+    //         ],
+    //     },
+    // ],
+    // Flight: [
+    //     {
+    //         name: "Bookings",
+    //         icon: <AiOutlineShoppingCart />,
+    //         link: "/flights/bookings",
+    //         permission: ["flight-bookings", "view"],
+    //     },
+    //     {
+    //         name: "Airports",
+    //         icon: <MdLocalAirport />,
+    //         link: "/airports",
+    //         permission: ["airports", "view"],
+    //     },
+    //     {
+    //         name: "Airlines",
+    //         icon: <SiAmericanairlines />,
+    //         link: "/airlines",
+    //         permission: ["airlines", "view"],
+    //     },
+    // ],
+    // Visa: [
+    //     {
+    //         name: "Visa Types",
+    //         icon: <MdSegment />,
+    //         link: "/visa",
+    //         permission: ["visa-types", "view"],
+    //     },
+    //     {
+    //         name: "B2c Visa Naitionalities",
+    //         link: "/visa/nationalities",
+    //         icon: <MdOutlineSummarize />,
+    //         permission: ["b2c-visa-nationalitites", "view"],
+    //     },
+    //     {
+    //         name: "Visa Request",
+    //         icon: <HiOutlineDocumentText />,
+    //         link: "/visa/request",
+    //         permission: ["visa-requests", "view"],
+    //     },
+    //     {
+    //         name: "Visa Countries",
+    //         link: "/visa/country",
+    //         icon: <FaGlobe />,
+    //         permission: ["visa-countries", "view"],
+    //     },
+    //     {
+    //         name: "Visa Enquires",
+    //         link: "/visa/enquires",
+    //         icon: <MdOutlineSummarize />,
+    //         permission: ["visa-enquires", "view"],
+    //     },
+    // ],
+    // A2A: [
+    //     {
+    //         name: "A2A List",
+    //         icon: <ImAirplane />,
+    //         link: "/a2a",
+    //         permission: ["a2a-list", "view"],
+    //     },
+    //     {
+    //         name: "A2A Enquiry",
+    //         icon: <HiOutlineDocumentText />,
+    //         link: "/a2a/enquiry",
+    //         permission: ["a2a-enquiry", "view"],
+    //     },
+    //     {
+    //         name: "A2A Summary",
+    //         icon: <MdOutlineSummarize />,
+    //         link: "/a2a/summary",
+    //         permission: ["a2a-summary", "view"],
+    //     },
+    //     {
+    //         name: "A2A Staistics",
+    //         icon: <MdOutlineSummarize />,
+    //         link: "/a2a/statistics",
+    //         permission: ["a2a-statistics", "view"],
+    //     },
+    // ],
+    // Quotation: [
+    //     {
+    //         name: "Quotation Dashboard",
+    //         icon: <RxDashboard />,
+    //         link: "/quotations/dashboard",
+    //         permission: ["quotations-dashboard", "view"],
+    //     },
+    //     {
+    //         name: "Create Quotation",
+    //         icon: <BsFillChatLeftQuoteFill />,
+    //         link: "/quotations/add",
+    //         permission: ["create-quotations", "view"],
+    //     },
+    //     {
+    //         name: "Quotation List",
+    //         icon: <FaThList />,
+    //         link: "/quotations",
+    //         permission: ["quotations-list", "view"],
+    //     },
+    //     {
+    //         name: "Quotation Reseller List",
+    //         icon: <BiSolidUserAccount />,
+    //         link: "/quotations/reseller",
+    //         permission: ["quotations-reseller-list", "view"],
+    //     },
+    // ],
+    // Insurance: [
+    //     {
+    //         name: "Insurance Plans",
+    //         icon: <MdOutlineSummarize />,
+    //         link: "/insurance/plans",
+    //         permission: ["insurance-plans", "view"],
+    //     },
+    //     {
+    //         name: "Insurance Enquiries",
+    //         icon: <HiOutlineDocumentText />,
+    //         link: "/insurance/enquiries",
+    //         permission: ["insurance-enquiries", "view"],
+    //     },
+    // ],
     Transfer: [
         {
             name: "Transfer",
@@ -481,26 +459,26 @@ const sidebarMenus = {
             permission: ["license-types", "view"],
         },
     ],
-    "Tour Packages": [
-        {
-            name: "Tour Packages",
-            link: "/tour-packages",
-            icon: <MdOutlineTour />,
-            permission: ["tour-packages", "view"],
-        },
-        {
-            name: "Package Themes",
-            link: "/tour-packages/themes",
-            icon: <MdOutlineCategory />,
-            permission: ["tour-packages", "view"],
-        },
-        {
-            name: "Package Enquiries",
-            link: "/tour-packages/enquiries",
-            icon: <HiOutlineShoppingCart />,
-            permission: ["tour-packages", "view"],
-        },
-    ],
+    // "Tour Packages": [
+    //     {
+    //         name: "Tour Packages",
+    //         link: "/tour-packages",
+    //         icon: <MdOutlineTour />,
+    //         permission: ["tour-packages", "view"],
+    //     },
+    //     {
+    //         name: "Package Themes",
+    //         link: "/tour-packages/themes",
+    //         icon: <MdOutlineCategory />,
+    //         permission: ["tour-packages", "view"],
+    //     },
+    //     {
+    //         name: "Package Enquiries",
+    //         link: "/tour-packages/enquiries",
+    //         icon: <HiOutlineShoppingCart />,
+    //         permission: ["tour-packages", "view"],
+    //     },
+    // ],
     core: [
         {
             name: "Admin",
@@ -609,79 +587,79 @@ const sidebarMenus = {
             permission: ["markets", "view"],
         },
     ],
-    Tour: [
-        {
-            name: "Tour Schedules",
-            icon: <AiOutlineSchedule />,
-            link: "/vouchers",
-            permission: ["tour-schedules", "view"],
-        },
-        {
-            name: "Daily Reports",
-            icon: <HiOutlineDocumentReport />,
-            link: "/vouchers/daily-reports",
-            permission: ["daily-reports", "view"],
-        },
-        {
-            name: "Tour Schedules v2",
-            icon: <AiOutlineSchedule />,
-            link: "/vouchers/v2",
-            permission: ["tour-schedules", "view"],
-        },
-        {
-            name: "Daily Reports V2",
-            icon: <HiOutlineDocumentReport />,
-            link: "/vouchers/v2/daily-reports",
-            permission: ["daily-reports", "view"],
-        },
-        {
-            name: "Confirmed Qtns",
-            icon: <HiOutlineDocumentReport />,
-            link: "/confirmed-quotations",
-            permission: ["daily-reports", "view"],
-        },
-        {
-            name: "Tour Settings",
-            icon: <MdAdminPanelSettings />,
-            link: "#",
-            dropdown: [
-                {
-                    name: "Voucher Settings",
-                    link: "/vouchers/settings",
-                    permission: ["voucher-settings", "view"],
-                },
-            ],
-        },
-    ],
-    Marketing: [
-        {
-            name: "Affiliate",
-            icon: <HiOutlineShoppingCart />,
-            link: "#",
-            dropdown: [
-                {
-                    name: "Affiliate Settings",
-                    link: "/affiliate/settings",
-                    permission: ["affiliate-settings", "view"],
-                },
-                {
-                    name: "Affiliate Products",
-                    link: "/affiliate/products",
-                    permission: ["affiliate-products", "view"],
-                },
-                {
-                    name: "Affiliate Reports",
-                    link: "/affiliate/reports",
-                    permission: ["affiliate-reports", "view"],
-                },
-                {
-                    name: "Affiliate Reedem Requests",
-                    link: "/affiliate/redeem/requests",
-                    permission: ["affiliate-redeem-requests", "view"],
-                },
-            ],
-        },
-    ],
+    // Tour: [
+    //     {
+    //         name: "Tour Schedules",
+    //         icon: <AiOutlineSchedule />,
+    //         link: "/vouchers",
+    //         permission: ["tour-schedules", "view"],
+    //     },
+    //     {
+    //         name: "Daily Reports",
+    //         icon: <HiOutlineDocumentReport />,
+    //         link: "/vouchers/daily-reports",
+    //         permission: ["daily-reports", "view"],
+    //     },
+    //     {
+    //         name: "Tour Schedules v2",
+    //         icon: <AiOutlineSchedule />,
+    //         link: "/vouchers/v2",
+    //         permission: ["tour-schedules", "view"],
+    //     },
+    //     {
+    //         name: "Daily Reports V2",
+    //         icon: <HiOutlineDocumentReport />,
+    //         link: "/vouchers/v2/daily-reports",
+    //         permission: ["daily-reports", "view"],
+    //     },
+    //     {
+    //         name: "Confirmed Qtns",
+    //         icon: <HiOutlineDocumentReport />,
+    //         link: "/confirmed-quotations",
+    //         permission: ["daily-reports", "view"],
+    //     },
+    //     {
+    //         name: "Tour Settings",
+    //         icon: <MdAdminPanelSettings />,
+    //         link: "#",
+    //         dropdown: [
+    //             {
+    //                 name: "Voucher Settings",
+    //                 link: "/vouchers/settings",
+    //                 permission: ["voucher-settings", "view"],
+    //             },
+    //         ],
+    //     },
+    // ],
+    // Marketing: [
+    //     {
+    //         name: "Affiliate",
+    //         icon: <HiOutlineShoppingCart />,
+    //         link: "#",
+    //         dropdown: [
+    //             {
+    //                 name: "Affiliate Settings",
+    //                 link: "/affiliate/settings",
+    //                 permission: ["affiliate-settings", "view"],
+    //             },
+    //             {
+    //                 name: "Affiliate Products",
+    //                 link: "/affiliate/products",
+    //                 permission: ["affiliate-products", "view"],
+    //             },
+    //             {
+    //                 name: "Affiliate Reports",
+    //                 link: "/affiliate/reports",
+    //                 permission: ["affiliate-reports", "view"],
+    //             },
+    //             {
+    //                 name: "Affiliate Reedem Requests",
+    //                 link: "/affiliate/redeem/requests",
+    //                 permission: ["affiliate-redeem-requests", "view"],
+    //             },
+    //         ],
+    //     },
+    // ],
     Accounts: [
         {
             name: "Transactions",
@@ -751,49 +729,49 @@ const sidebarMenus = {
         },
     ],
 
-    Create_Orders: [
-        {
-            name: "Attraction",
-            icon: <MdOutlineSummarize />,
-            link: "#",
-            dropdown: [
-                {
-                    name: " Create  Order",
-                    link: "/order/attraction",
-                    permission: ["attraction-order", "view"],
-                },
-                {
-                    name: " Transaction",
-                    link: "/order/attraction/transaction",
-                    permission: ["attraction-transaction", "view"],
-                },
-            ],
-        },
-        {
-            name: "Visa",
-            icon: <HiOutlineDocumentText />,
-            link: "/order/visa",
-            permission: ["visa-order", "view"],
-        },
-        {
-            name: "A2A",
-            icon: <HiOutlineDocumentText />,
-            link: "/order/a2a",
-            permission: ["a2a-orders", "view"],
-        },
-        {
-            name: "Flight",
-            icon: <HiOutlineDocumentText />,
-            link: "/order/flight",
-            permission: ["flight-orders", "view"],
-        },
-        {
-            name: "Insurance",
-            icon: <HiOutlineDocumentText />,
-            link: "/order/insurance",
-            permission: ["insurance-orders", "view"],
-        },
-    ],
+    // Create_Orders: [
+    //     {
+    //         name: "Attraction",
+    //         icon: <MdOutlineSummarize />,
+    //         link: "#",
+    //         dropdown: [
+    //             {
+    //                 name: " Create  Order",
+    //                 link: "/order/attraction",
+    //                 permission: ["attraction-order", "view"],
+    //             },
+    //             {
+    //                 name: " Transaction",
+    //                 link: "/order/attraction/transaction",
+    //                 permission: ["attraction-transaction", "view"],
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         name: "Visa",
+    //         icon: <HiOutlineDocumentText />,
+    //         link: "/order/visa",
+    //         permission: ["visa-order", "view"],
+    //     },
+    //     {
+    //         name: "A2A",
+    //         icon: <HiOutlineDocumentText />,
+    //         link: "/order/a2a",
+    //         permission: ["a2a-orders", "view"],
+    //     },
+    //     {
+    //         name: "Flight",
+    //         icon: <HiOutlineDocumentText />,
+    //         link: "/order/flight",
+    //         permission: ["flight-orders", "view"],
+    //     },
+    //     {
+    //         name: "Insurance",
+    //         icon: <HiOutlineDocumentText />,
+    //         link: "/order/insurance",
+    //         permission: ["insurance-orders", "view"],
+    //     },
+    // ],
 
     settings: [
         {

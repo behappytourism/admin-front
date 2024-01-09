@@ -43,9 +43,9 @@ export default function Sidebar() {
                     return menu;
                 }
             } else if (menu?.link === "/") {
-                if (!isHotelDashboard) {
-                    return menu;
-                }
+                // if (!isHotelDashboard) {
+                return menu;
+                // }
             } else if (menu?.link === "/dashboard/hotel") {
                 if (isHotelDashboard) {
                     return menu;
@@ -75,9 +75,7 @@ export default function Sidebar() {
             <Link to="/" className="flex items-center justify-center py-5">
                 <h2 className="text-lg font-[600] text-white uppercase">
                     {config.COMPANY_NAME?.split(" ")[0]}{" "}
-                    <span className="text-sm text-red-500">
-                        {config.COMPANY_NAME?.split(" ")[1]}
-                    </span>
+                    <span className="text-sm text-red-500">{config.COMPANY_NAME?.split(" ")[1]}</span>
                 </h2>
             </Link>
 
