@@ -1224,6 +1224,13 @@ const ThemeRoutes = [
                 ],
             },
 
+            //orders
+
+            {
+                path: "/orders",
+                element: <OrdersListingPage />,
+            },
+
             //seasons
             {
                 path: "/seasons",

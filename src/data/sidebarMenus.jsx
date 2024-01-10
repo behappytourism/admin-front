@@ -728,6 +728,14 @@ const sidebarMenus = {
             permission: ["users", "view"],
         },
     ],
+    Orders: [
+        {
+            name: "Orders",
+            link: "/orders",
+            icon: <HiOutlineUsers />,
+            permission: ["orders", "view"],
+        },
+    ],
 
     // Create_Orders: [
     //     {

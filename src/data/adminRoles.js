@@ -469,6 +469,14 @@ const adminRoles = [
         permissions: [],
     },
 
+    // Orders
+    {
+        name: "orders",
+        displayName: "Orders",
+        category: "Orders",
+        permissions: [],
+    },
+
     // seasons
     {
         name: "Seasons",

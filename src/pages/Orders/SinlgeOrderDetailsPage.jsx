@@ -34,7 +34,10 @@ export default function SingleOrderDetailsPage() {
             });
 
             setOrder({
-                ...response?.data,
+                ...response?.data?.b2bOrder,
+                payments: response?.data?.payments,
+                cancellations: response?.data?.cancellations,
+                refunds: response?.data?.refunds,
             });
             setIsPageLoading(false);
         } catch (err) {
@@ -943,6 +946,9 @@ export default function SingleOrderDetailsPage() {
                                                     <th className="font-[500] p-3">
                                                         Amount
                                                     </th>
+                                                    <th className="font-[500] p-3">
+                                                        Status
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody className="text-sm">
@@ -1018,29 +1024,33 @@ export default function SingleOrderDetailsPage() {
                                                                             )
                                                                         )}
                                                                     </div>
-                                                                    <div>
-                                                                        Rtn -{" "}
-                                                                        {item?.trips[1]?.vehicleTypes.map(
-                                                                            (
-                                                                                type
-                                                                            ) => (
-                                                                                // Use + operator or template string to concatenate name and count
-                                                                                <span
-                                                                                    key={
-                                                                                        type.name
-                                                                                    }
-                                                                                >
-                                                                                    {
-                                                                                        type?.name
-                                                                                    }{" "}
-                                                                                    x
-                                                                                    {
-                                                                                        type?.count
-                                                                                    }{" "}
-                                                                                </span>
-                                                                            )
-                                                                        )}
-                                                                    </div>
+                                                                    {item
+                                                                        ?.trips[1] && (
+                                                                        <div>
+                                                                            Rtn
+                                                                            -{" "}
+                                                                            {item?.trips[1]?.vehicleTypes.map(
+                                                                                (
+                                                                                    type
+                                                                                ) => (
+                                                                                    // Use + operator or template string to concatenate name and count
+                                                                                    <span
+                                                                                        key={
+                                                                                            type.name
+                                                                                        }
+                                                                                    >
+                                                                                        {
+                                                                                            type?.name
+                                                                                        }{" "}
+                                                                                        x
+                                                                                        {
+                                                                                            type?.count
+                                                                                        }{" "}
+                                                                                    </span>
+                                                                                )
+                                                                            )}
+                                                                        </div>
+                                                                    )}
                                                                 </td>
 
                                                                 <td className="p-3">
@@ -1065,6 +1075,24 @@ export default function SingleOrderDetailsPage() {
                                                                         item?.netPrice
                                                                     }{" "}
                                                                     AED
+                                                                </td>
+                                                                <td className="p-3">
+                                                                    <span
+                                                                        className={
+                                                                            "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
+                                                                            (item?.status ===
+                                                                            "cancelled"
+                                                                                ? "bg-[#f065481A] text-[#f06548]"
+                                                                                : item?.status ===
+                                                                                  "confirmed"
+                                                                                ? "text-[#0ab39c] bg-[#0ab39c1A]"
+                                                                                : "bg-[#f7b84b1A] text-[#f7b84b]")
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            item?.status
+                                                                        }
+                                                                    </span>
                                                                 </td>
                                                                 {/* <td className="p-3">
                                                                     <span

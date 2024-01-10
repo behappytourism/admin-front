@@ -55,9 +55,7 @@ export default function TransferOrdersSingleRow({ order, section }) {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
                 <td className="p-3">{order?.referenceNumber}</td>
-                <td className="p-3 min-w-[250px]">
-                    {order?.transferType.toUpperCase()}
-                </td>
+
                 {section !== "b2c" && (
                     <td className="p-3 whitespace-nowrap">
                         <span className="block text-sm capitalize">
@@ -72,10 +70,22 @@ export default function TransferOrdersSingleRow({ order, section }) {
                 <td className="p-3 ">{order?.noOfAdults || 0}</td>
                 <td className="p-3">{order?.noOfChildrens || 0}</td>
                 <td className="p-3 whitespace-nowrap">
-                    {order?.netFare?.toFixed(2)} AED
+                    {order?.totalNetFare?.toFixed(2)} AED
                 </td>
                 <td className="p-3 whitespace-nowrap">
-                    {order?.profit?.toFixed(2) || 0} AED
+                    {order?.totalProfit?.toFixed(2) || 0} AED
+                </td>
+                <td className="p-3">
+                    <span
+                        className={
+                            "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
+                            (order?.paymentState === "fully-paid"
+                                ? "text-[#0ab39c] bg-[#0ab39c1A]"
+                                : "bg-[#f7b84b1A] text-[#f7b84b]")
+                        }
+                    >
+                        {order?.paymentState || "N/A"}
+                    </span>
                 </td>
                 <td className="p-3">
                     <span
@@ -126,75 +136,113 @@ export default function TransferOrdersSingleRow({ order, section }) {
                                     {order?.phoneNumber}
                                 </span>
                             </div>
-                            <div>
-                                <h2 className="font-medium text-grayColor">
-                                    Transfer Type
-                                </h2>
 
-                                <span className="flex items-center gap-[7px] mt-2 capitalize">
-                                    <MdTransferWithinAStation />{" "}
-                                    {order?.transferType} Transfer
-                                </span>
-                            </div>
-                            {order?.trips.map((trip, index) => {
+                            {order?.journey.map((journey, index) => {
                                 return (
                                     <div>
-                                        <h2 className="font-medium text-grayColor">
-                                            Trip -{" "}
-                                            {index === 0 ? "oneway" : "return"}
-                                        </h2>
+                                        <h1 className="font-medium text-black">
+                                            Journey -{index + 1}
+                                        </h1>
+                                        <span className="block mt-2">
+                                            <span className="text-grayColor">
+                                                No Of Adults -
+                                            </span>{" "}
+                                            {journey?.noOfAdults || 0}
+                                        </span>
+                                        <span className="block mt-2">
+                                            <span className="text-grayColor">
+                                                No Of Childrens -
+                                            </span>{" "}
+                                            {journey?.noOfChildrens || 0}
+                                        </span>
+                                        {journey?.trips.map((trip, ind) => {
+                                            return (
+                                                <div>
+                                                    <h2 className="font-medium text-black">
+                                                        Trip -{" "}
+                                                        {ind === 0
+                                                            ? "oneway"
+                                                            : "return"}
+                                                    </h2>
 
-                                        <span className="block mt-2">
-                                            <span className="text-grayColor">
-                                                Suggestion -
-                                            </span>{" "}
-                                            {trip?.suggestionType}
-                                        </span>
-                                        <span className="block mt-2">
-                                            <span className="text-grayColor">
-                                                Pickup Location -
-                                            </span>{" "}
-                                            {trip?.suggestionType.split(
-                                                "-"
-                                            )[0] === "AIRPORT"
-                                                ? trip?.transferFrom.airportName
-                                                : trip?.transferFrom.name}
-                                        </span>
+                                                    <span className="block mt-2">
+                                                        <span className="text-grayColor">
+                                                            Suggestion -
+                                                        </span>{" "}
+                                                        {trip?.suggestionType}
+                                                    </span>
+                                                    <span className="block mt-2">
+                                                        <span className="text-grayColor">
+                                                            Pickup Location -
+                                                        </span>{" "}
+                                                        {trip?.suggestionType.split(
+                                                            "-"
+                                                        )[0] === "AIRPORT"
+                                                            ? trip?.transferFrom
+                                                                  .airportName
+                                                            : trip?.transferFrom
+                                                                  .name}
+                                                    </span>
 
-                                        <span className="block mt-2">
-                                            <span className="text-grayColor">
-                                                Drop Off Location - -
-                                            </span>{" "}
-                                            {trip?.suggestionType.split(
-                                                "-"
-                                            )[1] === "AIRPORT"
-                                                ? trip?.transferTo.airportName
-                                                : trip?.transferTo.name}{" "}
-                                        </span>
-                                        <span className="block mt-2">
-                                            <span className="text-grayColor">
-                                                Pickup Date -
-                                            </span>{" "}
-                                            {formatDate(trip?.pickupDate)}
-                                        </span>
-                                        <span className="block mt-2">
-                                            <span className="text-grayColor">
-                                                Pickup Time - -
-                                            </span>{" "}
-                                            {trip?.pickupTime}
-                                        </span>
-                                        <span className="block mt-2">
-                                            <span className="text-grayColor">
-                                                Vehicle Type - -
-                                            </span>{" "}
-                                            {trip?.vehicleType?.name}
-                                        </span>
-                                        <span className="block mt-2">
-                                            <span className="text-grayColor">
-                                                Occupancy - -
-                                            </span>{" "}
-                                            {trip?.occupancy}
-                                        </span>
+                                                    <span className="block mt-2">
+                                                        <span className="text-grayColor">
+                                                            Drop Off Location -
+                                                            -
+                                                        </span>{" "}
+                                                        {trip?.suggestionType.split(
+                                                            "-"
+                                                        )[1] === "AIRPORT"
+                                                            ? trip?.transferTo
+                                                                  .airportName
+                                                            : trip?.transferTo
+                                                                  .name}{" "}
+                                                    </span>
+                                                    <span className="block mt-2">
+                                                        <span className="text-grayColor">
+                                                            Pickup Date -
+                                                        </span>{" "}
+                                                        {formatDate(
+                                                            trip?.pickupDate
+                                                        )}
+                                                    </span>
+                                                    <span className="block mt-2">
+                                                        <span className="text-grayColor">
+                                                            Pickup Time - -
+                                                        </span>{" "}
+                                                        {trip?.pickupTime}
+                                                    </span>
+                                                    <span className="block mt-2">
+                                                        <span className="text-grayColor">
+                                                            Vehicle
+                                                            Type/Occupancy - -
+                                                        </span>{" "}
+                                                        {trip?.vehicleTypes.map(
+                                                            (
+                                                                vehicleType,
+                                                                index,
+                                                                array
+                                                            ) => (
+                                                                <span
+                                                                    key={
+                                                                        vehicleType?.name
+                                                                    }
+                                                                >
+                                                                    {`${String(
+                                                                        vehicleType?.name
+                                                                    )}/${String(
+                                                                        vehicleType?.occupancy
+                                                                    )}`}
+                                                                    {index <
+                                                                        array.length -
+                                                                            1 &&
+                                                                        ", "}
+                                                                </span>
+                                                            )
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            );
+                                        })}
                                     </div>
                                 );
                             })}

@@ -16,7 +16,6 @@ export default function TransferOrdersTable({
                     <thead className="bg-[#f3f6f9] text-grayColor text-[14px] text-left">
                         <tr>
                             <th className="font-[500] p-3">Ref.No</th>
-                            <th className="font-[500] p-3">Transfer Type</th>
                             {section !== "b2c" && (
                                 <th className="font-[500] p-3">Reseller</th>
                             )}
@@ -25,6 +24,7 @@ export default function TransferOrdersTable({
                             <th className="font-[500] p-3">Children</th>
                             <th className="font-[500] p-3">Price</th>
                             <th className="font-[500] p-3">Profit</th>
+                            <th className="font-[500] p-3">Payment Status</th>
                             <th className="font-[500] p-3">Status</th>
                         </tr>
                     </thead>
