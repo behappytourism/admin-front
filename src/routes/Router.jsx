@@ -1088,18 +1088,18 @@ const ThemeRoutes = [
                 path: "/transfers/orders",
                 element: <TransferOrderPage />,
             },
-            {
-                path: "/transfers/vehicles/makes",
-                element: <VehicleMakesPage />,
-            },
-            {
-                path: "/transfers/vehicles/makes/:makeId/models",
-                element: <VehicleModelsListPage />,
-            },
-            {
-                path: "/transfers/vehicles/makes/:makeId/models/:modelId/trim",
-                element: <VehicleTrimListPage />,
-            },
+            // {
+            //     path: "/transfers/vehicles/makes",
+            //     element: <VehicleMakesPage />,
+            // },
+            // {
+            //     path: "/transfers/vehicles/makes/:makeId/models",
+            //     element: <VehicleModelsListPage />,
+            // },
+            // {
+            //     path: "/transfers/vehicles/makes/:makeId/models/:modelId/trim",
+            //     element: <VehicleTrimListPage />,
+            // },
             {
                 path: "/transfers/vehicles/categories",
                 element: <VehicleCategoriesPage />,
@@ -1108,10 +1108,10 @@ const ThemeRoutes = [
                 path: "/transfers/vehicles/categories/:categoryId/vehicle-type",
                 element: <VehicleTypePage />,
             },
-            {
-                path: "/transfers/vehicles/body-types",
-                element: <VehicleBodyTypesListPage />,
-            },
+            // {
+            //     path: "/transfers/vehicles/body-types",
+            //     element: <VehicleBodyTypesListPage />,
+            // },
             { path: "/drivers", element: <DriversPage /> },
             { path: "/drivers/add", element: <AddDriverPage /> },
             { path: "/drivers/:driverId/edit", element: <EditDriverPage /> },

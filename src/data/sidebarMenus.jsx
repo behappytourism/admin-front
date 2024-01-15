@@ -424,26 +424,26 @@ const sidebarMenus = {
             icon: <AiFillCar />,
             link: "#",
             dropdown: [
-                {
-                    name: "Vehicle List",
-                    link: "/transfers/vehicles",
-                    permission: ["vehicles", "view"],
-                },
-                {
-                    name: "Vehicle Makes",
-                    link: "/transfers/vehicles/makes",
-                    permission: ["vehicles", "view"],
-                },
+                // {
+                //     name: "Vehicle List",
+                //     link: "/transfers/vehicles",
+                //     permission: ["vehicles", "view"],
+                // },
+                // {
+                //     name: "Vehicle Makes",
+                //     link: "/transfers/vehicles/makes",
+                //     permission: ["vehicles", "view"],
+                // },
                 {
                     name: "Vehicle Categories",
                     link: "/transfers/vehicles/categories",
                     permission: ["vehicles", "view"],
                 },
-                {
-                    name: "Vehicle Body Types",
-                    link: "/transfers/vehicles/body-types",
-                    permission: ["vehicles", "view"],
-                },
+                // {
+                //     name: "Vehicle Body Types",
+                //     link: "/transfers/vehicles/body-types",
+                //     permission: ["vehicles", "view"],
+                // },
             ],
         },
         {
