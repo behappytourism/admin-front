@@ -513,11 +513,11 @@ const sidebarMenus = {
                     link: "/sub-agents",
                     permission: ["sub-agents", "view"],
                 },
-                {
-                    name: "Configurations",
-                    link: "/b2b/configurations",
-                    permission: ["b2b-configurations", "view"],
-                },
+                // {
+                //     name: "Configurations",
+                //     link: "/b2b/configurations",
+                //     permission: ["b2b-configurations", "view"],
+                // },
                 {
                     name: "Home Sections",
                     link: "/b2b/home/sections",

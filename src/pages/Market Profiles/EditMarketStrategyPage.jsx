@@ -142,72 +142,7 @@ export default function EditMarkupStrategyPage() {
                             >
                                 Attraction
                             </button>
-                            <button
-                                className={
-                                    "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
-                                    (section === "visa"
-                                        ? "border-b border-b-orange-500"
-                                        : "")
-                                }
-                                onClick={(e) => {
-                                    handleSectionChange(e, "visa");
-                                }}
-                            >
-                                Visa
-                            </button>
-                            <button
-                                className={
-                                    "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
-                                    (section === "hotel"
-                                        ? "border-b border-b-orange-500"
-                                        : "")
-                                }
-                                onClick={(e) => {
-                                    handleSectionChange(e, "hotel");
-                                }}
-                            >
-                                Hotel
-                            </button>
-                            <button
-                                className={
-                                    "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
-                                    (section === "a2a"
-                                        ? "border-b border-b-orange-500"
-                                        : "")
-                                }
-                                onClick={(e) => {
-                                    handleSectionChange(e, "a2a");
-                                }}
-                            >
-                                A2a
-                            </button>
 
-                            <button
-                                className={
-                                    "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
-                                    (section === "flight"
-                                        ? "border-b border-b-orange-500"
-                                        : "")
-                                }
-                                onClick={(e) => {
-                                    handleSectionChange(e, "flight");
-                                }}
-                            >
-                                Flight
-                            </button>
-                            <button
-                                className={
-                                    "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
-                                    (section === "insurance"
-                                        ? "border-b border-b-orange-500"
-                                        : "")
-                                }
-                                onClick={(e) => {
-                                    handleSectionChange(e, "insurance");
-                                }}
-                            >
-                                Insurance
-                            </button>
                             <button
                                 className={
                                     "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +

@@ -244,10 +244,7 @@ const navPages = [
         name: "Sub Agents",
         path: "/sub-agents",
     },
-    {
-        name: "B2B Configurations",
-        path: "/b2b/configurations",
-    },
+  
     {
         name: "B2B Wallet Statistics",
         path: "/b2b/wallet/statistics",

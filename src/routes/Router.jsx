@@ -910,10 +910,10 @@ const ThemeRoutes = [
                 path: "/b2b/:id/sub-agents/add",
                 element: <AddSubAgentPage />,
             },
-            {
-                path: "/b2b/configurations",
-                element: <B2bConfigurationPage />,
-            },
+            // {
+            //     path: "/b2b/configurations",
+            //     element: <B2bConfigurationPage />,
+            // },
             {
                 path: "/sub-agents",
                 element: <SubAgentsListPage />,
