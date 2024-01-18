@@ -14,8 +14,12 @@ export default function HotelGroupModal({
     hotelGroups,
 }) {
     const [data, setData] = useState({
-        groupCode: (hotelGroupModalOpen?.isEdit && selectedHotelGroup?.groupCode) || "",
-        groupName: (hotelGroupModalOpen?.isEdit && selectedHotelGroup?.groupName) || "",
+        groupCode:
+            (hotelGroupModalOpen?.isEdit && selectedHotelGroup?.groupCode) ||
+            "",
+        groupName:
+            (hotelGroupModalOpen?.isEdit && selectedHotelGroup?.groupName) ||
+            "",
     });
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -77,12 +81,17 @@ export default function HotelGroupModal({
             >
                 <div className="flex items-center justify-between border-b p-4">
                     <h2 className="font-medium mb-2">
-                        {hotelGroupModalOpen?.isEdit ? "Update Group" : "Add Group"}
+                        {hotelGroupModalOpen?.isEdit
+                            ? "Update Group"
+                            : "Add Group"}
                     </h2>
                     <button
                         className="h-auto bg-transparent text-textColor text-xl"
                         onClick={() =>
-                            setHotelGroupModalOpen({ isOpen: false, isEdit: false })
+                            setHotelGroupModalOpen({
+                                isOpen: false,
+                                isEdit: false,
+                            })
                         }
                     >
                         <MdClose />

@@ -259,6 +259,8 @@ import SingleOrderDetailsPage from "../pages/Orders/SinlgeOrderDetailsPage";
 import AttractionTicketSettingPage from "../pages/Attraction/AttractionTicketSettings";
 import B2bHomeSettingsPage from "../pages/Resellers/B2bHomeSections";
 import B2BHomeBannerPage from "../pages/Resellers/B2BHomeBannerPage";
+import B2CFrontendSettings from "../pages/Frontend/B2cFrontendSettings";
+import B2BFrontendSettings from "../pages/Frontend/B2bFrontendSettings";
 
 const ThemeRoutes = [
     {
@@ -1335,6 +1337,17 @@ const ThemeRoutes = [
             {
                 path: "/orders/single/:orderId",
                 element: <SingleOrderDetailsPage />,
+            },
+
+            //terms and conditions
+
+            {
+                path: "/frontend/b2c",
+                element: <B2CFrontendSettings />,
+            },
+            {
+                path: "/frontend/b2b",
+                element: <B2BFrontendSettings />,
             },
         ],
     },

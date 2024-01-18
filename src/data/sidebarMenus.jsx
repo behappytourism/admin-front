@@ -459,26 +459,20 @@ const sidebarMenus = {
             permission: ["license-types", "view"],
         },
     ],
-    // "Tour Packages": [
-    //     {
-    //         name: "Tour Packages",
-    //         link: "/tour-packages",
-    //         icon: <MdOutlineTour />,
-    //         permission: ["tour-packages", "view"],
-    //     },
-    //     {
-    //         name: "Package Themes",
-    //         link: "/tour-packages/themes",
-    //         icon: <MdOutlineCategory />,
-    //         permission: ["tour-packages", "view"],
-    //     },
-    //     {
-    //         name: "Package Enquiries",
-    //         link: "/tour-packages/enquiries",
-    //         icon: <HiOutlineShoppingCart />,
-    //         permission: ["tour-packages", "view"],
-    //     },
-    // ],
+    Frontend: [
+        {
+            name: "B2B Frontend ",
+            link: "/frontend/b2b",
+            icon: <MdOutlineTour />,
+            permission: ["b2b-frontend", "view"],
+        },
+        {
+            name: "B2C Frontend ",
+            link: "/frontend/b2c",
+            icon: <MdOutlineTour />,
+            permission: ["b2c-frontend", "view"],
+        },
+    ],
     core: [
         {
             name: "Admin",
@@ -587,12 +581,13 @@ const sidebarMenus = {
             permission: ["markets", "view"],
         },
     ],
-    // Tour: [
+
+    // Frontend: [
     //     {
-    //         name: "Tour Schedules",
+    //         name: "B2B Frontend",
     //         icon: <AiOutlineSchedule />,
-    //         link: "/vouchers",
-    //         permission: ["tour-schedules", "view"],
+    //         link: "/b2b-frontend",
+    //         permission: ["frontend", "view"],
     //     },
     //     {
     //         name: "Daily Reports",

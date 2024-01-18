@@ -582,12 +582,18 @@ const adminRoles = [
     // },
 
     // TOUR PACKAGES
-    // {
-    //     name: "tour-packages",
-    //     displayName: "Tour Packages",
-    //     category: "tour-packages",
-    //     permissions: [],
-    // },
+    {
+        name: "b2b-frontend",
+        displayName: "B2B Frontend",
+        category: "frontend",
+        permissions: [],
+    },
+    {
+        name: "b2c-frontend",
+        displayName: "B2C Frontend",
+        category: "frontend",
+        permissions: [],
+    },
 ];
 
 export default adminRoles;
