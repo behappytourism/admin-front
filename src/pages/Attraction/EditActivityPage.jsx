@@ -7,6 +7,9 @@ import axios from "../../axios";
 import { ActivityPrivateTransfersSection } from "../../features/Attractions";
 import AddQuotationDetails from "../../features/Attractions/components/AddQuotaionDetails";
 import ActivityMarkupRow from "../../features/Attractions/components/ActivityMarkupRow";
+import { MdDelete } from "react-icons/md";
+import { config } from "../../constants";
+import { isImageValid } from "../../utils";
 
 export default function EditActivityPage() {
     const [data, setData] = useState({
@@ -27,8 +30,7 @@ export default function EditActivityPage() {
         sharedTransferCost: "",
         activityType: "normal",
         isPrivateTransferAvailable: false,
-        isQuotation: false,
-        qtnActivityType: "ticket",
+
         isPromoCode: false,
         promoCode: "",
         promoAmountAdult: "",
@@ -37,19 +39,7 @@ export default function EditActivityPage() {
         b2bPromoCode: "",
         b2bPromoAmountAdult: "",
         b2bPromoAmountChild: "",
-        ticketPricing: {
-            adultPrice: "",
-            childPrice: "",
-            sicWithTicketAdultPrice: "",
-            sicWithTicketChildPrice: "",
-            vehicleType: [],
-        },
-        transferPricing: {
-            vehicleType: [],
-            sicPrice: "",
-        },
-        carouselPosition: "",
-        isCarousel: false,
+        images: [],
     });
 
     const [section, setSection] = useState("activity");
@@ -65,10 +55,37 @@ export default function EditActivityPage() {
     const { id, activityId } = useParams();
     const navigate = useNavigate();
     const { jwtToken } = useSelector((state) => state.admin);
+    const [newImages, setNewImages] = useState([]);
 
     const handleChange = (e) => {
         setData((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
+        });
+    };
+
+    const handleImageChange = (e) => {
+        for (let i = 0; i < e.target?.files?.length; i++) {
+            if (isImageValid(e.target.files[i])) {
+                setNewImages([...newImages, e.target.files[i]]);
+            } else {
+                alert("Upload png, jpg, jpeg or webp");
+            }
+        }
+    };
+
+    const removeNewImage = (index) => {
+        const filteredImages = newImages?.filter((_, ind) => {
+            return ind !== index;
+        });
+        setNewImages(filteredImages);
+    };
+
+    const removeImage = (ind) => {
+        const filteredImages = data?.images.filter((_, index) => {
+            return index !== ind;
+        });
+        setData((prev) => {
+            return { ...prev, ["images"]: filteredImages };
         });
     };
 
@@ -148,15 +165,52 @@ export default function EditActivityPage() {
             e.preventDefault();
             setIsLoading(true);
             setError("");
+            const formData = new FormData();
+            formData.append("attraction", id);
+            formData.append("name", data?.name);
+            formData.append("description", data?.description);
+            formData.append("adultAgeLimit", data?.adultAgeLimit);
+            formData.append("childAgeLimit", data?.childAgeLimit);
+            formData.append("infantAgeLimit", data?.infantAgeLimit);
+            formData.append("adultCost", data?.adultCost);
+            formData.append("childCost", data?.childCost);
+            formData.append("infantCost", data?.infantCost);
+            formData.append("hourlyCost", data?.hourlyCost);
+            formData.append("isVat", data?.isVat);
+            formData.append("vat", data?.vat);
+            formData.append("base", data?.base);
+            formData.append(
+                "isSharedTransferAvailable",
+                data?.isSharedTransferAvailable
+            );
+            formData.append("sharedTransferPrice", data?.sharedTransferPrice);
+            formData.append("sharedTransferCost", data?.sharedTransferCost);
+            formData.append("activityType", data?.activityType);
+            formData.append(
+                "isPrivateTransferAvailable",
+                data?.isPrivateTransferAvailable
+            );
+            formData.append("isPromoCode", data?.isPromoCode);
+            formData.append("promoCode", data?.promoCode);
+            formData.append("promoAmountAdult", data?.promoAmountAdult);
+            formData.append("promoAmountChild", data?.promoAmountChild);
+            formData.append("isB2bPromoCode", data?.isB2bPromoCode);
+            formData.append("b2bPromoCode", data?.b2bPromoCode);
+            formData.append("b2bPromoAmountAdult", data?.b2bPromoAmountAdult);
+            formData.append("b2bPromoAmountChild", data?.b2bPromoAmountChild);
+            formData.append("bookingType", attraction?.bookingType);
+            formData.append(
+                "privateTransfers",
+                JSON.stringify(privateTransfers)
+            );
+            formData.append("oldImages", JSON.stringify(data?.images));
 
+            for (let i = 0; i < newImages?.length; i++) {
+                formData.append("images", newImages[i]);
+            }
             await axios.patch(
                 `/attractions/activities/update/${activityId}`,
-                {
-                    ...data,
-                    attraction: id,
-                    bookingType: attraction?.bookingType,
-                    privateTransfers,
-                },
+                formData,
                 {
                     headers: { Authorization: `Bearer ${jwtToken}` },
                 }
@@ -202,17 +256,11 @@ export default function EditActivityPage() {
                 activityType,
                 isPrivateTransferAvailable,
                 privateTransfers,
-                isQuotation,
-                qtnActivityType,
-                ticketPricing,
-                transferPricing,
                 isPromoCode,
                 promoCode,
                 promoAmountAdult,
                 promoAmountChild,
-
-                carouselPosition,
-                isCarousel,
+                images,
                 isB2bPromoCode,
                 b2bPromoCode,
                 b2bPromoAmountAdult,
@@ -228,28 +276,24 @@ export default function EditActivityPage() {
                 adultCost,
                 childCost,
                 infantCost,
-                hourlyCost,
+                hourlyCost: hourlyCost || "",
                 isVat: isVat || false,
-                vat,
-                base,
+                vat: vat || "",
+                base: base || "",
                 isSharedTransferAvailable: isSharedTransferAvailable || false,
-                sharedTransferPrice,
-                sharedTransferCost,
+                sharedTransferPrice: sharedTransferPrice || "",
+                sharedTransferCost: sharedTransferCost || "",
                 activityType: activityType || "",
                 isPrivateTransferAvailable: isPrivateTransferAvailable || false,
-                isQuotation: isQuotation || false,
-                qtnActivityType: qtnActivityType || "ticket",
-                ticketPricing: ticketPricing || prev.ticketPricing,
-                transferPricing: transferPricing || prev.transferPricing,
+                images: images || [],
                 isPromoCode: isPromoCode || false,
                 promoCode,
-                promoAmountAdult,
-                promoAmountChild,
+                promoAmountAdult: promoAmountAdult || "",
+                promoAmountChild: promoAmountChild || "",
                 isB2bPromoCode: isB2bPromoCode || false,
                 b2bPromoCode,
-                b2bPromoAmountAdult,
-                b2bPromoAmountChild,
-                isCarousel: isCarousel || false,
+                b2bPromoAmountAdult: b2bPromoAmountAdult || "",
+                b2bPromoAmountChild: b2bPromoAmountChild || "",
             }));
 
             setAttraction(response?.data?.attraction);
@@ -797,6 +841,61 @@ export default function EditActivityPage() {
                                             />
                                         </div>
                                     )}
+                                </div>
+                                <div className="mt-4">
+                                    <label htmlFor="">Images</label>
+                                    <input
+                                        type="file"
+                                        onChange={handleImageChange}
+                                    />
+                                </div>
+
+                                <div className="flex flex-wrap items-center gap-[1.5em] mt-5">
+                                    {newImages.map((image, index) => {
+                                        return (
+                                            <div
+                                                className="relative group w-[130px] aspect-video rounded overflow-hidden cursor-pointer"
+                                                key={index}
+                                                onClick={() =>
+                                                    removeNewImage(index)
+                                                }
+                                            >
+                                                <img
+                                                    src={URL.createObjectURL(
+                                                        image
+                                                    )}
+                                                    alt=""
+                                                    className="w-full h-full object-cover"
+                                                />
+                                                <div className="hidden group-hover:flex absolute inset-0 bg-[#0005] text-xl items-center justify-center cursor-pointer text-red-500">
+                                                    <MdDelete />
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                    {data?.images?.map((image, index) => {
+                                        return (
+                                            <div
+                                                className="relative group w-[130px] aspect-video rounded overflow-hidden cursor-pointer"
+                                                key={index}
+                                                onClick={() =>
+                                                    removeImage(index)
+                                                }
+                                            >
+                                                <img
+                                                    src={
+                                                        config.SERVER_URL +
+                                                        image
+                                                    }
+                                                    alt=""
+                                                    className="w-full h-full object-cover"
+                                                />
+                                                <div className="hidden group-hover:flex absolute inset-0 bg-[#0005] text-xl items-center justify-center cursor-pointer text-red-500">
+                                                    <MdDelete />
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                                 <div className="col-span-3 mt-5">
                                     <label htmlFor="">Description</label>

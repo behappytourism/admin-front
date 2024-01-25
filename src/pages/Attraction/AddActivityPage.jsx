@@ -8,6 +8,9 @@ import { ActivityPrivateTransfersSection } from "../../features/Attractions";
 import ActivityMarkupRow from "../../features/Attractions/components/ActivityMarkupRow";
 import AddExcursionPage from "../Quotation/AddExcursionPage";
 import AddQuotationDetails from "../../features/Attractions/components/AddQuotaionDetails";
+import { isImageValid } from "../../utils";
+import { MdDelete } from "react-icons/md";
+import { config } from "../../constants";
 
 export default function AddActivityPage() {
     const [data, setData] = useState({
@@ -28,8 +31,6 @@ export default function AddActivityPage() {
         sharedTransferCost: "",
         activityType: "normal",
         isPrivateTransferAvailable: false,
-        isQuotation: false,
-        qtnActivityType: "ticket",
         isPromoCode: false,
         promoCode: "",
         promoAmountAdult: "",
@@ -38,19 +39,7 @@ export default function AddActivityPage() {
         b2bPromoCode: "",
         b2bPromoAmountAdult: "",
         b2bPromoAmountChild: "",
-        ticketPricing: {
-            adultPrice: "",
-            childPrice: "",
-            sicWithTicketAdultPrice: "",
-            sicWithTicketChildPrice: "",
-            vehicleType: [],
-        },
-        transferPricing: {
-            vehicleType: [],
-            sicPrice: "",
-        },
-        carouselPosition: "",
-        isCarousel: false,
+        images: [],
     });
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -63,6 +52,7 @@ export default function AddActivityPage() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { jwtToken } = useSelector((state) => state.admin);
+    const [newImages, setNewImages] = useState([]);
 
     const handleChange = (e) => {
         console.log(e.target.value, "value");
@@ -76,31 +66,82 @@ export default function AddActivityPage() {
         setSection(value);
     };
 
+    const handleImageChange = (e) => {
+        for (let i = 0; i < e.target?.files?.length; i++) {
+            if (isImageValid(e.target.files[i])) {
+                setNewImages([...newImages, e.target.files[i]]);
+            } else {
+                alert("Upload png, jpg, jpeg or webp");
+            }
+        }
+    };
+
+    const removeNewImage = (index) => {
+        const filteredImages = newImages?.filter((_, ind) => {
+            return ind !== index;
+        });
+        setNewImages(filteredImages);
+    };
+
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
             setIsLoading(true);
             setError("");
 
-            await axios.post(
-                `/attractions/activities/add`,
-                {
-                    ...data,
-                    attraction: id,
-                    bookingType: attraction?.bookingType,
-                    privateTransfers,
-                    markupUpdate,
-                },
-                {
-                    headers: { Authorization: `Bearer ${jwtToken}` },
-                }
+            const formData = new FormData();
+            formData.append("attraction", id);
+            formData.append("name", data?.name);
+            formData.append("description", data?.description);
+            formData.append("adultAgeLimit", data?.adultAgeLimit);
+            formData.append("childAgeLimit", data?.childAgeLimit);
+            formData.append("infantAgeLimit", data?.infantAgeLimit);
+            formData.append("adultCost", data?.adultCost);
+            formData.append("childCost", data?.childCost);
+            formData.append("infantCost", data?.infantCost);
+            formData.append("hourlyCost", data?.hourlyCost);
+            formData.append("isVat", data?.isVat);
+            formData.append("vat", data?.vat);
+            formData.append("base", data?.base);
+            formData.append(
+                "isSharedTransferAvailable",
+                data?.isSharedTransferAvailable
             );
+            formData.append("sharedTransferPrice", data?.sharedTransferPrice);
+            formData.append("sharedTransferCost", data?.sharedTransferCost);
+            formData.append("activityType", data?.activityType);
+            formData.append(
+                "isPrivateTransferAvailable",
+                data?.isPrivateTransferAvailable
+            );
+            formData.append("isPromoCode", data?.isPromoCode);
+            formData.append("promoCode", data?.promoCode);
+            formData.append("promoAmountAdult", data?.promoAmountAdult);
+            formData.append("promoAmountChild", data?.promoAmountChild);
+            formData.append("isB2bPromoCode", data?.isB2bPromoCode);
+            formData.append("b2bPromoCode", data?.b2bPromoCode);
+            formData.append("b2bPromoAmountAdult", data?.b2bPromoAmountAdult);
+            formData.append("b2bPromoAmountChild", data?.b2bPromoAmountChild);
+            formData.append("bookingType", attraction?.bookingType);
+            formData.append(
+                "privateTransfers",
+                JSON.stringify(privateTransfers)
+            );
+
+            for (let i = 0; i < newImages?.length; i++) {
+                formData.append("images", newImages[i]);
+            }
+            await axios.post(`/attractions/activities/add`, formData, {
+                headers: { Authorization: `Bearer ${jwtToken}` },
+            });
 
             setIsLoading(false);
             navigate(-1);
         } catch (err) {
             console.log(err);
-            setError(err?.response?.data?.error || "Something went wrong, Try again");
+            setError(
+                err?.response?.data?.error || "Something went wrong, Try again"
+            );
             setIsLoading(false);
         }
     };
@@ -109,9 +150,12 @@ export default function AddActivityPage() {
         try {
             setIsPageLoading(true);
 
-            const response = await axios.get(`/attractions/single/${id}/basic-data`, {
-                headers: { authorization: `Bearer ${jwtToken}` },
-            });
+            const response = await axios.get(
+                `/attractions/single/${id}/basic-data`,
+                {
+                    headers: { authorization: `Bearer ${jwtToken}` },
+                }
+            );
 
             setAttraction(response.data);
             setIsPageLoading(false);
@@ -161,6 +205,15 @@ export default function AddActivityPage() {
         }
     };
 
+    const removeImage = (ind) => {
+        const filteredImages = data.images.filter((_, index) => {
+            return index !== ind;
+        });
+        setData((prev) => {
+            return { ...prev, ["images"]: filteredImages };
+        });
+    };
+
     useEffect(() => {
         fetchProfiles();
     }, []);
@@ -168,7 +221,9 @@ export default function AddActivityPage() {
     return (
         <div>
             <div className="bg-white flex items-center justify-between gap-[10px] px-6 shadow-sm border-t py-2">
-                <h1 className="font-[600] text-[15px] uppercase">ADD Activity</h1>
+                <h1 className="font-[600] text-[15px] uppercase">
+                    ADD Activity
+                </h1>
                 <div className="text-sm text-grayColor">
                     <Link to="/" className="text-textColor">
                         Dashboard{" "}
@@ -182,7 +237,10 @@ export default function AddActivityPage() {
                         {id?.slice(0, 3)}...{id?.slice(-3)}{" "}
                     </span>
                     <span>{">"} </span>
-                    <Link to={`/attractions/${id}/edit`} className="text-textColor">
+                    <Link
+                        to={`/attractions/${id}/edit`}
+                        className="text-textColor"
+                    >
                         Edit{" "}
                     </Link>
                     <span>{">"} </span>
@@ -206,7 +264,9 @@ export default function AddActivityPage() {
                             <button
                                 className={
                                     "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
-                                    (section === "activity" ? "border-b border-b-orange-500" : "")
+                                    (section === "activity"
+                                        ? "border-b border-b-orange-500"
+                                        : "")
                                 }
                                 onClick={(e) => {
                                     handleSectionChange(e, "activity");
@@ -217,7 +277,9 @@ export default function AddActivityPage() {
                             <button
                                 className={
                                     "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
-                                    (section === "markup" ? "border-b border-b-orange-500" : "")
+                                    (section === "markup"
+                                        ? "border-b border-b-orange-500"
+                                        : "")
                                 }
                                 onClick={(e) => {
                                     handleSectionChange(e, "markup");
@@ -228,7 +290,9 @@ export default function AddActivityPage() {
                             <button
                                 className={
                                     "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
-                                    (section === "quotation" ? "border-b border-b-orange-500" : "")
+                                    (section === "quotation"
+                                        ? "border-b border-b-orange-500"
+                                        : "")
                                 }
                                 onClick={(e) => {
                                     handleSectionChange(e, "quotation");
@@ -238,7 +302,11 @@ export default function AddActivityPage() {
                             </button>
                         </div>
                         <form action="" onSubmit={handleSubmit}>
-                            <div className={` ${section === "activity" ? "" : "hidden"}`}>
+                            <div
+                                className={` ${
+                                    section === "activity" ? "" : "hidden"
+                                }`}
+                            >
                                 <div className="grid grid-cols-3 items-end gap-5 pt-10">
                                     <div>
                                         <label htmlFor="">Name</label>
@@ -262,9 +330,14 @@ export default function AddActivityPage() {
                                             <option value="" hidden>
                                                 Select Activity Type
                                             </option>
-                                            <option value="normal">Normal Activity</option>
-                                            {attraction?.bookingType === "booking" && (
-                                                <option value="transfer">Transfer Activity</option>
+                                            <option value="normal">
+                                                Normal Activity
+                                            </option>
+                                            {attraction?.bookingType ===
+                                                "booking" && (
+                                                <option value="transfer">
+                                                    Transfer Activity
+                                                </option>
                                             )}
                                         </select>
                                     </div>
@@ -277,15 +350,22 @@ export default function AddActivityPage() {
                                             required
                                             id=""
                                         >
-                                            <option value="person">Person</option>
+                                            <option value="person">
+                                                Person
+                                            </option>
                                             {/* <option value="private">Private</option> */}
-                                            {attraction?.bookingType === "booking" && (
-                                                <option value="hourly">Hourly</option>
+                                            {attraction?.bookingType ===
+                                                "booking" && (
+                                                <option value="hourly">
+                                                    Hourly
+                                                </option>
                                             )}
                                         </select>
                                     </div>
                                     <div className="">
-                                        <label htmlFor="">Adult Age Limit</label>
+                                        <label htmlFor="">
+                                            Adult Age Limit
+                                        </label>
                                         <input
                                             type="number"
                                             placeholder="Ex: 60"
@@ -296,7 +376,9 @@ export default function AddActivityPage() {
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="">Child Age Limit</label>
+                                        <label htmlFor="">
+                                            Child Age Limit
+                                        </label>
                                         <input
                                             type="number"
                                             name="childAgeLimit"
@@ -307,7 +389,9 @@ export default function AddActivityPage() {
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="">Infant Age Limit</label>
+                                        <label htmlFor="">
+                                            Infant Age Limit
+                                        </label>
                                         <input
                                             type="number"
                                             required
@@ -320,12 +404,16 @@ export default function AddActivityPage() {
                                     {data.base === "hourly" ? (
                                         <>
                                             <div className="">
-                                                <label htmlFor="">Purchase Cost (Hourly)</label>
+                                                <label htmlFor="">
+                                                    Purchase Cost (Hourly)
+                                                </label>
                                                 <input
                                                     type="number"
                                                     placeholder="Enter hours count"
                                                     name="hourlyCost"
-                                                    value={data.hourlyCost || ""}
+                                                    value={
+                                                        data.hourlyCost || ""
+                                                    }
                                                     onChange={handleChange}
                                                     required
                                                 />
@@ -334,7 +422,9 @@ export default function AddActivityPage() {
                                     ) : (
                                         <>
                                             <div className="">
-                                                <label htmlFor="">Purchase Cost (Adult)</label>
+                                                <label htmlFor="">
+                                                    Purchase Cost (Adult)
+                                                </label>
                                                 <input
                                                     type="number"
                                                     placeholder="Enter adult cost"
@@ -345,7 +435,9 @@ export default function AddActivityPage() {
                                                 />
                                             </div>
                                             <div>
-                                                <label htmlFor="">Purchase Cost (Child)</label>
+                                                <label htmlFor="">
+                                                    Purchase Cost (Child)
+                                                </label>
                                                 <input
                                                     type="number"
                                                     name="childCost"
@@ -356,12 +448,16 @@ export default function AddActivityPage() {
                                                 />
                                             </div>
                                             <div>
-                                                <label htmlFor="">Purchase Cost (Infant)</label>
+                                                <label htmlFor="">
+                                                    Purchase Cost (Infant)
+                                                </label>
                                                 <input
                                                     type="text"
                                                     placeholder="Enter infant cost"
                                                     name="infantCost"
-                                                    value={data.infantCost || ""}
+                                                    value={
+                                                        data.infantCost || ""
+                                                    }
                                                     onChange={handleChange}
                                                 />
                                             </div>
@@ -379,7 +475,9 @@ export default function AddActivityPage() {
                                                     setData((prev) => {
                                                         return {
                                                             ...prev,
-                                                            isPromoCode: e.target.checked,
+                                                            isPromoCode:
+                                                                e.target
+                                                                    .checked,
                                                         };
                                                     })
                                                 }
@@ -390,7 +488,9 @@ export default function AddActivityPage() {
                                         </div>
                                         {data.isPromoCode && (
                                             <div className="mt-2">
-                                                <label htmlFor="">PromoCode</label>
+                                                <label htmlFor="">
+                                                    PromoCode
+                                                </label>
                                                 <input
                                                     type="text"
                                                     name="promoCode"
@@ -405,11 +505,15 @@ export default function AddActivityPage() {
                                     </div>
                                     {data.isPromoCode && (
                                         <div>
-                                            <label htmlFor="">PromoCode Amount Adult</label>
+                                            <label htmlFor="">
+                                                PromoCode Amount Adult
+                                            </label>
                                             <input
                                                 type="number"
                                                 name="promoAmountAdult"
-                                                value={data.promoAmountAdult || ""}
+                                                value={
+                                                    data.promoAmountAdult || ""
+                                                }
                                                 onChange={handleChange}
                                                 placeholder="Enter promo amount"
                                                 required
@@ -418,11 +522,15 @@ export default function AddActivityPage() {
                                     )}
                                     {data.isPromoCode && (
                                         <div>
-                                            <label htmlFor="">PromoCode Amount Child</label>
+                                            <label htmlFor="">
+                                                PromoCode Amount Child
+                                            </label>
                                             <input
                                                 type="number"
                                                 name="promoAmountChild"
-                                                value={data.promoAmountChild || ""}
+                                                value={
+                                                    data.promoAmountChild || ""
+                                                }
                                                 onChange={handleChange}
                                                 placeholder="Enter promo amount"
                                                 required
@@ -441,7 +549,9 @@ export default function AddActivityPage() {
                                                     setData((prev) => {
                                                         return {
                                                             ...prev,
-                                                            isB2bPromoCode: e.target.checked,
+                                                            isB2bPromoCode:
+                                                                e.target
+                                                                    .checked,
                                                         };
                                                     })
                                                 }
@@ -452,11 +562,15 @@ export default function AddActivityPage() {
                                         </div>
                                         {data.isB2bPromoCode && (
                                             <div className="mt-2">
-                                                <label htmlFor="">PromoCode</label>
+                                                <label htmlFor="">
+                                                    PromoCode
+                                                </label>
                                                 <input
                                                     type="text"
                                                     name="b2bPromoCode"
-                                                    value={data.b2bPromoCode || ""}
+                                                    value={
+                                                        data.b2bPromoCode || ""
+                                                    }
                                                     onChange={handleChange}
                                                     className="uppercase"
                                                     placeholder="Enter  promo code"
@@ -467,11 +581,16 @@ export default function AddActivityPage() {
                                     </div>
                                     {data.isB2bPromoCode && (
                                         <div>
-                                            <label htmlFor="">PromoCode Amount Adult</label>
+                                            <label htmlFor="">
+                                                PromoCode Amount Adult
+                                            </label>
                                             <input
                                                 type="number"
                                                 name="b2bPromoAmountAdult"
-                                                value={data.b2bPromoAmountAdult || ""}
+                                                value={
+                                                    data.b2bPromoAmountAdult ||
+                                                    ""
+                                                }
                                                 onChange={handleChange}
                                                 placeholder="Enter promo amount"
                                                 required
@@ -480,11 +599,16 @@ export default function AddActivityPage() {
                                     )}
                                     {data.isB2bPromoCode && (
                                         <div>
-                                            <label htmlFor="">PromoCode Amount Child</label>
+                                            <label htmlFor="">
+                                                PromoCode Amount Child
+                                            </label>
                                             <input
                                                 type="number"
                                                 name="b2bPromoAmountChild"
-                                                value={data.b2bPromoAmountChild || ""}
+                                                value={
+                                                    data.b2bPromoAmountChild ||
+                                                    ""
+                                                }
                                                 onChange={handleChange}
                                                 placeholder="Enter promo amount"
                                                 required
@@ -501,13 +625,16 @@ export default function AddActivityPage() {
                                             <input
                                                 type="checkbox"
                                                 className="w-[16px] h-[16px]"
-                                                checked={data.isSharedTransferAvailable}
+                                                checked={
+                                                    data.isSharedTransferAvailable
+                                                }
                                                 onChange={(e) =>
                                                     setData((prev) => {
                                                         return {
                                                             ...prev,
                                                             isSharedTransferAvailable:
-                                                                e.target.checked,
+                                                                e.target
+                                                                    .checked,
                                                         };
                                                     })
                                                 }
@@ -518,11 +645,16 @@ export default function AddActivityPage() {
                                         </div>
                                         {data.isSharedTransferAvailable && (
                                             <div className="mt-2">
-                                                <label htmlFor="">Shared Transfer Price</label>
+                                                <label htmlFor="">
+                                                    Shared Transfer Price
+                                                </label>
                                                 <input
                                                     type="number"
                                                     name="sharedTransferPrice"
-                                                    value={data.sharedTransferPrice || ""}
+                                                    value={
+                                                        data.sharedTransferPrice ||
+                                                        ""
+                                                    }
                                                     onChange={handleChange}
                                                     placeholder="Enter shared transfer price"
                                                     required
@@ -532,11 +664,16 @@ export default function AddActivityPage() {
                                     </div>
                                     {data.isSharedTransferAvailable && (
                                         <div>
-                                            <label htmlFor="">Shared Transfer Cost</label>
+                                            <label htmlFor="">
+                                                Shared Transfer Cost
+                                            </label>
                                             <input
                                                 type="number"
                                                 name="sharedTransferCost"
-                                                value={data.sharedTransferCost || ""}
+                                                value={
+                                                    data.sharedTransferCost ||
+                                                    ""
+                                                }
                                                 onChange={handleChange}
                                                 placeholder="Enter shared transfer cost"
                                                 required
@@ -550,7 +687,9 @@ export default function AddActivityPage() {
                                         <input
                                             type="checkbox"
                                             className="w-[16px] h-[16px]"
-                                            checked={data.isPrivateTransferAvailable}
+                                            checked={
+                                                data.isPrivateTransferAvailable
+                                            }
                                             onChange={(e) =>
                                                 setData((prev) => {
                                                     return {
@@ -568,7 +707,9 @@ export default function AddActivityPage() {
                                     {data.isPrivateTransferAvailable && (
                                         <ActivityPrivateTransfersSection
                                             privateTransfers={privateTransfers}
-                                            setPrivateTransfers={setPrivateTransfers}
+                                            setPrivateTransfers={
+                                                setPrivateTransfers
+                                            }
                                         />
                                     )}
                                 </div>
@@ -606,6 +747,61 @@ export default function AddActivityPage() {
                                         </div>
                                     )}
                                 </div>
+                                <div className="mt-4">
+                                    <label htmlFor="">Images</label>
+                                    <input
+                                        type="file"
+                                        onChange={handleImageChange}
+                                    />
+                                </div>
+
+                                <div className="flex flex-wrap items-center gap-[1.5em] mt-5">
+                                    {newImages.map((image, index) => {
+                                        return (
+                                            <div
+                                                className="relative group w-[130px] aspect-video rounded overflow-hidden cursor-pointer"
+                                                key={index}
+                                                onClick={() =>
+                                                    removeNewImage(index)
+                                                }
+                                            >
+                                                <img
+                                                    src={URL.createObjectURL(
+                                                        image
+                                                    )}
+                                                    alt=""
+                                                    className="w-full h-full object-cover"
+                                                />
+                                                <div className="hidden group-hover:flex absolute inset-0 bg-[#0005] text-xl items-center justify-center cursor-pointer text-red-500">
+                                                    <MdDelete />
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                    {data?.images?.map((image, index) => {
+                                        return (
+                                            <div
+                                                className="relative group w-[130px] aspect-video rounded overflow-hidden cursor-pointer"
+                                                key={index}
+                                                onClick={() =>
+                                                    removeImage(index)
+                                                }
+                                            >
+                                                <img
+                                                    src={
+                                                        config.SERVER_URL +
+                                                        image
+                                                    }
+                                                    alt=""
+                                                    className="w-full h-full object-cover"
+                                                />
+                                                <div className="hidden group-hover:flex absolute inset-0 bg-[#0005] text-xl items-center justify-center cursor-pointer text-red-500">
+                                                    <MdDelete />
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                                 <div className="col-span-3 mt-5">
                                     <label htmlFor="">Description</label>
                                     <div className="border border-t-0">
@@ -618,22 +814,40 @@ export default function AddActivityPage() {
                                                     };
                                                 });
                                             }}
-                                            initialValue={data?.description || ""}
+                                            initialValue={
+                                                data?.description || ""
+                                            }
                                         />
                                     </div>
                                 </div>
                             </div>
-                            <div className={` ${section === "markup" ? "w-full pt-10" : "hidden"}`}>
+                            <div
+                                className={` ${
+                                    section === "markup"
+                                        ? "w-full pt-10"
+                                        : "hidden"
+                                }`}
+                            >
                                 <div className="overflow-x-auto">
                                     <table className="w-full">
                                         <thead className="bg-[#f3f6f9] text-grayColor text-[14px] text-left">
                                             <tr>
-                                                <th className="font-[500] p-3">Index</th>
-                                                <th className="font-[500] p-3">Name</th>
-                                                <th className="font-[500] p-3">Markup</th>
-                                                <th className="font-[500] p-3">Markup Type</th>
+                                                <th className="font-[500] p-3">
+                                                    Index
+                                                </th>
+                                                <th className="font-[500] p-3">
+                                                    Name
+                                                </th>
+                                                <th className="font-[500] p-3">
+                                                    Markup
+                                                </th>
+                                                <th className="font-[500] p-3">
+                                                    Markup Type
+                                                </th>
 
-                                                <th className="font-[500] p-3">Action</th>
+                                                <th className="font-[500] p-3">
+                                                    Action
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody className="text-sm ">
@@ -642,8 +856,12 @@ export default function AddActivityPage() {
                                                     <ActivityMarkupRow
                                                         index={index}
                                                         profile={profile}
-                                                        markupUpdate={markupUpdate}
-                                                        setMarkupUpdate={setMarkupUpdate}
+                                                        markupUpdate={
+                                                            markupUpdate
+                                                        }
+                                                        setMarkupUpdate={
+                                                            setMarkupUpdate
+                                                        }
                                                         // section={section}
                                                     />
                                                 );
@@ -653,7 +871,9 @@ export default function AddActivityPage() {
                                 </div>
                             </div>
                             {error && (
-                                <span className="text-sm block text-red-500 mt-2">{error}</span>
+                                <span className="text-sm block text-red-500 mt-2">
+                                    {error}
+                                </span>
                             )}
                             <div className="mt-4 flex items-center justify-end gap-[12px]">
                                 <button
