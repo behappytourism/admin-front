@@ -40,6 +40,10 @@ export default function AddActivityPage() {
         b2bPromoAmountAdult: "",
         b2bPromoAmountChild: "",
         images: [],
+        termsAndConditions: "",
+        termsAndConditions: "",
+        inculsionsAndExclusions: "",
+        overview: "",
     });
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -127,6 +131,11 @@ export default function AddActivityPage() {
                 "privateTransfers",
                 JSON.stringify(privateTransfers)
             );
+            formData.append(
+                "inculsionsAndExclusions",
+                data?.inculsionsAndExclusions
+            );
+            formData.append("overview", data?.overview);
 
             for (let i = 0; i < newImages?.length; i++) {
                 formData.append("images", newImages[i]);
@@ -616,9 +625,7 @@ export default function AddActivityPage() {
                                         </div>
                                     )}
                                 </div>
-
                                 {/* )} */}
-
                                 <div className="mt-5 grid grid-cols-3 gap-5 items-end">
                                     <div>
                                         <div className="flex items-center gap-[10px]">
@@ -681,7 +688,6 @@ export default function AddActivityPage() {
                                         </div>
                                     )}
                                 </div>
-
                                 <div className="mt-5">
                                     <div className="flex items-center gap-[10px]">
                                         <input
@@ -713,7 +719,6 @@ export default function AddActivityPage() {
                                         />
                                     )}
                                 </div>
-
                                 <div className="mt-5">
                                     <div className="flex items-center gap-[10px]">
                                         <input
@@ -754,7 +759,6 @@ export default function AddActivityPage() {
                                         onChange={handleImageChange}
                                     />
                                 </div>
-
                                 <div className="flex flex-wrap items-center gap-[1.5em] mt-5">
                                     {newImages.map((image, index) => {
                                         return (
@@ -816,6 +820,65 @@ export default function AddActivityPage() {
                                             }}
                                             initialValue={
                                                 data?.description || ""
+                                            }
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-span-3 mt-5">
+                                    <label htmlFor="">
+                                        Terms And Conditions
+                                    </label>
+                                    <div className="border border-t-0">
+                                        <RichTextEditor
+                                            getValue={(value) => {
+                                                setData((prev) => {
+                                                    return {
+                                                        ...prev,
+                                                        termsAndConditions:
+                                                            value,
+                                                    };
+                                                });
+                                            }}
+                                            initialValue={
+                                                data?.termsAndConditions || ""
+                                            }
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-span-3 mt-5">
+                                    <label htmlFor="">Overview</label>
+                                    <div className="border border-t-0">
+                                        <RichTextEditor
+                                            getValue={(value) => {
+                                                setData((prev) => {
+                                                    return {
+                                                        ...prev,
+                                                        overview: value,
+                                                    };
+                                                });
+                                            }}
+                                            initialValue={data?.overview || ""}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-span-3 mt-5">
+                                    <label htmlFor="">
+                                        Inculsions And Exclusions{" "}
+                                    </label>
+                                    <div className="border border-t-0">
+                                        <RichTextEditor
+                                            getValue={(value) => {
+                                                setData((prev) => {
+                                                    return {
+                                                        ...prev,
+                                                        inculsionsAndExclusions:
+                                                            value,
+                                                    };
+                                                });
+                                            }}
+                                            initialValue={
+                                                data?.inculsionsAndExclusions ||
+                                                ""
                                             }
                                         />
                                     </div>
