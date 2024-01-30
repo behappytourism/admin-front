@@ -40,7 +40,7 @@ export default function B2BHomeSectionModal({
             if (edit) {
                 const sectionId = sections[index]._id;
                 const response = await axios.patch(
-                    `/b2b/home/section/edit/${sectionId}`,
+                    `/frontend/b2b/home/section/edit/${sectionId}`,
                     { ...data },
                     {
                         headers: { Authorization: `Bearer ${jwtToken}` },
@@ -63,7 +63,7 @@ export default function B2BHomeSectionModal({
                 setIsModalOpen(false);
             } else {
                 const response = await axios.post(
-                    "/b2b/home/section/add",
+                    "/frontend/b2b/home/section/add",
                     { ...data },
                     {
                         headers: { Authorization: `Bearer ${jwtToken}` },

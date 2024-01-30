@@ -33,7 +33,7 @@ function BannerTableRow({ banner, index, setResult, result }) {
 
             <td className="p-3">
                 <div className="flex items-center gap-[10px]">
-                    <Link to={`/banners/${banner?._id}/edit`}>
+                    <Link to={`${banner?._id}/edit`}>
                         <button className="h-auto bg-transparent text-green-500 text-xl">
                             <BiEditAlt />
                         </button>

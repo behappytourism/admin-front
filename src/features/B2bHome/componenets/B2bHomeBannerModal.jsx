@@ -15,6 +15,7 @@ export default function B2BHomeBannerModal({
     edit,
     bannerId,
     index,
+    b2b,
 }) {
     const [data, setData] = useState({
         title: banners[index]?.title || "",
@@ -58,7 +59,9 @@ export default function B2BHomeBannerModal({
                 const bannerId = banners[index]._id;
 
                 const response = await axios.patch(
-                    `/b2b/home/banner/edit/${id}/${bannerId}`,
+                    b2b
+                        ? `/frontend/b2b/home/banner/edit/${id}/${bannerId}`
+                        : `/frontend/b2c/home/banner/edit/${id}/${bannerId}`,
                     formData,
                     {
                         headers: { Authorization: `Bearer ${jwtToken}` },

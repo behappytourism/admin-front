@@ -4,12 +4,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "../../axios";
 import { BtnLoader, PageLoader, RichTextEditor } from "../../components";
 
-function B2BFrontendSettings() {
+function MetaDataSettingsB2bPage() {
     const navigate = useNavigate();
     const params = useParams();
     const [isLoading, setIsLoading] = useState(false);
-    const [isAirlineLoading, setIsAirlineLoading] = useState(false);
-    const [airlines, setAirlines] = useState([]);
+
     const [error, setError] = useState("");
     const [data, setData] = useState({
         termsAndConditions: "",
@@ -29,7 +28,7 @@ function B2BFrontendSettings() {
             setIsLoading(true);
 
             await axios.patch(
-                "/frontend/b2b/upsert",
+                "/frontend/b2b/home/terms-and-conditions/upsert",
                 { ...data },
                 {
                     headers: { Authorization: `Bearer ${jwtToken}` },
@@ -48,9 +47,12 @@ function B2BFrontendSettings() {
         try {
             setIsPageLoading(true);
 
-            const response = await axios.get(`/frontend/b2b`, {
-                headers: { authorization: `Bearer ${jwtToken}` },
-            });
+            const response = await axios.get(
+                `/frontend/b2b/home/terms-and-conditions`,
+                {
+                    headers: { authorization: `Bearer ${jwtToken}` },
+                }
+            );
 
             setData(response.data);
             setIsPageLoading(false);
@@ -166,4 +168,4 @@ function B2BFrontendSettings() {
     );
 }
 
-export default B2BFrontendSettings;
+export default MetaDataSettingsB2bPage;

@@ -459,18 +459,107 @@ const sidebarMenus = {
             permission: ["license-types", "view"],
         },
     ],
-    Frontend: [
+    CMS: [
         {
-            name: "B2B Frontend ",
-            link: "/frontend/b2b",
-            icon: <MdOutlineTour />,
-            permission: ["b2b-frontend", "view"],
+            name: "B2B ",
+            icon: <BiTransferAlt />,
+            link: "#",
+            dropdown: [
+                {
+                    name: "Logo",
+                    link: "/b2b/frontend/home/settings/logo",
+                    permission: ["home-settings", "view"],
+                },
+
+                {
+                    name: "Hero",
+                    link: "/b2b/frontend/home/settings/hero",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "Cards",
+                    link: "/b2b/frontend/home/settings/cards",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "Sections",
+                    link: "/b2b/frontend/home/settings/sections",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "Footer",
+                    link: "/b2b/frontend/home/settings/footer",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "Contact Details",
+                    link: "/b2b/frontend/home/settings/contact-details",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "T&C And Policy",
+                    link: "/b2b/frontend/home/settings/policy",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "Banners",
+                    link: "/b2b/frontend/home/settings/banners",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "Home-sections",
+                    link: "/b2b/frontend/home/settings/home-sections",
+                    permission: ["home-settings", "view"],
+                },
+            ],
         },
         {
-            name: "B2C Frontend ",
-            link: "/frontend/b2c",
-            icon: <MdOutlineTour />,
-            permission: ["b2c-frontend", "view"],
+            name: "B2C ",
+            icon: <BiTransferAlt />,
+            link: "#",
+            dropdown: [
+                {
+                    name: "Logo",
+                    link: "/b2c/frontend/home/settings/logo",
+                    permission: ["home-settings", "view"],
+                },
+
+                {
+                    name: "Hero",
+                    link: "/b2c/frontend/home/settings/hero",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "Cards",
+                    link: "/b2c/frontend/home/settings/cards",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "Sections",
+                    link: "/b2c/frontend/home/settings/sections",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "Footer",
+                    link: "/b2c/frontend/home/settings/footer",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "Contact Details",
+                    link: "/b2c/frontend/home/settings/contact-details",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "T&C And Policy",
+                    link: "/b2c/frontend/home/settings/policy",
+                    permission: ["home-settings", "view"],
+                },
+                {
+                    name: "Banners",
+                    link: "/b2c/frontend/home/settings/banners",
+                    permission: ["home-settings", "view"],
+                },
+            ],
         },
     ],
     core: [

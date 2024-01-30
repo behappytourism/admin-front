@@ -16,6 +16,7 @@ export default function AddBannerModal({
     edit,
     setEdit,
     setEditIndex,
+    b2b,
 }) {
     const wrapperRef = useRef();
     const dispatch = useDispatch();
@@ -64,7 +65,9 @@ export default function AddBannerModal({
 
             if (edit) {
                 const response = await axios.patch(
-                    `/banners/edit/single/${id}/${data?.banners[editIndex]?._id}`,
+                    b2b
+                        ? `/frontend/b2b/banners/edit/single/${id}/${data?.banners[editIndex]?._id}`
+                        : `/frontend/b2c/banners/edit/single/${id}/${data?.banners[editIndex]?._id}`,
                     formData,
                     {
                         headers: { Authorization: `Bearer ${jwtToken}` },
@@ -77,7 +80,9 @@ export default function AddBannerModal({
                 }));
             } else {
                 const response = await axios.patch(
-                    `/banners/add/single/${id}`,
+                    b2b
+                        ? `/frontend/b2b/banners/add/single/${id}`
+                        : `/frontend/b2c/banners/add/single/${id}`,
                     formData,
                     {
                         headers: { Authorization: `Bearer ${jwtToken}` },
@@ -91,6 +96,7 @@ export default function AddBannerModal({
             setIsModalOpen(false);
             setEdit(false);
             setEditIndex("");
+            setIsLoading(false);
         } catch (err) {
             setError(
                 err?.response?.data?.error || "Something went wrong, Try again"
@@ -109,7 +115,7 @@ export default function AddBannerModal({
         });
     }, [editIndex, data]);
 
-    console.log(initial, "title");
+    console.log(image, "image");
 
     useHandleClickOutside(wrapperRef, () => setIsModalOpen(false));
 

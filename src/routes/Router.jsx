@@ -249,8 +249,8 @@ import EditTourPackagePage from "../pages/TourPackage/EditTourPackagePage";
 import SingleTourPackagePage from "../pages/TourPackage/SingleTourPackagePage";
 import TourPackageThemesPage from "../pages/TourPackage/TourPackageThemesPage";
 import TourPackageEnquiriesPage from "../pages/TourPackage/TourPackageEnquiriesPage";
-import BannerListPage from "../pages/Banners/BannerListPage";
-import EditBannerPage from "../pages/Banners/EditBannerPage";
+import BannerListPage from "../pages/Banners/BannerListB2bPage";
+import EditBannerPage from "../pages/Banners/EditBannerB2bPage";
 import AttractionOrdersPage from "../pages/Attraction/AttractionOrdersPage";
 import SingleAttractionB2bOrderDetailsPage from "../pages/Attraction/SingleAttractionB2bOrderDetailsPage";
 import SingleAttractionB2cOrderDetailsPage from "../pages/Attraction/SingleAttractionB2cOrderDetailsPage";
@@ -259,8 +259,30 @@ import SingleOrderDetailsPage from "../pages/Orders/SinlgeOrderDetailsPage";
 import AttractionTicketSettingPage from "../pages/Attraction/AttractionTicketSettings";
 import B2bHomeSettingsPage from "../pages/Resellers/B2bHomeSections";
 import B2BHomeBannerPage from "../pages/Resellers/B2BHomeBannerPage";
-import B2CFrontendSettings from "../pages/Frontend/B2cFrontendSettings";
-import B2BFrontendSettings from "../pages/Frontend/B2bFrontendSettings";
+import LogoSettingsB2bPage from "../pages/B2bFrontend/LogoSettingsB2bPage";
+import HeroSettingsB2bPage from "../pages/B2bFrontend/HeroSettingsB2bPage";
+import CardsSettingsB2bPage from "../pages/B2bFrontend/CardsSettingsB2bPage";
+import EditCardSettingsB2bPage from "../pages/B2bFrontend/EditCardSettingsB2bPage";
+import SectionsSettingsB2bPage from "../pages/B2bFrontend/SectionsSettingsB2bPage";
+import FooterSettingsB2bPage from "../pages/B2bFrontend/FooterSettingsB2bPage";
+import OtherDetailsSettingsB2bPage from "../pages/B2bFrontend/OtherDetailsSettingsB2bPage";
+import LogoSettingsB2cPage from "../pages/B2cFrontend/LogoSettingsB2cPage";
+import HeroSettingsB2cPage from "../pages/B2cFrontend/HeroSettingsB2cPage";
+import CardsSettingsB2cPage from "../pages/B2cFrontend/CardsSettingsB2cPage";
+import AddCardSettingsB2cPage from "../pages/B2cFrontend/AddCardSettingsB2cPage";
+import EditCardSettingsB2cPage from "../pages/B2cFrontend/EditCardSettingsB2cPage";
+import SectionsSettingsB2cPage from "../pages/B2cFrontend/SectionsSettingsB2cPage";
+import FooterSettingsB2cPage from "../pages/B2cFrontend/FooterSettingsB2cPage";
+import OtherDetailsSettingsB2cPage from "../pages/B2cFrontend/OtherDetailsSettingsB2cPage";
+import AddCardSettingsB2bPage from "../pages/B2bFrontend/AddCardSettingsB2bPage";
+import MetaDataSettingsB2bPage from "../pages/B2bFrontend/MetaDataSettingsB2bPage";
+import MetaDataSettingsB2cPage from "../pages/B2cFrontend/MetaDataSettingsB2cPage";
+import BannerListB2cPage from "../pages/B2cFrontend/BannerListB2cPage";
+import BannerListB2bPage from "../pages/B2bFrontend/BannerListB2bPage";
+import HomeSettingsB2bPage from "../pages/B2bFrontend/HomeSectionsB2bPage.jsx";
+import HomeBannerB2bPage from "../pages/B2bFrontend/HomeBannerB2bPage";
+import EditBannerB2bPage from "../pages/B2bFrontend/EditBannerB2bPage";
+import EditBannerB2cPage from "../pages/B2cFrontend/EditBannerB2cPage";
 
 const ThemeRoutes = [
     {
@@ -752,36 +774,102 @@ const ThemeRoutes = [
             },
             { path: "/subscribers", element: <SubscribersPage /> },
             {
-                path: "/home/settings/logo",
-                element: <LogoSettingsPage />,
+                path: "/b2b/frontend/home/settings/logo",
+                element: <LogoSettingsB2bPage />,
             },
             {
-                path: "/home/settings/hero",
-                element: <HeroSettingsPage />,
+                path: "/b2b/frontend/home/settings/hero",
+                element: <HeroSettingsB2bPage />,
             },
             {
-                path: "/home/settings/cards",
-                element: <CardsSettingsPage />,
+                path: "/b2b/frontend/home/settings/cards",
+                element: <CardsSettingsB2bPage />,
             },
             {
-                path: "/home/settings/cards/add",
-                element: <AddCardSettingsPage />,
+                path: "/b2b/frontend/home/settings/cards/add",
+                element: <AddCardSettingsB2bPage />,
             },
             {
-                path: "/home/settings/cards/:id/edit",
-                element: <EditCardSettingsPage />,
+                path: "/b2b/frontend/home/settings/cards/:id/edit",
+                element: <EditCardSettingsB2bPage />,
             },
             {
-                path: "/home/settings/sections",
-                element: <SectionsSettingsPage />,
+                path: "/b2b/frontend/home/settings/sections",
+                element: <SectionsSettingsB2bPage />,
             },
             {
-                path: "/home/settings/footer",
-                element: <FooterSettingsPage />,
+                path: "/b2b/frontend/home/settings/footer",
+                element: <FooterSettingsB2bPage />,
             },
             {
-                path: "/home/settings/contact-details",
-                element: <OtherDetailsSettingsPage />,
+                path: "/b2b/frontend/home/settings/contact-details",
+                element: <OtherDetailsSettingsB2bPage />,
+            },
+            {
+                path: "/b2b/frontend/home/settings/policy",
+                element: <MetaDataSettingsB2bPage />,
+            },
+            {
+                path: "/b2b/frontend/home/settings/banners",
+                element: <BannerListB2bPage />,
+            },
+            {
+                path: "/b2b/frontend/home/settings/banners/:id/edit",
+                element: <EditBannerB2bPage />,
+            },
+            {
+                path: "/b2b/frontend/home/settings/home-sections",
+                element: <HomeSettingsB2bPage />,
+            },
+            {
+                path: "/b2b/frontend/home/settings/home-sections/:id/edit",
+                element: <HomeBannerB2bPage />,
+            },
+
+            ///
+            {
+                path: "/b2c/frontend/home/settings/logo",
+                element: <LogoSettingsB2cPage />,
+            },
+            {
+                path: "/b2c/frontend/home/settings/hero",
+                element: <HeroSettingsB2cPage />,
+            },
+            {
+                path: "/b2c/frontend/home/settings/cards",
+                element: <CardsSettingsB2cPage />,
+            },
+            {
+                path: "/b2c/frontend/home/settings/cards/add",
+                element: <AddCardSettingsB2cPage />,
+            },
+            {
+                path: "/b2c/frontend/home/settings/cards/:id/edit",
+                element: <EditCardSettingsB2cPage />,
+            },
+            {
+                path: "/b2c/frontend/home/settings/sections",
+                element: <SectionsSettingsB2cPage />,
+            },
+            {
+                path: "/b2c/frontend/home/settings/footer",
+                element: <FooterSettingsB2cPage />,
+            },
+            {
+                path: "/b2c/frontend/home/settings/contact-details",
+                element: <OtherDetailsSettingsB2cPage />,
+            },
+            {
+                path: "/b2C/frontend/home/settings/policy",
+                element: <MetaDataSettingsB2cPage />,
+            },
+            {
+                path: "/b2C/frontend/home/settings/banners",
+                element: <BannerListB2cPage />,
+            },
+            {
+                path: "/b2C/frontend/home/settings/banners/:id/edit",
+                element: <EditBannerB2cPage />,
             },
             { path: "/users", element: <UsersPage /> },
             { path: "/coupons", element: <CouponsPage /> },
@@ -1337,17 +1425,6 @@ const ThemeRoutes = [
             {
                 path: "/orders/single/:orderId",
                 element: <SingleOrderDetailsPage />,
-            },
-
-            //terms and conditions
-
-            {
-                path: "/frontend/b2c",
-                element: <B2CFrontendSettings />,
-            },
-            {
-                path: "/frontend/b2b",
-                element: <B2BFrontendSettings />,
             },
         ],
     },

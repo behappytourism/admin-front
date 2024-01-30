@@ -9,7 +9,7 @@ const useImageChange = (imageSize) => {
     const handleImageChange = (e) => {
         setImage("");
         setError("");
-
+        console.log(e.target.files);
         if (e.target.files.length < 1) {
             return;
         }
@@ -28,9 +28,16 @@ const useImageChange = (imageSize) => {
                     ).toFixed(2)} MB`
                 );
                 e.target.value = "";
+            } else if (isImageValid(e.target.files[0])) {
+                console.log("call reached");
+                setImage(e.target.files[0]);
+            } else {
+                setError("Please upload an Image file.");
+                e.target.value = "";
             }
         } else {
             if (isImageValid(e.target.files[0])) {
+                console.log("call reached");
                 setImage(e.target.files[0]);
             } else {
                 setError("Please upload an Image file.");
@@ -38,7 +45,7 @@ const useImageChange = (imageSize) => {
             }
         }
     };
-
+    console.log(image, "image");
     console.log(error, "error");
 
     return { image, error, handleImageChange, setError, setImage };
