@@ -51,7 +51,7 @@ export default function AddHeroModal({
 
             if (heroModal?.isEdit) {
                 const response = await axios.patch(
-                    `/home/heros/update/${selectedHero?._id}`,
+                    `/frontend/b2b/home/heros/update/${selectedHero?._id}`,
                     formData,
                     {
                         headers: { Authorization: `Bearer ${jwtToken}` },
@@ -60,9 +60,13 @@ export default function AddHeroModal({
 
                 updateHero(response.data);
             } else {
-                const response = await axios.post("/home/heros/add", formData, {
-                    headers: { Authorization: `Bearer ${jwtToken}` },
-                });
+                const response = await axios.post(
+                    "/frontend/b2b/home/heros/add",
+                    formData,
+                    {
+                        headers: { Authorization: `Bearer ${jwtToken}` },
+                    }
+                );
                 addHero(response.data);
             }
             setHeroModal({ isOpen: false, isEdit: false });

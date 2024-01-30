@@ -62,7 +62,7 @@ export default function EditCardSettingsPage() {
             });
 
             setIsLoading(false);
-            navigate("/home/settings/cards");
+            navigate("b2c/frontend/home/settings/cards");
         } catch (err) {
             setError(
                 err?.response?.data?.error || "Something went wrong, Try again"

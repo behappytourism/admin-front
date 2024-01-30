@@ -66,7 +66,7 @@ export default function EditCardSettingsB2bPage() {
             );
 
             setIsLoading(false);
-            navigate("/home/settings/cards");
+            navigate("/b2b/frontend/home/settings/cards");
         } catch (err) {
             setError(
                 err?.response?.data?.error || "Something went wrong, Try again"
