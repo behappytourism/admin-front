@@ -87,6 +87,8 @@ export default function HomeBannerB2bPage() {
                             <button
                                 className="w-[150px] bg-orange-500"
                                 onClick={(e) => {
+                                    setIndex("");
+                                    setEdit(false);
                                     setIsModalOpen(true);
                                 }}
                             >

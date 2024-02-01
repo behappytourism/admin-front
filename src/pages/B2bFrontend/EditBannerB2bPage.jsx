@@ -127,8 +127,8 @@ function EditBannerB2bPage() {
                                     <button
                                         className="px-3 bg-orange-500"
                                         onClick={() => {
-                                            setIsModalOpen(true);
                                             setEditIndex("");
+                                            setIsModalOpen(true);
                                             setEdit(false);
                                         }}
                                     >

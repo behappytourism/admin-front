@@ -15,6 +15,7 @@ export default function B2BHomeBannerModal({
     edit,
     bannerId,
     index,
+    setIndex,
     b2b,
 }) {
     const [data, setData] = useState({
@@ -81,7 +82,7 @@ export default function B2BHomeBannerModal({
                 );
 
                 setBanners(updatedSections);
-
+                setIndex("");
                 setIsLoading(false);
                 setIsModalOpen(false);
             } else {
