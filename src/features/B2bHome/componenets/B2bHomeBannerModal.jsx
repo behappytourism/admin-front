@@ -86,7 +86,7 @@ export default function B2BHomeBannerModal({
                 setIsModalOpen(false);
             } else {
                 const response = await axios.post(
-                    `/b2b/home/banner/add/${id}`,
+                    `/frontend/b2b/home/banner/add/${id}`,
                     formData,
                     {
                         headers: { Authorization: `Bearer ${jwtToken}` },

@@ -41,7 +41,6 @@ export default function AddActivityPage() {
         b2bPromoAmountChild: "",
         images: [],
         termsAndConditions: "",
-        termsAndConditions: "",
         inculsionsAndExclusions: "",
         overview: "",
     });

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import axios from "../../axios";
-import { BtnLoader, PageLoader } from "../../components";
+import { BtnLoader, PageLoader, RichTextEditor } from "../../components";
 
 export default function OtherDetailsSettingsB2cPage() {
     const [data, setData] = useState({
@@ -13,6 +13,8 @@ export default function OtherDetailsSettingsB2cPage() {
         facebookUrl: "",
         instagramUrl: "",
         footerDescription: "",
+        copyRight: "",
+        contactUs: "",
     });
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +45,8 @@ export default function OtherDetailsSettingsB2cPage() {
                 facebookUrl: response?.data?.facebookUrl,
                 instagramUrl: response?.data?.instagramUrl,
                 footerDescription: response?.data?.footerDescription,
+                contactUs: response?.data?.contactUs,
+                copyRight: response?.data?.copyRight,
             });
             setIsPageLoading(false);
         } catch (err) {
@@ -153,14 +157,32 @@ export default function OtherDetailsSettingsB2cPage() {
                                 </div>
                             </div>
                             <div className="mt-4">
-                                <label htmlFor="">Footer Description</label>
+                                <label htmlFor="">Copy Right</label>
                                 <textarea
-                                    name="footerDescription"
-                                    value={data.footerDescription || ""}
+                                    name="copyRight"
+                                    value={data.copyRight || ""}
                                     onChange={handleChange}
                                     id=""
                                     placeholder="Enter Description"
                                 ></textarea>
+                            </div>
+                            <div className="mt-4">
+                                <label htmlFor=""> Contact Us </label>
+                                <div className="mt-2">
+                                    <div className="border border-t-0">
+                                        <RichTextEditor
+                                            getValue={(value) => {
+                                                setData((prev) => {
+                                                    return {
+                                                        ...prev,
+                                                        contactUs: value,
+                                                    };
+                                                });
+                                            }}
+                                            initialValue={data?.contactUs || ""}
+                                        />
+                                    </div>
+                                </div>
                             </div>
 
                             {error && (

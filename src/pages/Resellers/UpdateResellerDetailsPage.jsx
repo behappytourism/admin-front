@@ -456,7 +456,7 @@ export default function UpdateResellerDetailsPage() {
                                     <label htmlFor="shortName"></label>
                                     <input
                                         type="text"
-                                        placeholder="TCTT"
+                                        placeholder="BHT"
                                         name="shortName"
                                         value={shortName || ""}
                                         onChange={onhandleChange}

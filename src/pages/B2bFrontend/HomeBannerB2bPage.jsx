@@ -199,6 +199,7 @@ export default function HomeBannerB2bPage() {
                     isModalOpen={isModalOpen}
                     setBanners={setBanners}
                     banners={banners}
+                    b2b={true}
                 />
             )}
         </div>

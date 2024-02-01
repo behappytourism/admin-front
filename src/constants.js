@@ -21,7 +21,7 @@ const devLocal = {
 };
 
 const devLive = {
-    SERVER_URL: "https://api-server-i1.mytravellerschoice.com",
+    SERVER_URL: "https://api-server-i.behappytourism.com",
     COMPANY_NAME: "Be Happy",
     COMPANY_LOGO:
         "https://login.mytravellerschoice.com/assets/logo-2c140806.png",
