@@ -1423,7 +1423,7 @@ const ThemeRoutes = [
             },
 
             {
-                path: "/orders/single/:orderId",
+                path: "/orders/single/:orderId/:section",
                 element: <SingleOrderDetailsPage />,
             },
         ],

@@ -49,7 +49,7 @@ export default function EdiGroupAreaPage() {
             );
 
             setIsLoading(false);
-            navigate("/transfers/group-area");
+            navigate("/transfers/area-group");
         } catch (err) {
             setError(
                 err?.response?.data?.error || "Something went wrong, Try again"

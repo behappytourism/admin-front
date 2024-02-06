@@ -22,19 +22,25 @@ export default function SingleOrderDetailsPage() {
     const [order, setOrder] = useState({});
     const [selectedSection, setSelectedSection] = useState("payments");
 
-    const { orderId } = useParams();
+    const { orderId, section } = useParams();
     const { jwtToken } = useSelector((state) => state.admin);
 
     const fetchorder = async () => {
         try {
             setIsPageLoading(true);
-
-            const response = await axios.get(`/orders/b2b/single/${orderId}`, {
-                headers: { authorization: `Bearer ${jwtToken}` },
-            });
+            let response;
+            if (section === "b2b") {
+                response = await axios.get(`/orders/b2b/single/${orderId}`, {
+                    headers: { authorization: `Bearer ${jwtToken}` },
+                });
+            } else {
+                response = await axios.get(`/orders/b2c/single/${orderId}`, {
+                    headers: { authorization: `Bearer ${jwtToken}` },
+                });
+            }
 
             setOrder({
-                ...response?.data?.b2bOrder,
+                ...response?.data?.order,
                 payments: response?.data?.payments,
                 cancellations: response?.data?.cancellations,
                 refunds: response?.data?.refunds,
@@ -215,31 +221,41 @@ export default function SingleOrderDetailsPage() {
                                                     Order Type
                                                 </td>
                                                 <td className="p-2">
-                                                    {order?.orderType ===
-                                                    "b2b-api"
+                                                    {section === "b2c"
+                                                        ? "B2C PORTAL"
+                                                        : order?.orderType ===
+                                                          "b2b-api"
                                                         ? "API Gateway"
                                                         : "B2B Portal"}
                                                 </td>
                                             </tr>
-                                            <tr className="odd:bg-[#f3f6f9]">
-                                                <td className="p-2 w-[180px]">
-                                                    Agent Ref.No
-                                                </td>
-                                                <td className="p-2">
-                                                    {order?.agentReferenceNumber ||
-                                                        "N/A"}
-                                                </td>
-                                            </tr>
-                                            <tr className="odd:bg-[#f3f6f9]">
-                                                <td className="p-2">
-                                                    Special Request
-                                                </td>
-                                                <td className="p-2">
-                                                    {order?.specialRequest
-                                                        ? order?.specialRequest
-                                                        : "N/A"}
-                                                </td>
-                                            </tr>
+                                            {section === "b2B" ? (
+                                                <tr className="odd:bg-[#f3f6f9]">
+                                                    <td className="p-2 w-[180px]">
+                                                        Agent Ref.No
+                                                    </td>
+                                                    <td className="p-2">
+                                                        {order?.agentReferenceNumber ||
+                                                            "N/A"}
+                                                    </td>
+                                                </tr>
+                                            ) : (
+                                                ""
+                                            )}
+                                            {section === "b2B" ? (
+                                                <tr className="odd:bg-[#f3f6f9]">
+                                                    <td className="p-2">
+                                                        Special Request
+                                                    </td>
+                                                    <td className="p-2">
+                                                        {order?.specialRequest
+                                                            ? order?.specialRequest
+                                                            : "N/A"}
+                                                    </td>
+                                                </tr>
+                                            ) : (
+                                                ""
+                                            )}
                                         </tbody>
                                     </table>
                                     <div>
