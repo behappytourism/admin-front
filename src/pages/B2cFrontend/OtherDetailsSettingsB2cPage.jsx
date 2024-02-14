@@ -15,6 +15,9 @@ export default function OtherDetailsSettingsB2cPage() {
         footerDescription: "",
         copyRight: "",
         contactUs: "",
+        youtubeUrl: "",
+        twitterUrl: "",
+        tripAdvisorUrl: "",
     });
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +50,9 @@ export default function OtherDetailsSettingsB2cPage() {
                 footerDescription: response?.data?.footerDescription,
                 contactUs: response?.data?.contactUs,
                 copyRight: response?.data?.copyRight,
+                youtubeUrl: response?.data?.youtubeUrl,
+                twitterUrl: response?.data?.twitterUrl,
+                tripAdvisorUrl: response?.data?.tripAdvisorUrl,
             });
             setIsPageLoading(false);
         } catch (err) {
@@ -153,6 +159,36 @@ export default function OtherDetailsSettingsB2cPage() {
                                         name="instagramUrl"
                                         onChange={handleChange}
                                         placeholder="Enter Instagram URL"
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="">Youtube Url</label>
+                                    <input
+                                        type="text"
+                                        value={data.youtubeUrl || ""}
+                                        name="youtubeUrl"
+                                        onChange={handleChange}
+                                        placeholder="Enter Instagram Url"
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="">Twitter Url</label>
+                                    <input
+                                        type="text"
+                                        value={data.twitterUrl || ""}
+                                        name="twitterUrl"
+                                        onChange={handleChange}
+                                        placeholder="Enter Twitter Url"
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="">Trip Advisor Url</label>
+                                    <input
+                                        type="text"
+                                        value={data.tripAdvisorUrl || ""}
+                                        name="instagramUrl"
+                                        onChange={handleChange}
+                                        placeholder="Enter Trip Advisor Url"
                                     />
                                 </div>
                             </div>

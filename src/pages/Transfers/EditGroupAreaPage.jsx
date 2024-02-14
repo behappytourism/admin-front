@@ -21,7 +21,6 @@ export default function EdiGroupAreaPage() {
                 headers: { authorization: `Bearer ${jwtToken}` },
             });
 
-            console.log(response, "response");
             setAreas(response.data.areas);
             setSelectedAreas(response.data.group.areas);
             setName(response.data.group.name);

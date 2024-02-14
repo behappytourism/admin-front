@@ -1289,16 +1289,7 @@ function QuotationSingleEmailPage() {
                                     directly by the guest at the hotel upon
                                     check-in.
                                 </li>
-                                <li className="cust-border">
-                                    Guest need to carry QR code vaccine
-                                    certificate & required to provide a negative
-                                    PCR test result acquired within 48 hours in
-                                    Dubai only, to enter Grand Mosque/Ferrari
-                                    world Or any Mall visit at Abu Dhabi.
-                                </li>
-                                <li className="cust-border">
-                                    PCR cost Not included in above rates
-                                </li>
+
                                 <li className="cust-border">
                                     Please Note the Check-In time is 3:00 PM And
                                     check out time Is 12:00 PM. Early Check-In

@@ -601,11 +601,11 @@ const sidebarMenus = {
                 //     link: "/b2b/configurations",
                 //     permission: ["b2b-configurations", "view"],
                 // },
-                {
-                    name: "Home Sections",
-                    link: "/b2b/home/sections",
-                    permission: ["b2b-home-sections", "view"],
-                },
+                // {
+                //     name: "Home Sections",
+                //     link: "/b2b/home/sections",
+                //     permission: ["b2b-home-sections", "view"],
+                // },
             ],
         },
         {
@@ -955,45 +955,6 @@ const sidebarMenus = {
                     name: "Invoice Settings",
                     link: "/invoice/settings",
                     permission: ["invoice-settings", "view"],
-                },
-            ],
-        },
-        {
-            name: "Home Settings",
-            icon: <FiHome />,
-            link: "#",
-            role: "super-admin",
-            dropdown: [
-                {
-                    name: "Logo",
-                    link: "/home/settings/logo",
-                    permission: ["home-settings", "view"],
-                },
-
-                {
-                    name: "Hero",
-                    link: "/home/settings/hero",
-                    permission: ["home-settings", "view"],
-                },
-                {
-                    name: "Cards",
-                    link: "/home/settings/cards",
-                    permission: ["home-settings", "view"],
-                },
-                {
-                    name: "Sections",
-                    link: "/home/settings/sections",
-                    permission: ["home-settings", "view"],
-                },
-                {
-                    name: "Footer",
-                    link: "/home/settings/footer",
-                    permission: ["home-settings", "view"],
-                },
-                {
-                    name: "Contact Details",
-                    link: "/home/settings/contact-details",
-                    permission: ["home-settings", "view"],
                 },
             ],
         },

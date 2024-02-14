@@ -272,12 +272,6 @@ const adminRoles = [
         category: "core",
         permissions: [],
     },
-    {
-        name: "b2b-home-sections",
-        displayName: "B2B Home Sections",
-        category: "core",
-        permissions: [],
-    },
 
     // b2b wallet
     {
@@ -353,12 +347,6 @@ const adminRoles = [
     {
         name: "api-master",
         displayName: "Api Master",
-        category: "settings",
-        permissions: [],
-    },
-    {
-        name: "home-settings",
-        displayName: "Home Settings",
         category: "settings",
         permissions: [],
     },
@@ -481,12 +469,6 @@ const adminRoles = [
     {
         name: "Seasons",
         displayName: "Seasons",
-        category: "settings",
-        permissions: [],
-    },
-    {
-        name: "Banners",
-        displayName: "Banners",
         category: "settings",
         permissions: [],
     },
