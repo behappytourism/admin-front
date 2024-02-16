@@ -213,7 +213,7 @@ export default function SingleOrderDetailsPage() {
                                                     Supplier
                                                 </td>
                                                 <td className="p-2 font-medium uppercase text-green-500">
-                                                    TCTT
+                                                    Be Happy
                                                 </td>
                                             </tr>
                                             <tr className="odd:bg-[#f3f6f9]">

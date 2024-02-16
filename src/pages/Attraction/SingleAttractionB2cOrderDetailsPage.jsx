@@ -187,7 +187,7 @@ export default function SingleAttractionB2cOrderDetailsPage() {
                                             <tr className="odd:bg-[#f3f6f9]">
                                                 <td className="p-2 w-[180px]">Supplier</td>
                                                 <td className="p-2 font-medium uppercase text-green-500">
-                                                    TCTT
+                                                    Be Happy
                                                 </td>
                                             </tr>
                                             <tr className="odd:bg-[#f3f6f9]">

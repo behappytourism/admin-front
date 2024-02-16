@@ -135,6 +135,7 @@ export default function AddActivityPage() {
                 data?.inculsionsAndExclusions
             );
             formData.append("overview", data?.overview);
+            formData.append("termsAndConditions", data?.termsAndConditions);
 
             for (let i = 0; i < newImages?.length; i++) {
                 formData.append("images", newImages[i]);

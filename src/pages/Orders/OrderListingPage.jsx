@@ -326,7 +326,10 @@ export default function OrdersListingPage() {
                                                     {order?.referenceNumber}
                                                 </td>
                                                 <td className="p-3 capitalize">
-                                                    B2C portal
+                                                    {section === "b2b"
+                                                        ? "B2B portal "
+                                                        : "B2C portal"}
+
                                                     <span className="block text-sm text-grayColor mt-1">
                                                         {moment(
                                                             order?.createdAt
