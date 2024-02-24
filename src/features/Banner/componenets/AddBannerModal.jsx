@@ -131,7 +131,10 @@ export default function AddBannerModal({
                 className="bg-[#fff] w-full max-h-[90vh] max-w-[800px]  shadow-[0_1rem_3rem_rgb(0_0_0_/_18%)] overflow-y-auto"
             >
                 <div className="flex items-center justify-between border-b p-4">
-                    <h2 className="font-medium mb-2">Add Details</h2>
+                    <h2 className="font-medium mb-2">
+                        {" "}
+                        {edit ? "Edit Details" : "Add Details"}
+                    </h2>
                     <button
                         className="h-auto bg-transparent text-textColor text-xl"
                         onClick={() => setIsModalOpen(false)}
@@ -226,7 +229,13 @@ export default function AddBannerModal({
                     )}
                     <div className="flex items-center justify-end mt-6">
                         <button className="px-3" onClick={handleDataChange}>
-                            {isLoading ? <BtnLoader /> : "Add Banner"}
+                            {isLoading ? (
+                                <BtnLoader />
+                            ) : edit ? (
+                                "Edit Banner"
+                            ) : (
+                                "Add Banner"
+                            )}{" "}
                         </button>
                     </div>
                 </div>

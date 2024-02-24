@@ -139,7 +139,7 @@ const sidebarMenus = {
         {
             name: "Ticket Themes",
             icon: <HiMiniTicket />,
-            link: "attractions/ticket/theme",
+            link: "/attractions/ticket/theme",
             permission: ["attr-itineraries", "view"],
         },
     ],
