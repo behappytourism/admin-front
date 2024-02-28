@@ -691,19 +691,9 @@ export default function SingleOrderDetailsPage() {
                                         }}
                                       >
                                         {orderItem?.status}
-                                        {console.log(
-                                          orderItem?.status,
-                                          "ifififif"
-                                        )}
                                       </span>
                                     ) : (
-                                      <span>
-                                        {orderItem?.status}
-                                        {console.log(
-                                          orderItem?.status,
-                                          "elseelse"
-                                        )}
-                                      </span>
+                                      <span>{orderItem?.status}</span>
                                     )}
                                   </span>
                                 </td>
