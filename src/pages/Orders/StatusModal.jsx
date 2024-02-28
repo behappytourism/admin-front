@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { IoMdClose } from "react-icons/io";
 import { BtnLoader } from "../../components";
 
-function StatusModal({ order, orderItem, setIsModal, isModal }) {
+function StatusModal({ order, orderItem, setIsModal, isModal, fetchorder }) {
   const { jwtToken } = useSelector((state) => state.admin);
 
   const [data, setData] = useState({
@@ -39,6 +39,7 @@ function StatusModal({ order, orderItem, setIsModal, isModal }) {
       );
       setIsLoading(false);
       setIsModal(false);
+      fetchorder();
     } catch (error) {
       console.log(error);
       setIsLoading(false);
