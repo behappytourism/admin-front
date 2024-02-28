@@ -10,6 +10,7 @@ import moment from "moment";
 import { PageLoader } from "../../components";
 import axios from "../../axios";
 import { config } from "../../constants";
+import StatusModal from "./StatusModal";
 
 const sections = {
   payments: "Payments",
@@ -21,6 +22,7 @@ export default function SingleOrderDetailsPage() {
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [order, setOrder] = useState({});
   const [selectedSection, setSelectedSection] = useState("payments");
+  const [isModal, setIsModal] = useState(false);
 
   const { orderId, section } = useParams();
   const { jwtToken } = useSelector((state) => state.admin);
@@ -681,9 +683,30 @@ export default function SingleOrderDetailsPage() {
                                         : "bg-[#f7b84b1A] text-[#f7b84b]")
                                     }
                                   >
-                                    {orderItem?.status}
+                                    {orderItem?.status === "booked" ? (
+                                      <span
+                                        className="cursor-pointer"
+                                        onClick={() => {
+                                          setIsModal(!isModal);
+                                        }}
+                                      >
+                                        {orderItem?.status}
+                                      </span>
+                                    ) : (
+                                      <span>{orderItem?.status}</span>
+                                    )}
                                   </span>
                                 </td>
+                                {isModal ? (
+                                  <StatusModal
+                                    order={order}
+                                    orderItem={orderItem}
+                                    setIsModal={setIsModal}
+                                    isModal={isModal}
+                                  />
+                                ) : (
+                                  ""
+                                )}
                               </tr>
                             );
                           }
