@@ -140,7 +140,7 @@ const sidebarMenus = {
             name: "Ticket Themes",
             icon: <HiMiniTicket />,
             link: "/attractions/ticket/theme",
-            permission: ["attr-itineraries", "view"],
+            permission: ["attractions-ticket-themes", "view"],
         },
     ],
     // Marketing: [
@@ -468,48 +468,48 @@ const sidebarMenus = {
                 {
                     name: "Logo",
                     link: "/b2b/frontend/home/settings/logo",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2b-frontend", "view"],
                 },
 
                 {
                     name: "Hero",
                     link: "/b2b/frontend/home/settings/hero",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2b-frontend", "view"],
                 },
                 {
                     name: "Cards",
                     link: "/b2b/frontend/home/settings/cards",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2b-frontend", "view"],
                 },
                 {
                     name: "Sections",
                     link: "/b2b/frontend/home/settings/sections",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2b-frontend", "view"],
                 },
                 {
                     name: "Footer",
                     link: "/b2b/frontend/home/settings/footer",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2b-frontend", "view"],
                 },
                 {
                     name: "Contact Details",
                     link: "/b2b/frontend/home/settings/contact-details",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2b-frontend", "view"],
                 },
                 {
                     name: "T&C And Policy",
                     link: "/b2b/frontend/home/settings/policy",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2b-frontend", "view"],
                 },
                 {
                     name: "Banners",
                     link: "/b2b/frontend/home/settings/banners",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2b-frontend", "view"],
                 },
                 {
                     name: "Home-sections",
                     link: "/b2b/frontend/home/settings/home-sections",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2b-frontend", "view"],
                 },
             ],
         },
@@ -521,43 +521,43 @@ const sidebarMenus = {
                 {
                     name: "Logo",
                     link: "/b2c/frontend/home/settings/logo",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2c-frontend", "view"],
                 },
 
                 {
                     name: "Hero",
                     link: "/b2c/frontend/home/settings/hero",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2c-frontend", "view"],
                 },
                 {
                     name: "Cards",
                     link: "/b2c/frontend/home/settings/cards",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2c-frontend", "view"],
                 },
                 {
                     name: "Sections",
                     link: "/b2c/frontend/home/settings/sections",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2c-frontend", "view"],
                 },
                 {
                     name: "Footer",
                     link: "/b2c/frontend/home/settings/footer",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2c-frontend", "view"],
                 },
                 {
                     name: "Contact Details",
                     link: "/b2c/frontend/home/settings/contact-details",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2c-frontend", "view"],
                 },
                 {
                     name: "T&C And Policy",
                     link: "/b2c/frontend/home/settings/policy",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2c-frontend", "view"],
                 },
                 {
                     name: "Banners",
                     link: "/b2c/frontend/home/settings/banners",
-                    permission: ["home-settings", "view"],
+                    permission: ["b2c-frontend", "view"],
                 },
             ],
         },
