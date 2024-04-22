@@ -43,7 +43,7 @@ export default function AttrAvailabilityForm({ section }) {
 
     return (
         <div className={section === 3 ? "block" : "hidden"}>
-            <div className="flex items-center gap-[10px]">
+            <div className="flex items-center gap-[10px] ">
                 <input
                     type="checkbox"
                     className="w-[16px] h-[16px]"
@@ -57,7 +57,10 @@ export default function AttrAvailabilityForm({ section }) {
                         );
                     }}
                 />
-                <label htmlFor="" className="mb-0">
+                <label
+                    htmlFor=""
+                    className="font-[600]  block text-blue-500 items-center"
+                >
                     Custom Date
                 </label>
             </div>
@@ -256,7 +259,7 @@ export default function AttrAvailabilityForm({ section }) {
                     );
                 })}
                 <button
-                    className="bg-transparent text-xl w-[40px] flex items-center justify-center bg-orange-500"
+                    className=" text-xl w-[40px] flex items-center justify-center bg-orange-500"
                     onClick={() => {
                         dispatch(addOffDate());
                     }}
