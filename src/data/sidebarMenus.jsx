@@ -27,7 +27,12 @@ import {
     HiOutlineTicket,
     HiOutlineUsers,
 } from "react-icons/hi";
-import { RiHotelFill, RiHotelLine, RiSteeringFill } from "react-icons/ri";
+import {
+    RiHotelFill,
+    RiHotelLine,
+    RiSeoFill,
+    RiSteeringFill,
+} from "react-icons/ri";
 import {
     BiCategoryAlt,
     BiGitCompare,
@@ -670,7 +675,81 @@ const sidebarMenus = {
             permission: ["markets", "view"],
         },
     ],
-
+    Marketing: [
+        // {
+        //     name: "Affiliate",
+        //     icon: <HiOutlineShoppingCart />,
+        //     link: "#",
+        //     dropdown: [
+        //         {
+        //             name: "Affiliate Settings",
+        //             link: "/affiliate/settings",
+        //             permission: ["affiliate-settings", "view"],
+        //         },
+        //         {
+        //             name: "Affiliate Products",
+        //             link: "/affiliate/products",
+        //             permission: ["affiliate-products", "view"],
+        //         },
+        //         {
+        //             name: "Affiliate Reports",
+        //             link: "/affiliate/reports",
+        //             permission: ["affiliate-reports", "view"],
+        //         },
+        //         {
+        //             name: "Affiliate Reedem Requests",
+        //             link: "/affiliate/redeem/requests",
+        //             permission: ["affiliate-redeem-requests", "view"],
+        //         },
+        //     ],
+        // },
+        {
+            name: "SEO Settings",
+            icon: <RiSeoFill />,
+            link: "#",
+            dropdown: [
+                {
+                    name: "SEO ",
+                    link: "/seo/main-category",
+                    permission: ["seo-main-cateogry", "view"],
+                },
+            ],
+        },
+        // {
+        //     name: "Whatsapp Settings",
+        //     icon: <FaWhatsapp />,
+        //     link: "#",
+        //     dropdown: [
+        //         {
+        //             name: "Whatsapp ",
+        //             link: "/whatsapp/lists",
+        //             permission: ["whatsapp-list", "view"],
+        //         },
+        //         {
+        //             name: "Whatsapp Management ",
+        //             link: "/whatsapp/management/lists",
+        //             permission: ["whatsapp-managment", "view"],
+        //         },
+        //     ],
+        // },
+        // {
+        //     name: "Notification ",
+        //     icon: <MdNotificationAdd />,
+        //     link: "#",
+        //     dropdown: [
+        //         {
+        //             name: "Add Notification ",
+        //             link: "/notification/add",
+        //             permission: ["notification-add", "view"],
+        //         },
+        //         {
+        //             name: "Notification List ",
+        //             link: "/notification",
+        //             permission: ["notification-list", "view"],
+        //         },
+        //     ],
+        // },
+    ],
     // Frontend: [
     //     {
     //         name: "B2B Frontend",

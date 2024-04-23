@@ -576,6 +576,14 @@ const adminRoles = [
         category: "frontend",
         permissions: [],
     },
+
+    //seo
+    {
+        name: "seo-main-cateogry",
+        displayName: "SEO",
+        category: "marketing",
+        permissions: [],
+    },
 ];
 
 export default adminRoles;
