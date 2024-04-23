@@ -10,17 +10,54 @@ import { useSelector } from "react-redux";
 
 import { config } from "../../../constants";
 import axios from "../../../axios";
+import BookingConfirmationModal from "../../Orders/components/BookingConfirmationModal";
 
-export default function SingleAttrOrderActivitiesTableRow({ orderItem }) {
+export default function SingleAttrOrderActivitiesTableRow({
+    orderItem,
+    attractionOrder,
+}) {
     const [isTicketsListModalOpen, setIsTicketsListModalOpen] = useState(false);
-
+    console.log(orderItem, "OrderItem: " + orderItem);
     const { orderId } = useParams();
     const { jwtToken } = useSelector((state) => state.admin);
+    const [isBookingConfirmationModalOpen, setIsBookingConfirmationModalOpen] =
+        useState(false);
+    const [isStatusLoading, setIsStatusLoading] = useState(false);
+    const [orderData, setOrderData] = useState({
+        status: orderItem?.status,
+        bookingConfirmationNumber: orderItem?.bookingConfirmationNumber,
+        drivers: orderItem?.drivers || [],
+        driversRequired: 0,
+    });
+    const handleOrderStatusChange = async (e) => {
+        try {
+            setIsStatusLoading(true);
 
+            await axios.patch(
+                `/attractions/orders/bookings/cancel`,
+                {
+                    orderId: attractionOrder?._id,
+                    bookingId: orderItem?._id,
+                    orderedBy: "b2b",
+                },
+                {
+                    headers: { authorization: `Bearer ${jwtToken}` },
+                }
+            );
+
+            setOrderData((prev) => {
+                return { ...prev, status: "cancelled" };
+            });
+
+            setIsStatusLoading(false);
+        } catch (err) {
+            e.target.value = "";
+        }
+    };
     const handleDownloadTickets = async () => {
         try {
             const pdfBuffer = await axios.get(
-                `/attractions/orders/${orderId}/orderItems/${orderItem?._id}/tickets`,
+                `/attractions/orders/${attractionOrder?._id}/orderItems/${orderItem?._id}/tickets`,
                 {
                     headers: { authorization: `Bearer ${jwtToken}` },
                     responseType: "arraybuffer",
@@ -33,7 +70,7 @@ export default function SingleAttrOrderActivitiesTableRow({ orderItem }) {
             });
             const link = document.createElement("a");
             link.href = window.URL.createObjectURL(blob);
-            link.download = "tickets.pdf";
+            link.download = `${attractionOrder?._id}.pdf`;
             document.body.appendChild(link);
             link.click();
         } catch (err) {
@@ -47,7 +84,10 @@ export default function SingleAttrOrderActivitiesTableRow({ orderItem }) {
                 <div className="flex gap-3">
                     <div className="w-[80px] max-h-[50px] rounded overflow-hidden">
                         <img
-                            src={config.SERVER_URL + orderItem?.attraction?.images[0]}
+                            src={
+                                config.SERVER_URL +
+                                orderItem?.attraction?.images[0]
+                            }
                             alt=""
                             className="w-full h-full object-cover"
                         />
@@ -55,15 +95,22 @@ export default function SingleAttrOrderActivitiesTableRow({ orderItem }) {
                     <div>
                         <span className="font-[500] block mt-1">
                             {orderItem?.activity?.name}{" "}
-                            <span className="capitalize">({orderItem?.bookingType})</span>
+                            <span className="capitalize">
+                                ({orderItem?.bookingType})
+                            </span>
                         </span>
-                        <span className="block mt-1">{orderItem?.attraction?.title}</span>
+                        <span className="block mt-1">
+                            {orderItem?.attraction?.title}
+                        </span>
                     </div>
                 </div>
             </td>
-            <td className="p-3">{moment(orderItem?.date).format("MMM D, YYYY")}</td>
             <td className="p-3">
-                {orderItem?.adultsCount} ADT, {orderItem?.childrenCount} CHD, {orderItem?.infantCount} INF
+                {moment(orderItem?.date).format("MMM D, YYYY")}
+            </td>
+            <td className="p-3">
+                {orderItem?.adultsCount} ADT, {orderItem?.childrenCount} CHD,{" "}
+                {orderItem?.infantCount} INF
             </td>
             <td className="p-3">
                 {orderItem?.transferType === "without" ? (
@@ -77,13 +124,19 @@ export default function SingleAttrOrderActivitiesTableRow({ orderItem }) {
                         </span>
                         <div>
                             {orderItem?.transferType === "private" &&
-                                orderItem?.privateTransfers?.map((transfer, index) => {
-                                    return (
-                                        <span key={index} className="block mt-[6px]">
-                                            {transfer?.name} x {transfer?.count}
-                                        </span>
-                                    );
-                                })}
+                                orderItem?.privateTransfers?.map(
+                                    (transfer, index) => {
+                                        return (
+                                            <span
+                                                key={index}
+                                                className="block mt-[6px]"
+                                            >
+                                                {transfer?.name} x{" "}
+                                                {transfer?.count}
+                                            </span>
+                                        );
+                                    }
+                                )}
                         </div>
                     </div>
                 )}
@@ -133,16 +186,50 @@ export default function SingleAttrOrderActivitiesTableRow({ orderItem }) {
                 <span
                     className={
                         "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
-                        (orderItem?.status === "cancelled"
+                        (orderData?.status === "cancelled"
                             ? "bg-[#f065481A] text-[#f06548]"
-                            : orderItem?.status === "confirmed"
+                            : orderData?.status === "confirmed"
                             ? "text-[#0ab39c] bg-[#0ab39c1A]"
                             : "bg-[#f7b84b1A] text-[#f7b84b]")
                     }
                 >
-                    {orderItem?.status}
+                    {orderData?.status === "booked" ? (
+                        <div onClick={(e) => e.stopPropagation()}>
+                            <select
+                                className="h-[35px] py-0 w-[90px] mt-5"
+                                onChange={(e) => {
+                                    if (e.target.value === "confirm") {
+                                        setIsBookingConfirmationModalOpen(true);
+                                    } else if (e.target.value === "cancel") {
+                                        e.target.value = e.target.value;
+                                        handleOrderStatusChange();
+                                    }
+                                }}
+                                value={orderData.status}
+                            >
+                                <option value="" hidden>
+                                    Booked
+                                </option>
+                                <option value="confirm">Confirm</option>
+                                <option value="cancel">Cancel</option>
+                            </select>
+                        </div>
+                    ) : (
+                        orderData?.status
+                    )}
                 </span>
             </td>
+            {isBookingConfirmationModalOpen && (
+                <BookingConfirmationModal
+                    setIsBookingConfirmationModalOpen={
+                        setIsBookingConfirmationModalOpen
+                    }
+                    setOrderData={setOrderData}
+                    orderId={attractionOrder?._id}
+                    bookingId={orderItem?._id}
+                    orderedBy={"b2b"}
+                />
+            )}
         </tr>
     );
 }

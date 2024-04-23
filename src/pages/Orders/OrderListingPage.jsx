@@ -96,6 +96,8 @@ export default function OrdersListingPage() {
         }
     };
 
+    console.log(orders, "orders");
+
     useEffect(() => {
         let query = searchParams.get("section") || "b2b";
 
@@ -363,7 +365,7 @@ export default function OrdersListingPage() {
                                                     Activities
                                                 </td>
                                                 <td className="p-3">
-                                                    {order?.totalAmount} AED
+                                                    {order?.netPrice} AED
                                                 </td>
                                                 <td className="p-3">
                                                     <span

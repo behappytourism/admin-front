@@ -428,7 +428,7 @@ export default function AddActivityPage() {
                                                 />
                                             </div>
                                         </>
-                                    ) : (
+                                    ) : data?.activityType === "normal" ? (
                                         <>
                                             <div className="">
                                                 <label htmlFor="">
@@ -471,6 +471,8 @@ export default function AddActivityPage() {
                                                 />
                                             </div>
                                         </>
+                                    ) : (
+                                        ""
                                     )}
                                 </div>
                                 <div className="mt-5 grid grid-cols-3 gap-5 items-end">

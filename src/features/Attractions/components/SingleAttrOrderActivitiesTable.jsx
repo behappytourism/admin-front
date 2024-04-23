@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import BookingConfirmationModal from "../../Orders/components/BookingConfirmationModal";
 import SingleAttrOrderActivitiesTableRow from "./SingleAttrOrderActivitiesTableRow";
 
 export default function SingleAttrOrderActivitiesTable({ attractionOrder }) {
@@ -17,11 +18,17 @@ export default function SingleAttrOrderActivitiesTable({ attractionOrder }) {
                     </tr>
                 </thead>
                 <tbody className="text-sm">
-                    {attractionOrder?.activities?.map((orderItem, orderItemIndex) => {
-                        return (
-                            <SingleAttrOrderActivitiesTableRow key={orderItemIndex} orderItem={orderItem} />
-                        );
-                    })}
+                    {attractionOrder?.activities?.map(
+                        (orderItem, orderItemIndex) => {
+                            return (
+                                <SingleAttrOrderActivitiesTableRow
+                                    key={orderItemIndex}
+                                    orderItem={orderItem}
+                                    attractionOrder={attractionOrder}
+                                />
+                            );
+                        }
+                    )}
                 </tbody>
             </table>
         </div>

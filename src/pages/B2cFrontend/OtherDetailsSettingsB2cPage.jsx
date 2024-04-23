@@ -186,7 +186,7 @@ export default function OtherDetailsSettingsB2cPage() {
                                     <input
                                         type="text"
                                         value={data.tripAdvisorUrl || ""}
-                                        name="instagramUrl"
+                                        name="tripAdvisorUrl"
                                         onChange={handleChange}
                                         placeholder="Enter Trip Advisor Url"
                                     />

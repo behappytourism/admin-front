@@ -43,61 +43,6 @@ export default function AttrAvailabilityForm({ section }) {
 
     return (
         <div className={section === 3 ? "block" : "hidden"}>
-            <div className="flex items-center gap-[10px] ">
-                <input
-                    type="checkbox"
-                    className="w-[16px] h-[16px]"
-                    checked={data?.isCustomDate || false}
-                    onChange={(e) => {
-                        dispatch(
-                            setData({
-                                name: "isCustomDate",
-                                value: e.target.checked,
-                            })
-                        );
-                    }}
-                />
-                <label
-                    htmlFor=""
-                    className="font-[600]  block text-blue-500 items-center"
-                >
-                    Custom Date
-                </label>
-            </div>
-            {data?.isCustomDate && (
-                <div className="grid grid-cols-3 gap-[20px] mt-4">
-                    <div>
-                        <label htmlFor="">Start Date</label>
-                        <input
-                            type="date"
-                            name="startDate"
-                            onChange={handleChange}
-                            value={
-                                data?.startDate
-                                    ? new Date(data?.startDate)
-                                          .toISOString()
-                                          .substring(0, 10)
-                                    : ""
-                            }
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="">End Date</label>
-                        <input
-                            type="date"
-                            name="endDate"
-                            onChange={handleChange}
-                            value={
-                                data?.endDate
-                                    ? new Date(data?.endDate)
-                                          .toISOString()
-                                          .substring(0, 10)
-                                    : ""
-                            }
-                        />
-                    </div>
-                </div>
-            )}
             <div className="mt-8">
                 <table className="w-full max-w-[800px]">
                     <thead className="bg-[#f3f6f9] text-grayColor text-[14px] text-left">
@@ -200,7 +145,62 @@ export default function AttrAvailabilityForm({ section }) {
                         })}
                     </tbody>
                 </table>
+            </div>{" "}
+            <div className="flex items-center gap-[10px] pt-10 ">
+                <input
+                    type="checkbox"
+                    className="w-[16px] h-[16px]"
+                    checked={data?.isCustomDate || false}
+                    onChange={(e) => {
+                        dispatch(
+                            setData({
+                                name: "isCustomDate",
+                                value: e.target.checked,
+                            })
+                        );
+                    }}
+                />
+                <label
+                    htmlFor=""
+                    className="font-[600]  block text-blue-500 items-center"
+                >
+                    Custom Date
+                </label>
             </div>
+            {data?.isCustomDate && (
+                <div className="grid grid-cols-3 gap-[20px] mt-4">
+                    <div>
+                        <label htmlFor="">Start Date</label>
+                        <input
+                            type="date"
+                            name="startDate"
+                            onChange={handleChange}
+                            value={
+                                data?.startDate
+                                    ? new Date(data?.startDate)
+                                          .toISOString()
+                                          .substring(0, 10)
+                                    : ""
+                            }
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="">End Date</label>
+                        <input
+                            type="date"
+                            name="endDate"
+                            onChange={handleChange}
+                            value={
+                                data?.endDate
+                                    ? new Date(data?.endDate)
+                                          .toISOString()
+                                          .substring(0, 10)
+                                    : ""
+                            }
+                        />
+                    </div>
+                </div>
+            )}
             <div className="mt-10">
                 <span className="font-[600] mb-2 block text-blue-500">
                     Custom Off Dates
