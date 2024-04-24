@@ -30,8 +30,10 @@ function EditBannerB2cPage() {
     const [data, setData] = useState({
         banners: [],
     });
-    const { image, handleImageChange, error: imageError } = useImageChange();
-
+    const [categoryModal, setCategoryModal] = useState({
+        isOpen: false,
+        isEdit: false,
+    });
     const [filters, setFilters] = useState({
         skip: 0,
         limit: 10,
@@ -76,7 +78,7 @@ function EditBannerB2cPage() {
         try {
             if (window.confirm("Are you sure to delete?")) {
                 const response = await axios.delete(
-                    `/banners/delete/${id}/${bannerId}`,
+                    `/frontend/b2c/banners/delete/${id}/${bannerId}`,
                     {
                         headers: { authorization: `Bearer ${jwtToken}` },
                     }
@@ -91,7 +93,7 @@ function EditBannerB2cPage() {
             }
         } catch (err) {}
     };
-    console.log(data, "data");
+    console.log(categoryModal, "categoryModal");
 
     return (
         <div>
@@ -127,9 +129,10 @@ function EditBannerB2cPage() {
                                     <button
                                         className="px-3 bg-orange-500"
                                         onClick={() => {
-                                            setIsModalOpen(true);
-                                            setEditIndex("");
-                                            setEdit(false);
+                                            setCategoryModal({
+                                                isOpen: true,
+                                                isEdit: false,
+                                            });
                                         }}
                                     >
                                         New Banner
@@ -142,16 +145,18 @@ function EditBannerB2cPage() {
                             <div>
                                 <div className="">
                                     <div className="">
-                                        <AddBannerModal
-                                            data={data}
-                                            setData={setData}
-                                            setIsModalOpen={setIsModalOpen}
-                                            isModalOpen={isModalOpen}
-                                            edit={edit}
-                                            setEdit={setEdit}
-                                            editIndex={editIndex}
-                                            setEditIndex={setEditIndex}
-                                        />
+                                        {categoryModal?.isOpen && (
+                                            <AddBannerModal
+                                                data={data}
+                                                setData={setData}
+                                                categoryModal={categoryModal}
+                                                setCategoryModal={
+                                                    setCategoryModal
+                                                }
+                                                editIndex={editIndex}
+                                                setEditIndex={setEditIndex}
+                                            />
+                                        )}
                                     </div>
                                 </div>
                                 <div className="mt-[1em]">
@@ -221,14 +226,14 @@ function EditBannerB2cPage() {
                                                                         <button
                                                                             className="h-auto bg-transparent text-green-500 text-xl"
                                                                             onClick={() => {
-                                                                                setIsModalOpen(
-                                                                                    true
-                                                                                );
                                                                                 setEditIndex(
                                                                                     index
                                                                                 );
-                                                                                setEdit(
-                                                                                    true
+                                                                                setCategoryModal(
+                                                                                    {
+                                                                                        isOpen: true,
+                                                                                        isEdit: true,
+                                                                                    }
                                                                                 );
                                                                             }}
                                                                         >

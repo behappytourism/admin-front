@@ -8,8 +8,8 @@ import { config } from "../../../constants";
 import { BtnLoader } from "../../../components";
 
 export default function AddBannerModal({
-    setIsModalOpen,
-    isModalOpen,
+    categoryModal,
+    setCategoryModal,
     setData,
     data,
     editIndex,
@@ -25,12 +25,19 @@ export default function AddBannerModal({
     const [isLoading, setIsLoading] = useState(false);
     console.log(editIndex, data?.banners[editIndex]?.title, "editIndex");
     const [initial, setInitial] = useState({
-        title: data?.banners[editIndex]?.title || "",
-        body: data?.banners[editIndex]?.body || "",
-        imageUrl: data?.banners[editIndex]?.image || "",
-        isButton: data.banners[editIndex]?.isButton || false,
-        buttonText: data?.banners[editIndex]?.buttonText || "",
-        buttonUrl: data?.banners[editIndex]?.buttonUrl || "",
+        title: (categoryModal?.isEdit && data?.banners[editIndex]?.title) || "",
+        body: (categoryModal?.isEdit && data?.banners[editIndex]?.body) || "",
+        imageUrl:
+            (categoryModal?.isEdit && data?.banners[editIndex]?.image) || "",
+        isButton:
+            (categoryModal?.isEdit && data.banners[editIndex]?.isButton) ||
+            false,
+        buttonText:
+            (categoryModal?.isEdit && data?.banners[editIndex]?.buttonText) ||
+            "",
+        buttonUrl:
+            (categoryModal?.isEdit && data?.banners[editIndex]?.buttonUrl) ||
+            "",
     });
     const { id } = useParams();
 
@@ -63,7 +70,7 @@ export default function AddBannerModal({
             formData.append("buttonUrl", initial.buttonUrl);
             formData.append("image", image);
 
-            if (edit) {
+            if (categoryModal?.isEdit) {
                 const response = await axios.patch(
                     b2b
                         ? `/frontend/b2b/banners/edit/single/${id}/${data?.banners[editIndex]?._id}`
@@ -93,8 +100,8 @@ export default function AddBannerModal({
                     banners: response.data.banners,
                 }));
             }
-            setIsModalOpen(false);
-            setEdit(false);
+
+            setCategoryModal({ isOpen: false, isEdit: false });
             setEditIndex("");
             setIsLoading(false);
         } catch (err) {
@@ -104,26 +111,15 @@ export default function AddBannerModal({
             setIsLoading(false);
         }
     };
-    useEffect(() => {
-        setInitial({
-            title: data?.banners[editIndex]?.title || "",
-            body: data?.banners[editIndex]?.body || "",
-            imageUrl: data?.banners[editIndex]?.image || "",
-            isButton: data?.banners[editIndex]?.isButton || false,
-            buttonText: data?.banners[editIndex]?.buttonText || "",
-            buttonUrl: data?.banners[editIndex]?.buttonUrl || "",
-        });
-    }, [editIndex, data]);
 
-    console.log(image, "image");
-
-    useHandleClickOutside(wrapperRef, () => setIsModalOpen(false));
+    useHandleClickOutside(wrapperRef, () =>
+        setCategoryModal({ isEdit: false, isOpen: false })
+    );
 
     return (
         <div
             className={
-                "fixed inset-0 w-full h-full bg-[#fff5] flex items-center justify-center z-20 " +
-                (isModalOpen ? "block" : "hidden")
+                "fixed inset-0 w-full h-full bg-[#fff5] flex items-center justify-center z-20 "
             }
         >
             <div
@@ -133,11 +129,13 @@ export default function AddBannerModal({
                 <div className="flex items-center justify-between border-b p-4">
                     <h2 className="font-medium mb-2">
                         {" "}
-                        {edit ? "Edit Details" : "Add Details"}
+                        {categoryModal?.isEdit ? "Update  " : "Add  "}{" "}
                     </h2>
                     <button
                         className="h-auto bg-transparent text-textColor text-xl"
-                        onClick={() => setIsModalOpen(false)}
+                        onClick={() =>
+                            setCategoryModal({ isOpen: false, isEdit: false })
+                        }
                     >
                         <MdClose />
                     </button>
@@ -231,11 +229,11 @@ export default function AddBannerModal({
                         <button className="px-3" onClick={handleDataChange}>
                             {isLoading ? (
                                 <BtnLoader />
-                            ) : edit ? (
-                                "Edit Banner"
+                            ) : categoryModal?.isEdit ? (
+                                "Update Banner"
                             ) : (
                                 "Add Banner"
-                            )}{" "}
+                            )}
                         </button>
                     </div>
                 </div>

@@ -159,8 +159,8 @@ export default function SeoProductListPage() {
                         {categoryModal?.isOpen && (
                             <AddSeoSearchModal
                                 categoryModal={categoryModal}
-                                selectedCategory={selectedCategory}
                                 setCategoryModal={setCategoryModal}
+                                selectedCategory={selectedCategory}
                                 addCategory={addCategory}
                                 updateCategory={updateCategory}
                             />

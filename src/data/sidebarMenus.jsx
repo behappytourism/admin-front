@@ -177,102 +177,102 @@ const sidebarMenus = {
     //         ],
     //     },
     // ],
-    // Hotel: [
-    //     {
-    //         name: "Hotels List",
-    //         icon: <BiHotel />,
-    //         link: "/hotels",
-    //         permission: ["hotels", "view"],
-    //     },
-    //     {
-    //         name: "Boards List",
-    //         icon: <MdOutlineFastfood />,
-    //         link: "/hotels/boards",
-    //         permission: ["hotel-boards", "view"],
-    //     },
-    //     {
-    //         name: "Hotel Groups",
-    //         icon: <AiOutlineGroup />,
-    //         link: "/hotels/groups",
-    //         permission: ["hotel-groups", "view"],
-    //     },
-    //     {
-    //         name: "Hotel Chains",
-    //         icon: <AiOutlineUngroup />,
-    //         link: "/hotels/chains",
-    //         permission: ["hotel-chains", "view"],
-    //     },
-    //     {
-    //         name: "Star Categories",
-    //         icon: <MdOutlineHotelClass />,
-    //         link: "/hotels/star-categories",
-    //         permission: ["star-categories", "view"],
-    //     },
-    //     {
-    //         name: "Hotel Amenities",
-    //         icon: <RiHotelFill />,
-    //         link: "/hotels/amenities",
-    //         permission: ["hotel-amenities", "view"],
-    //     },
-    //     {
-    //         name: "Accommodation Types",
-    //         icon: <RiHotelLine />,
-    //         link: "/hotels/accommodation-types",
-    //         permission: ["accommodation-types", "view"],
-    //     },
-    //     {
-    //         name: "Room Occupancies",
-    //         icon: <HiOutlineUsers />,
-    //         link: "/hotels/room-occupancies",
-    //         permission: ["room-occupancies", "view"],
-    //     },
-    //     {
-    //         name: "Inventory Control",
-    //         icon: <MdEventAvailable />,
-    //         link: "/hotels/availability",
-    //         permission: ["hotel-availability", "view"],
-    //     },
-    //     {
-    //         name: "Hotel Requests",
-    //         icon: <BiMessageDetail />,
-    //         link: "/hotels/requests",
-    //         permission: ["hotel-requests", "view"],
-    //     },
-    //     {
-    //         name: "Reservation",
-    //         icon: <AiOutlineShoppingCart />,
-    //         link: "/hotels/reservation",
-    //         permission: ["reservations", "view"],
-    //     },
-    //     // {
-    //     //     name: "Comparison List",
-    //     //     icon: <BiGitCompare />,
-    //     //     link: "/hotels/comparison-list",
-    //     //     permission: ["hotels", "view"],
-    //     // },
-    //     {
-    //         name: "Hotel Settings",
-    //         icon: <MdAdminPanelSettings />,
-    //         link: "#",
-    //         dropdown: [
-    //             {
-    //                 name: "Featured Hotels",
-    //                 link: "/hotels/featured-hotels",
-    //                 permission: ["hotels-settings", "view"],
-    //             },
-    //             {
-    //                 name: "Hotel Banner Ads",
-    //                 link: "/hotels/banner-ads",
-    //                 permission: ["hotels-settings", "view"],
-    //             },
-    //             {
-    //                 name: "Cache Settings",
-    //                 link: "/hotels/cache-settings",
-    //                 permission: ["hotels-settings", "view"],
-    //             },
-    //         ],
-    //     },
-    // ],
+    Hotel: [
+        {
+            name: "Hotels List",
+            icon: <BiHotel />,
+            link: "/hotels",
+            permission: ["hotels", "view"],
+        },
+        //     {
+        //         name: "Boards List",
+        //         icon: <MdOutlineFastfood />,
+        //         link: "/hotels/boards",
+        //         permission: ["hotel-boards", "view"],
+        //     },
+        //     {
+        //         name: "Hotel Groups",
+        //         icon: <AiOutlineGroup />,
+        //         link: "/hotels/groups",
+        //         permission: ["hotel-groups", "view"],
+        //     },
+        //     {
+        //         name: "Hotel Chains",
+        //         icon: <AiOutlineUngroup />,
+        //         link: "/hotels/chains",
+        //         permission: ["hotel-chains", "view"],
+        //     },
+        //     {
+        //         name: "Star Categories",
+        //         icon: <MdOutlineHotelClass />,
+        //         link: "/hotels/star-categories",
+        //         permission: ["star-categories", "view"],
+        //     },
+        //     {
+        //         name: "Hotel Amenities",
+        //         icon: <RiHotelFill />,
+        //         link: "/hotels/amenities",
+        //         permission: ["hotel-amenities", "view"],
+        //     },
+        //     {
+        //         name: "Accommodation Types",
+        //         icon: <RiHotelLine />,
+        //         link: "/hotels/accommodation-types",
+        //         permission: ["accommodation-types", "view"],
+        //     },
+        //     {
+        //         name: "Room Occupancies",
+        //         icon: <HiOutlineUsers />,
+        //         link: "/hotels/room-occupancies",
+        //         permission: ["room-occupancies", "view"],
+        //     },
+        //     {
+        //         name: "Inventory Control",
+        //         icon: <MdEventAvailable />,
+        //         link: "/hotels/availability",
+        //         permission: ["hotel-availability", "view"],
+        //     },
+        //     {
+        //         name: "Hotel Requests",
+        //         icon: <BiMessageDetail />,
+        //         link: "/hotels/requests",
+        //         permission: ["hotel-requests", "view"],
+        //     },
+        //     {
+        //         name: "Reservation",
+        //         icon: <AiOutlineShoppingCart />,
+        //         link: "/hotels/reservation",
+        //         permission: ["reservations", "view"],
+        //     },
+        //     // {
+        //     //     name: "Comparison List",
+        //     //     icon: <BiGitCompare />,
+        //     //     link: "/hotels/comparison-list",
+        //     //     permission: ["hotels", "view"],
+        //     // },
+        //     {
+        //         name: "Hotel Settings",
+        //         icon: <MdAdminPanelSettings />,
+        //         link: "#",
+        //         dropdown: [
+        //             {
+        //                 name: "Featured Hotels",
+        //                 link: "/hotels/featured-hotels",
+        //                 permission: ["hotels-settings", "view"],
+        //             },
+        //             {
+        //                 name: "Hotel Banner Ads",
+        //                 link: "/hotels/banner-ads",
+        //                 permission: ["hotels-settings", "view"],
+        //             },
+        //             {
+        //                 name: "Cache Settings",
+        //                 link: "/hotels/cache-settings",
+        //                 permission: ["hotels-settings", "view"],
+        //             },
+        //         ],
+        //     },
+    ],
     // Flight: [
     //     {
     //         name: "Bookings",

@@ -14,17 +14,21 @@ import {
     HotelMediaForm,
     HotelRestAndBarForm,
 } from "../../features/AddHotel";
-import { fetchInitialData, initiateHotelFormFields, resetHotelForm } from "../../redux/slices/hotelFormSlice";
+import {
+    fetchInitialData,
+    initiateHotelFormFields,
+    resetHotelForm,
+} from "../../redux/slices/hotelFormSlice";
 import { hasPermission } from "../../utils";
 
 const sections = {
     "-details": "Details",
-    "-configuration": "Configuration",
-    "-description": "Description",
-    "-amenities": "Amenities",
-    "-rest-and-bar": "Restaurant & Bar",
-    "-contact": "Contact Info",
-    "-media": "Media",
+    // "-configuration": "Configuration",
+    // "-description": "Description",
+    // "-amenities": "Amenities",
+    // "-rest-and-bar": "Restaurant & Bar",
+    // "-contact": "Contact Info",
+    // "-media": "Media",
 };
 
 export default function EditHotelPage() {
@@ -58,14 +62,25 @@ export default function EditHotelPage() {
     };
 
     const goForward = () => {
-        if (Object.keys(sections).indexOf(selectedSection) < Object.keys(sections).length - 1) {
-            setSelectedSection(Object.keys(sections)[Object.keys(sections).indexOf(selectedSection) + 1]);
+        if (
+            Object.keys(sections).indexOf(selectedSection) <
+            Object.keys(sections).length - 1
+        ) {
+            setSelectedSection(
+                Object.keys(sections)[
+                    Object.keys(sections).indexOf(selectedSection) + 1
+                ]
+            );
         }
     };
 
     const goBack = () => {
         if (Object.keys(sections).indexOf(selectedSection) > 0) {
-            setSelectedSection(Object.keys(sections)[Object.keys(sections).indexOf(selectedSection) - 1]);
+            setSelectedSection(
+                Object.keys(sections)[
+                    Object.keys(sections).indexOf(selectedSection) - 1
+                ]
+            );
         }
     };
 
@@ -106,19 +121,25 @@ export default function EditHotelPage() {
                     <div className="bg-white rounded shadow-sm">
                         <div className="p-4">
                             <ul className="dir-btn">
-                                {Object.keys(sections)?.map((section, index) => {
-                                    return (
-                                        <li
-                                            key={index}
-                                            className={selectedSection === section ? "active" : ""}
-                                            onClick={() => {
-                                                setSelectedSection(section);
-                                            }}
-                                        >
-                                            <span>{sections[section]}</span>
-                                        </li>
-                                    );
-                                })}
+                                {Object.keys(sections)?.map(
+                                    (section, index) => {
+                                        return (
+                                            <li
+                                                key={index}
+                                                className={
+                                                    selectedSection === section
+                                                        ? "active"
+                                                        : ""
+                                                }
+                                                onClick={() => {
+                                                    setSelectedSection(section);
+                                                }}
+                                            >
+                                                <span>{sections[section]}</span>
+                                            </li>
+                                        );
+                                    }
+                                )}
                             </ul>
                         </div>
 
@@ -127,7 +148,7 @@ export default function EditHotelPage() {
                                 selectedSection={selectedSection}
                                 isEditPermission={isEditPermission}
                             />
-                            <HotelConfigurationForm
+                            {/* <HotelConfigurationForm
                                 selectedSection={selectedSection}
                                 isEditPermission={isEditPermission}
                             />
@@ -152,7 +173,7 @@ export default function EditHotelPage() {
                                 newImages={newImages}
                                 setNewImages={setNewImages}
                                 isEditPermission={isEditPermission}
-                            />
+                            /> */}
                             <HotelEditFormButtons
                                 newImages={newImages}
                                 next={

@@ -187,6 +187,7 @@ export default function AddSeoSearchModal({
             setIsLoading(false);
         }
     };
+    console.log(image, "image");
 
     return (
         <div className="fixed inset-0 w-full h-full bg-[#fff5] flex items-center justify-center z-20 ">

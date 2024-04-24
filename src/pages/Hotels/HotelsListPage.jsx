@@ -438,14 +438,14 @@ function HotelsListPage() {
                                                                 </button>
                                                             )}
 
-                                                            <Link to={`${hotel?._id}/room-types`}>
+                                                            {/* <Link to={`${hotel?._id}/room-types`}>
                                                                 <button
                                                                     className="h-auto bg-transparent text-green-500 text-xl flex items-center justify-center"
                                                                     title="Hotel Settings"
                                                                 >
                                                                     <AiOutlineSetting />
                                                                 </button>
-                                                            </Link>
+                                                            </Link> */}
                                                             <Link to={`${hotel?._id}/edit`}>
                                                                 <button
                                                                     className="h-auto bg-transparent text-green-500 text-xl flex items-center justify-center"
@@ -454,7 +454,7 @@ function HotelsListPage() {
                                                                     <BiEditAlt />
                                                                 </button>
                                                             </Link>
-                                                            <button
+                                                            {/* <button
                                                                 className="h-auto bg-transparent font-[500] text-xl underline text-blue-500 flex items-center justify-center gap-1"
                                                                 onClick={() =>
                                                                     handleContractsDownload(
@@ -465,7 +465,7 @@ function HotelsListPage() {
                                                                 title="Download Contracts And Promotions"
                                                             >
                                                                 <FiDownload />
-                                                            </button>
+                                                            </button> */}
                                                         </div>
                                                     </td>
                                                 </tr>

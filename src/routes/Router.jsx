@@ -394,10 +394,10 @@ const ThemeRoutes = [
                 element: <EditGuidePage />,
             },
 
-            // {
-            //     path: "/hotels",
-            //     element: <HotelsListPage />,
-            // },
+            {
+                path: "/hotels",
+                element: <HotelsListPage />,
+            },
             // {
             //     path: "/hotels/comparison-list",
             //     element: <HotelComparisonList />,
@@ -426,14 +426,14 @@ const ThemeRoutes = [
             //     path: "/hotels/room-occupancies/:occupancyId/edit",
             //     element: <EditRoomOccupanciesPage />,
             // },
-            // {
-            //     path: "/hotels/add",
-            //     element: <AddHotelPage />,
-            // },
-            // {
-            //     path: "/hotels/:id/edit",
-            //     element: <EditHotelPage />,
-            // },
+            {
+                path: "/hotels/add",
+                element: <AddHotelPage />,
+            },
+            {
+                path: "/hotels/:id/edit",
+                element: <EditHotelPage />,
+            },
             // {
             //     path: "/hotels/:id/room-types/add",
             //     element: <AddRoomTypePage />,

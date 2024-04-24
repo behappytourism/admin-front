@@ -50,12 +50,12 @@ const adminRoles = [
     },
 
     // HOTEL
-    // {
-    //     name: "hotels",
-    //     displayName: "Hotels",
-    //     category: "hotel",
-    //     permissions: [],
-    // },
+    {
+        name: "hotels",
+        displayName: "Hotels",
+        category: "hotel",
+        permissions: [],
+    },
     // {
     //     name: "hotel-boards",
     //     displayName: "Hotel Boards",

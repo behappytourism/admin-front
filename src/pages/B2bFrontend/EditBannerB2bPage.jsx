@@ -30,7 +30,11 @@ function EditBannerB2bPage() {
     const [data, setData] = useState({
         banners: [],
     });
-    const { image, handleImageChange, error: imageError } = useImageChange();
+
+    const [categoryModal, setCategoryModal] = useState({
+        isOpen: false,
+        isEdit: false,
+    });
 
     const [filters, setFilters] = useState({
         skip: 0,
@@ -128,8 +132,10 @@ function EditBannerB2bPage() {
                                         className="px-3 bg-orange-500"
                                         onClick={() => {
                                             setEditIndex("");
-                                            setIsModalOpen(true);
-                                            setEdit(false);
+                                            setCategoryModal({
+                                                isOpen: true,
+                                                isEdit: false,
+                                            });
                                         }}
                                     >
                                         New Banner
@@ -145,10 +151,8 @@ function EditBannerB2bPage() {
                                         <AddBannerModal
                                             data={data}
                                             setData={setData}
-                                            setIsModalOpen={setIsModalOpen}
-                                            isModalOpen={isModalOpen}
-                                            edit={edit}
-                                            setEdit={setEdit}
+                                            categoryModal={categoryModal}
+                                            setCategoryModal={setCategoryModal}
                                             editIndex={editIndex}
                                             setEditIndex={setEditIndex}
                                             b2b={true}
@@ -225,11 +229,11 @@ function EditBannerB2bPage() {
                                                                                 setIsModalOpen(
                                                                                     true
                                                                                 );
-                                                                                setEditIndex(
-                                                                                    index
-                                                                                );
-                                                                                setEdit(
-                                                                                    true
+                                                                                setCategoryModal(
+                                                                                    {
+                                                                                        isOpen: true,
+                                                                                        isEdit: true,
+                                                                                    }
                                                                                 );
                                                                             }}
                                                                         >

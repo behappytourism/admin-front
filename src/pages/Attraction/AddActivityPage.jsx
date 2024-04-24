@@ -721,7 +721,7 @@ export default function AddActivityPage() {
                                         />
                                     )}
                                 </div>
-                                <div className="mt-5">
+                                {/* <div className="mt-5">
                                     <div className="flex items-center gap-[10px]">
                                         <input
                                             type="checkbox"
@@ -737,12 +737,18 @@ export default function AddActivityPage() {
                                             }
                                         />
                                         <label htmlFor="" className="mb-0">
-                                            Enable/Add Vat
+                                            Enable Vat Exclusive
                                         </label>
                                     </div>
+                                    <span className="pt-2 text-[12px] text-red-500">
+                                        (If Vat exclusive is not added then cost
+                                        is vat inclusive )
+                                    </span>
                                     {data.isVat && (
                                         <div className="mt-2">
-                                            <label htmlFor="">Vat</label>
+                                            <label htmlFor="">
+                                                Vat Exclusive In Percentage
+                                            </label>
                                             <input
                                                 type="number"
                                                 name="vat"
@@ -753,7 +759,7 @@ export default function AddActivityPage() {
                                             />
                                         </div>
                                     )}
-                                </div>
+                                </div> */}
                                 <div className="mt-4">
                                     <label htmlFor="">Images</label>
                                     <input
