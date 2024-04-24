@@ -226,7 +226,7 @@ export default function SingleAttrOrderActivitiesTableRow({
                                 : "bg-[#f7b84b1A] text-[#f7b84b]")
                         }
                     >
-                        orderData?.status{" "}
+                        {orderData?.status}
                     </span>
                 )}
             </td>
