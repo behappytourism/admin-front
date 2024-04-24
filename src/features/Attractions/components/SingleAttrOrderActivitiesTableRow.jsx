@@ -38,7 +38,7 @@ export default function SingleAttrOrderActivitiesTableRow({
                 {
                     orderId: attractionOrder?._id,
                     bookingId: orderItem?._id,
-                    orderedBy: "b2b",
+                    orderedBy: section,
                 },
                 {
                     headers: { authorization: `Bearer ${jwtToken}` },
@@ -194,41 +194,41 @@ export default function SingleAttrOrderActivitiesTableRow({
             </td>
             <td className="p-3">{orderItem?.grandTotal} AED</td>
             <td className="p-3">
-                <span
-                    className={
-                        "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
-                        (orderData?.status === "cancelled"
-                            ? "bg-[#f065481A] text-[#f06548]"
-                            : orderData?.status === "confirmed"
-                            ? "text-[#0ab39c] bg-[#0ab39c1A]"
-                            : "bg-[#f7b84b1A] text-[#f7b84b]")
-                    }
-                >
-                    {orderData?.status === "booked" ? (
-                        <div onClick={(e) => e.stopPropagation()}>
-                            <select
-                                className="h-[35px] py-0 w-[90px] mt-5"
-                                onChange={(e) => {
-                                    if (e.target.value === "confirm") {
-                                        setIsBookingConfirmationModalOpen(true);
-                                    } else if (e.target.value === "cancel") {
-                                        e.target.value = e.target.value;
-                                        handleOrderStatusChange();
-                                    }
-                                }}
-                                value={orderData.status}
-                            >
-                                <option value="" hidden>
-                                    Booked
-                                </option>
-                                <option value="confirm">Confirm</option>
-                                <option value="cancel">Cancel</option>
-                            </select>
-                        </div>
-                    ) : (
-                        orderData?.status
-                    )}
-                </span>
+                {orderData?.status === "booked" ? (
+                    <div onClick={(e) => e.stopPropagation()}>
+                        <select
+                            className="h-[35px] py-0 w-[90px] mt-5"
+                            onChange={(e) => {
+                                if (e.target.value === "confirm") {
+                                    setIsBookingConfirmationModalOpen(true);
+                                } else if (e.target.value === "cancel") {
+                                    e.target.value = e.target.value;
+                                    handleOrderStatusChange();
+                                }
+                            }}
+                            value={orderData.status}
+                        >
+                            <option value="" hidden>
+                                Booked
+                            </option>
+                            <option value="confirm">Confirm</option>
+                            <option value="cancel">Cancel</option>
+                        </select>
+                    </div>
+                ) : (
+                    <span
+                        className={
+                            "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
+                            (orderData?.status === "cancelled"
+                                ? "bg-[#f065481A] text-[#f06548]"
+                                : orderData?.status === "confirmed"
+                                ? "text-[#0ab39c] bg-[#0ab39c1A]"
+                                : "bg-[#f7b84b1A] text-[#f7b84b]")
+                        }
+                    >
+                        orderData?.status{" "}
+                    </span>
+                )}
             </td>
             {isBookingConfirmationModalOpen && (
                 <BookingConfirmationModal
@@ -238,7 +238,7 @@ export default function SingleAttrOrderActivitiesTableRow({
                     setOrderData={setOrderData}
                     orderId={attractionOrder?._id}
                     bookingId={orderItem?._id}
-                    orderedBy={"b2b"}
+                    orderedBy={section}
                 />
             )}
         </tr>
