@@ -749,6 +749,9 @@ export default function SingleOrderDetailsPage() {
                                                                 attractionOrder={
                                                                     order?.attractionOrder
                                                                 }
+                                                                section={
+                                                                    section
+                                                                }
                                                             />
                                                         );
                                                     }

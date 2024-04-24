@@ -1,6 +1,6 @@
 // VITE_NODE_ENV = PROD_LIVE, PROD_LOCAL, TEST_LIVE, TEST_LOCAL
 const testLocal = {
-    SERVER_URL: "http://localhost:8189",
+    SERVER_URL: "http://localhost:8180",
     COMPANY_NAME: "Be Happy",
     COMPANY_LOGO:
         "https://login.mytravellerschoice.com/assets/logo-2c140806.png",

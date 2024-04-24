@@ -15,9 +15,9 @@ import BookingConfirmationModal from "../../Orders/components/BookingConfirmatio
 export default function SingleAttrOrderActivitiesTableRow({
     orderItem,
     attractionOrder,
+    section,
 }) {
     const [isTicketsListModalOpen, setIsTicketsListModalOpen] = useState(false);
-    console.log(orderItem, "OrderItem: " + orderItem);
     const { orderId } = useParams();
     const { jwtToken } = useSelector((state) => state.admin);
     const [isBookingConfirmationModalOpen, setIsBookingConfirmationModalOpen] =
@@ -56,13 +56,24 @@ export default function SingleAttrOrderActivitiesTableRow({
     };
     const handleDownloadTickets = async () => {
         try {
-            const pdfBuffer = await axios.get(
-                `/attractions/orders/${attractionOrder?._id}/orderItems/${orderItem?._id}/tickets`,
-                {
-                    headers: { authorization: `Bearer ${jwtToken}` },
-                    responseType: "arraybuffer",
-                }
-            );
+            let pdfBuffer;
+            if (section === "b2b") {
+                pdfBuffer = await axios.get(
+                    `/attractions/orders/b2b/${attractionOrder?._id}/orderItems/${orderItem?._id}/tickets`,
+                    {
+                        headers: { authorization: `Bearer ${jwtToken}` },
+                        responseType: "arraybuffer",
+                    }
+                );
+            } else if (section === "b2c") {
+                pdfBuffer = await axios.get(
+                    `/attractions/orders/b2c/${attractionOrder?._id}/orderItems/${orderItem?._id}/tickets`,
+                    {
+                        headers: { authorization: `Bearer ${jwtToken}` },
+                        responseType: "arraybuffer",
+                    }
+                );
+            }
 
             console.log(pdfBuffer, "pdfBuffer");
             const blob = new Blob([pdfBuffer.data], {

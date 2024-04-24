@@ -458,6 +458,7 @@ export default function SingleAttractionB2bOrderDetailsPage() {
                             <div className="mt-10">
                                 <SingleAttrOrderActivitiesTable
                                     attractionOrder={attractionOrder}
+                                    section={"b2b"}
                                 />
                             </div>
 

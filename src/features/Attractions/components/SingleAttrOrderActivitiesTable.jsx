@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import BookingConfirmationModal from "../../Orders/components/BookingConfirmationModal";
 import SingleAttrOrderActivitiesTableRow from "./SingleAttrOrderActivitiesTableRow";
 
-export default function SingleAttrOrderActivitiesTable({ attractionOrder }) {
+export default function SingleAttrOrderActivitiesTable({
+    attractionOrder,
+    section,
+}) {
     return (
         <div>
             <table className="w-full">
@@ -25,6 +28,7 @@ export default function SingleAttrOrderActivitiesTable({ attractionOrder }) {
                                     key={orderItemIndex}
                                     orderItem={orderItem}
                                     attractionOrder={attractionOrder}
+                                    section={section}
                                 />
                             );
                         }
