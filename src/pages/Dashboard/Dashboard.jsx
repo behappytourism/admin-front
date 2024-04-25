@@ -32,7 +32,7 @@ export default function Dashboard() {
         latestOrders: [],
     });
     const [section, setSection] = useState("b2b");
-    const [limit, setLimit] = useState(0);
+    const [limit, setLimit] = useState(10);
     const [isPageLoading, setIsPageLoading] = useState(true);
 
     const { admin, jwtToken } = useSelector((state) => state.admin);
