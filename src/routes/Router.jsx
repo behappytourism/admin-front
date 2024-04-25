@@ -288,6 +288,8 @@ import HomeBannerB2bPage from "../pages/B2bFrontend/HomeBannerB2bPage";
 import EditBannerB2bPage from "../pages/B2bFrontend/EditBannerB2bPage";
 import EditBannerB2cPage from "../pages/B2cFrontend/EditBannerB2cPage";
 import B2bEnquiryDetailPage from "../pages/Resellers/B2BEnquiryDetailPage.jsx";
+import SingleUserOrdersPage from "../pages/Users/SingleUserOrderPage";
+import SingleResellerOrdersPage from "../pages/Resellers/SingleReselerOrderPage";
 
 const ThemeRoutes = [
     {
@@ -960,13 +962,17 @@ const ThemeRoutes = [
                         element: <SingleResellerTransactionsPage />,
                     },
                     {
-                        path: "attractions-ticket-orders",
-                        element: <SingleResellerAttractionTicketOrdersPage />,
+                        path: "orders",
+                        element: <SingleResellerOrdersPage />,
                     },
-                    {
-                        path: "attractions-booking-orders",
-                        element: <SingleResellerAttractionBookingOrdersPage />,
-                    },
+                    // {
+                    //     path: "attractions-ticket-orders",
+                    //     element: <SingleResellerAttractionTicketOrdersPage />,
+                    // },
+                    // {
+                    //     path: "attractions-booking-orders",
+                    //     element: <SingleResellerAttractionBookingOrdersPage />,
+                    // },
                     {
                         path: "sub-agents",
                         element: <SingleResellerSubAgentsPage />,
@@ -983,10 +989,10 @@ const ThemeRoutes = [
                         path: "admin-access",
                         element: <SingleResellerAdminAccessPage />,
                     },
-                    {
-                        path: "market-strategy",
-                        element: <ResellerMarketStrategyPage />,
-                    },
+                    // {
+                    //     path: "market-strategy",
+                    //     element: <ResellerMarketStrategyPage />,
+                    // },
                     // {
                     //     path: "hotel-settings",
                     //     element: <SingleResellerHotelSettingsPage />,
@@ -1301,17 +1307,17 @@ const ThemeRoutes = [
                         element: <SingleUserTransactionsPage />,
                     },
                     {
-                        path: "attractions-ticket-orders",
-                        element: <SingleUserAttractionTicketOrdersPage />,
+                        path: "orders",
+                        element: <SingleUserOrdersPage />,
                     },
-                    {
-                        path: "attractions-booking-orders",
-                        element: <SingleUserAttractionBookingOrdersPage />,
-                    },
-                    {
-                        path: "point-history",
-                        element: <SingleUserPointHistoryPage />,
-                    },
+                    // {
+                    //     path: "attractions-booking-orders",
+                    //     element: <SingleUserAttractionBookingOrdersPage />,
+                    // },
+                    // {
+                    //     path: "point-history",
+                    //     element: <SingleUserPointHistoryPage />,
+                    // },
                 ],
             },
 

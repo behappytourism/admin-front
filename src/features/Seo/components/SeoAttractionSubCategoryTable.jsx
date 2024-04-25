@@ -56,7 +56,7 @@ export default function SeoAttractionSubCategoryTablePage({}) {
                                     </div>
                                 </td>
                             </tr>
-                            <tr className="border-b border-tableBorderColor">
+                            {/* <tr className="border-b border-tableBorderColor">
                                 <td className="p-3">
                                     <span className="block">Stand Alone</span>
                                 </td>
@@ -70,7 +70,7 @@ export default function SeoAttractionSubCategoryTablePage({}) {
                                         </Link>
                                     </div>
                                 </td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
                 </div>

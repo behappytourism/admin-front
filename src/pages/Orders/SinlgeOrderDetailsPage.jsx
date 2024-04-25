@@ -178,19 +178,44 @@ export default function SingleOrderDetailsPage() {
                                                 "MMM D, YYYY HH:mm"
                                             )}
                                         </span>
-                                        <span className="block mt-2 font-[500] text-sm">
-                                            <Link
-                                                to={`/b2b/${order?.reseller?._id}/details`}
-                                                className="underline text-blue-500"
-                                            >
-                                                {order?.reseller?.companyName}
-                                            </Link>{" "}
-                                            - ({order?.reseller?.agentCode})
-                                        </span>
-                                        <span className="block mt-1 text-sm">
-                                            {order?.reseller?.name} (
-                                            {order?.reseller?.email})
-                                        </span>
+                                        {section === "b2b" ? (
+                                            <>
+                                                {" "}
+                                                <span className="block mt-2 font-[500] text-sm">
+                                                    <Link
+                                                        to={`/b2b/${order?.reseller?._id}/details`}
+                                                        className="underline text-blue-500"
+                                                    >
+                                                        {
+                                                            order?.reseller
+                                                                ?.companyName
+                                                        }
+                                                    </Link>{" "}
+                                                    - (
+                                                    {order?.reseller?.agentCode}
+                                                    )
+                                                </span>
+                                                <span className="block mt-1 text-sm">
+                                                    {order?.reseller?.name} (
+                                                    {order?.reseller?.email})
+                                                </span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                {" "}
+                                                <span className="block mt-2 font-[500] text-sm">
+                                                    <Link
+                                                        to={`/users/${order?.user?._id}/details`}
+                                                        className="underline text-blue-500"
+                                                    >
+                                                        {order?.user?.name}
+                                                    </Link>{" "}
+                                                </span>
+                                                <span className="block mt-1 text-sm">
+                                                    {order?.user?.email}
+                                                </span>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-[25px] ">
@@ -200,7 +225,7 @@ export default function SingleOrderDetailsPage() {
                                                 Download Invoice
                                             </span>
                                             <span
-                                                className="font-[600] text-lg text-green-600 flex items-center"
+                                                className="font-[600] text-lg text-green-600 flex items-center cursor-pointer"
                                                 onClick={handleDownloadInvoice}
                                             >
                                                 <AiOutlineDownload />

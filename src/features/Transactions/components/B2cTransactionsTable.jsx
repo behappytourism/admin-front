@@ -33,7 +33,9 @@ export default function B2cTransactionsTable({
                                     className="border-b border-tableBorderColor"
                                 >
                                     <td className="p-3">
-                                        #{transaction?.b2cTransactionNo || "00000"}
+                                        #
+                                        {transaction?.b2cTransactionNo ||
+                                            "00000"}
                                     </td>
                                     <td className="p-3">
                                         <span className="capitalize">

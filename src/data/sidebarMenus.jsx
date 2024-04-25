@@ -885,7 +885,7 @@ const sidebarMenus = {
     // },
     Users: [
         {
-            name: "Users",
+            name: "B2c Users",
             link: "/users",
             icon: <HiOutlineUsers />,
             permission: ["users", "view"],

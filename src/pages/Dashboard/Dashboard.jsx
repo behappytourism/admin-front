@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import {
@@ -11,11 +11,70 @@ import {
     totalRevenuePng,
     usersPng,
 } from "../../assets/images";
+import axios from "../../axios";
+import { PageLoader } from "../../components";
+import {
+    TopSellingActivitiesCard,
+    TopSellingResellersCard,
+} from "../../features/AttractionsStatistics";
 import { TopCard } from "../../features/Dashboard";
+import B2bDashboardCard from "../../features/Dashboard/components/B2bDashboardCard";
+import B2cDashboardCard from "../../features/Dashboard/components/B2cDashboardCard";
+import LatestOrdersCard from "../../features/Orders/components/LatestOrderCard";
 
 export default function Dashboard() {
-    const { admin } = useSelector((state) => state.admin);
+    const [data, setData] = useState({
+        totalProfit: "",
+        totalCost: "",
+        totalOrders: "",
+        topSellingResellers: [],
+        topSellingActivities: [],
+        latestOrders: [],
+    });
+    const [section, setSection] = useState("b2b");
+    const [limit, setLimit] = useState(0);
+    const [isPageLoading, setIsPageLoading] = useState(true);
 
+    const { admin, jwtToken } = useSelector((state) => state.admin);
+    const fetchDashboardData = async () => {
+        try {
+            setIsPageLoading(true);
+
+            const response = await axios.get(
+                `/dashboard/all?section=${section}&limit=${limit}`,
+                {
+                    headers: { authorization: `Bearer ${jwtToken}` },
+                }
+            );
+
+            setData((prev) => {
+                return {
+                    ...prev,
+                    totalProfit: response.data?.totalProfit || 0,
+                    totalCost: response.data?.totalCost || 0,
+                    totalPrice: response.data?.totalPrice || 0,
+                    totalOrders: response.data?.totalOrders || [],
+                    topSellingActivities:
+                        response.data?.topSellingActivities || [],
+                    topSellingResellers:
+                        response.data?.topSellingResellers || [],
+                    latestOrders: response.data?.latestOrders || [],
+                };
+            });
+            setIsPageLoading(false);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const handleSectionChange = (e, value) => {
+        e.preventDefault();
+        setSection(value);
+    };
+
+    useEffect(() => {
+        fetchDashboardData();
+    }, [section, limit]);
     return (
         <div className="p-6">
             <div className="flex items-center justify-between gap-[10px] mb-5">
@@ -28,110 +87,63 @@ export default function Dashboard() {
                     </span>
                 </div>
                 <div>
-                    <select name="" id="" className="w-[150px]">
-                        <option value="">All Time</option>
+                    <select
+                        name="limit"
+                        id=""
+                        className="w-[150px]"
+                        onChange={(e) => {
+                            setLimit(e.target.value);
+                        }}
+                    >
+                        <option value="1">30</option>
+                        <option value="60">60</option>
+                        <option value="180">180</option>
+                        <option value="360">360</option>
                     </select>
                 </div>
             </div>
+            <div className="flex items-center gap-[13px] px-4 border-b border-b-dahsed">
+                <button
+                    className={
+                        "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
+                        (section === "b2b"
+                            ? "border-b border-b-orange-500"
+                            : "")
+                    }
+                    onClick={(e) => {
+                        handleSectionChange(e, "b2b");
+                    }}
+                >
+                    B2B
+                </button>
 
-            <div className="grid grid-cols-4 gap-6">
-                <TopCard
-                    title={"Total Revenue"}
-                    value={300}
-                    link="/"
-                    linkText="View all details"
-                    icon={totalRevenuePng}
-                    isAmount={true}
-                />
-                <TopCard
-                    title={"Total Booking Received"}
-                    value={3}
-                    link="/"
-                    linkText="View all booking"
-                    icon={bookingReceivedPng}
-                />
-                <TopCard
-                    title={"Total Booking Confimed"}
-                    value={2}
-                    link="/"
-                    linkText="View all booking"
-                    icon={bookingConfirmedPng}
-                />
-                <TopCard
-                    title={"Total Booking Cancelled"}
-                    value={1}
-                    link="/"
-                    linkText="View all booking"
-                    icon={bookingCancelledPng}
-                />
-                <TopCard
-                    title={"Total Users Signed"}
-                    value={20}
-                    link="/"
-                    linkText="View all booking"
-                    icon={usersPng}
-                />
-                <TopCard
-                    title={"Total Ticket Bought"}
-                    value={10}
-                    link="/"
-                    linkText="View all booking"
-                    icon={ticketBoughtPng}
-                />
-                <TopCard
-                    title={"Total Ticket Confirmed"}
-                    value={6}
-                    link="/"
-                    linkText="View all booking"
-                    icon={ticketConfirmedPng}
-                />
-                <TopCard
-                    title={"Total Ticket Cancelled"}
-                    value={4}
-                    link="/"
-                    linkText="View all booking"
-                    icon={ticketCancelledPng}
-                />
+                <button
+                    className={
+                        "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
+                        (section === "b2c"
+                            ? "border-b border-b-orange-500"
+                            : "")
+                    }
+                    onClick={(e) => {
+                        handleSectionChange(e, "b2c");
+                    }}
+                >
+                    B2C
+                </button>
             </div>
 
-            <div className="bg-white rounded shadow-sm mt-6">
-                <div className="flex items-center justify-between border-b border-dashed p-4">
-                    <h1 className="font-medium">Recent Orders</h1>
+            {isPageLoading ? (
+                <PageLoader />
+            ) : (
+                <div className="mt-5">
+                    <div className={` ${section === "b2b" ? "" : "hidden"}`}>
+                        <B2bDashboardCard data={data} />{" "}
+                    </div>
+                    <div className={` ${section === "b2c" ? "" : "hidden"}`}>
+                        <B2cDashboardCard data={data} />
+                    </div>
                 </div>
-                <table className="w-full">
-                    <thead className="bg-[#f3f6f9] text-grayColor text-[14px] text-left">
-                        <tr>
-                            <th className="font-[500] p-3">Ref.No</th>
-                            <th className="font-[500] p-3">Activity</th>
-                            <th className="font-[500] p-3">Bookig Type</th>
-                            <th className="font-[500] p-3">Adults</th>
-                            <th className="font-[500] p-3">Children</th>
-                            <th className="font-[500] p-3">Infant</th>
-                            <th className="font-[500] p-3">Price</th>
-                            <th className="font-[500] p-3">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody className="text-sm">
-                        <tr className="border-b border-tableBorderColor">
-                            <td className="p-3">#63b2cc</td>
-                            <td className="p-3">
-                                Pearl Heli Tour (12 Mins. Ride)
-                            </td>
-                            <td className="p-3">January 3, 2023</td>
-                            <td className="p-3">
-                                <span className="block text-sm capitalize">
-                                    Test
-                                </span>
-                                <span>test@email.com</span>
-                            </td>
-                            <td className="p-3 ">1</td>
-                            <td className="p-3">0</td>
-                            <td className="p-3">0</td>
-                            <td className="p-3">153 AED</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            )}
         </div>
     );
 }

@@ -7,7 +7,10 @@ import { useParams } from "react-router-dom";
 
 import axios from "../../axios";
 import { PageLoader } from "../../components";
-import { B2bTransactionsTable } from "../../features/Transactions";
+import {
+    B2bTransactionsTable,
+    B2cTransactionsTable,
+} from "../../features/Transactions";
 
 export default function SingleUserTransactionsPage() {
     const [transactions, setTransactions] = useState([]);
@@ -239,7 +242,7 @@ export default function SingleUserTransactionsPage() {
                     </span>
                 </div>
             ) : (
-                <B2bTransactionsTable
+                <B2cTransactionsTable
                     transactions={transactions}
                     filters={filters}
                     setFilters={setFilters}

@@ -155,7 +155,7 @@ export default function SingleAttrOrderActivitiesTableRow({
             <td className="p-3">
                 {orderItem?.bookingType === "booking" ? (
                     <div className="flex items-center gap-2">
-                        <span className="bg-[#f3f6f9] py-1 px-2 text-sm rounded">
+                        <span className="bg-[#f3f6f9] py-1 px-2 text-sm rounded cursor-pointer">
                             {orderItem?.bookingConfirmationNumber || "N/A"}
                         </span>
                         <button
@@ -174,7 +174,7 @@ export default function SingleAttrOrderActivitiesTableRow({
                             <AiFillEye />
                         </button>
                         <button
-                            className="h-auto bg-transparent text-[#333] text-lg"
+                            className="h-auto bg-transparent text-[#333] text-lg cursor-pointer"
                             onClick={handleDownloadTickets}
                         >
                             <FiDownload />

@@ -203,7 +203,7 @@ function HotelsListPage() {
                 <div className="bg-white rounded shadow-sm">
                     <div className="flex items-center justify-between border-b border-dashed p-4">
                         <h1 className="font-medium">All Hotels</h1>
-                        <div className="flex items-center gap-[15px]">
+                        {/* <div className="flex items-center gap-[15px]">
                             <Link to="add">
                                 <button className="px-3 whitespace-nowrap bg-orange-500">+ Add Hotel</button>
                             </Link>
@@ -214,7 +214,7 @@ function HotelsListPage() {
                                 <FiDownload />
                                 Download
                             </button>
-                        </div>
+                        </div> */}
                     </div>
 
                     <form

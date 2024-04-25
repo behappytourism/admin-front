@@ -203,43 +203,17 @@ export default function SingleUserLayout() {
                                     Transactions
                                 </button>
                             </Link>
-                            <Link to="./attractions-ticket-orders">
+                            <Link to="./orders">
                                 <button
                                     className={
                                         "px-2 py-4 h-auto bg-transparent text-textColor font-medium rounded-none " +
                                         (location.pathname.split("/")[3] ===
-                                        "attractions-ticket-orders"
+                                        "orders"
                                             ? "border-b border-b-orange-500"
                                             : "")
                                     }
                                 >
-                                    Attraction Ticket Orders
-                                </button>
-                            </Link>
-                            <Link to="./attractions-booking-orders">
-                                <button
-                                    className={
-                                        "px-2 py-4 h-auto bg-transparent text-textColor font-medium rounded-none " +
-                                        (location.pathname.split("/")[3] ===
-                                        "attractions-booking-orders"
-                                            ? "border-b border-b-orange-500"
-                                            : "")
-                                    }
-                                >
-                                    Attraction Booking Orders
-                                </button>
-                            </Link>
-                            <Link to="./point-history">
-                                <button
-                                    className={
-                                        "px-2 py-4 h-auto bg-transparent text-textColor font-medium rounded-none " +
-                                        (location.pathname.split("/")[3] ===
-                                        "point-history"
-                                            ? "border-b border-b-orange-500"
-                                            : "")
-                                    }
-                                >
-                                    Point History
+                                    Orders
                                 </button>
                             </Link>
                         </div>
