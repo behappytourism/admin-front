@@ -148,15 +148,19 @@ function EditBannerB2bPage() {
                             <div>
                                 <div className="">
                                     <div className="">
-                                        <AddBannerModal
-                                            data={data}
-                                            setData={setData}
-                                            categoryModal={categoryModal}
-                                            setCategoryModal={setCategoryModal}
-                                            editIndex={editIndex}
-                                            setEditIndex={setEditIndex}
-                                            b2b={true}
-                                        />
+                                        {categoryModal?.isOpen && (
+                                            <AddBannerModal
+                                                data={data}
+                                                setData={setData}
+                                                categoryModal={categoryModal}
+                                                setCategoryModal={
+                                                    setCategoryModal
+                                                }
+                                                editIndex={editIndex}
+                                                setEditIndex={setEditIndex}
+                                                b2b={true}
+                                            />
+                                        )}
                                     </div>
                                 </div>
                                 <div className="mt-[1em]">

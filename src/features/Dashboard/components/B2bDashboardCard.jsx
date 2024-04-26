@@ -1,6 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { bookingCancelledPng, bookingConfirmedPng, bookingReceivedPng, totalRevenuePng } from "../../../assets/images";
+import {
+    bookingCancelledPng,
+    bookingConfirmedPng,
+    bookingReceivedPng,
+    totalRevenuePng,
+} from "../../../assets/images";
 import {
     TopSellingActivitiesCard,
     TopSellingResellersCard,
@@ -14,7 +19,7 @@ export default function B2bDashboardCard({ data }) {
             {" "}
             <div className="grid grid-cols-4 gap-6">
                 <TopCard
-                    title={"Total Price"}
+                    title={"Total Turn Over"}
                     value={data.totalPrice}
                     link="/"
                     linkText="View all details"
@@ -29,7 +34,7 @@ export default function B2bDashboardCard({ data }) {
                     icon={bookingReceivedPng}
                 />
                 <TopCard
-                    title={"Total Profit"}
+                    title={"Total Revenue"}
                     value={data.totalProfit}
                     link="/"
                     linkText="View all booking"
