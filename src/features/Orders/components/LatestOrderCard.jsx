@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function LatestOrdersCard({ data }) {
+export default function LatestOrdersCard({ data, section }) {
+    console.log(section, data, "section");
     return (
         <div className="bg-white rounded shadow-sm h-max">
             <div className="p-4 border-b border-b-dashed">
@@ -20,7 +21,11 @@ export default function LatestOrdersCard({ data }) {
                             <thead className="bg-[#f3f6f9] text-grayColor text-[14px] text-left">
                                 <tr>
                                     <th className="font-[500] p-3">#</th>
-                                    <th className="font-[500] p-3">Reseller</th>
+                                    <th className="font-[500] p-3">
+                                        {section === "b2b"
+                                            ? "Reseller"
+                                            : "Customer"}
+                                    </th>
                                     <th className="font-[500] p-3">Date</th>
                                     <th className="font-[500] p-3">Price</th>
                                     <th className="font-[500] p-3">Cost</th>
@@ -38,24 +43,40 @@ export default function LatestOrdersCard({ data }) {
                                             className="border-b border-tableBorderColor"
                                         >
                                             <td className="p-3">{index + 1}</td>
-                                            <td className="p-3">
-                                                <Link
-                                                    to={`/b2b/${item?.reseller?._id}/details`}
-                                                >
-                                                    <span>
-                                                        {
-                                                            item?.reseller
-                                                                ?.companyName
-                                                        }
-                                                    </span>
-                                                    <span className="block">
-                                                        {
-                                                            item?.reseller
-                                                                ?.agentCode
-                                                        }
-                                                    </span>
-                                                </Link>
-                                            </td>
+                                            {section === "b2b" ? (
+                                                <td className="p-3">
+                                                    <Link
+                                                        to={`/orders/single/${item?._id}/${section}`}
+                                                    >
+                                                        <span>
+                                                            {
+                                                                item?.reseller
+                                                                    ?.companyName
+                                                            }
+                                                        </span>
+                                                        <span className="block">
+                                                            {
+                                                                item?.reseller
+                                                                    ?.agentCode
+                                                            }
+                                                        </span>
+                                                    </Link>
+                                                </td>
+                                            ) : (
+                                                <td className="p-3">
+                                                    <Link
+                                                        to={`/orders/single/${item?._id}/${section}`}
+                                                    >
+                                                        <span>
+                                                            {item?.name}
+                                                        </span>
+                                                        <span className="block">
+                                                            {item?.email}
+                                                        </span>
+                                                    </Link>
+                                                </td>
+                                            )}
+
                                             <td className="p-3">
                                                 {item?.createdAt}
                                             </td>

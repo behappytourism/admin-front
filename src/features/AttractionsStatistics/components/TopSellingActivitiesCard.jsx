@@ -35,31 +35,26 @@ export default function TopSellingActivitiesCard({ data }) {
                                             key={index}
                                             className="border-b border-tableBorderColor"
                                         >
+                                            <td className="p-3">{index + 1}</td>
                                             <td className="p-3">
-                                                {index + 1}
-                                            </td>
-                                            <td className="p-3">
-                                                <Link
+                                                {/* <Link
                                                     to={`/attractions/${item?.attraction?._id}/edit?section=2`}
-                                                >
-                                                    <div className="flex items-center gap-[10px]">
-                                                        <img
-                                                            src={
-                                                                config.SERVER_URL +
-                                                                item?.attraction
-                                                                    ?.images[0]
-                                                            }
-                                                            alt=""
-                                                            className="w-[40px] h-[30px] object-cover rounded"
-                                                        />
-                                                        <span>
-                                                            {
-                                                                item?.activity
-                                                                    ?.name
-                                                            }
-                                                        </span>
-                                                    </div>
-                                                </Link>
+                                                > */}
+                                                <div className="flex items-center gap-[10px]">
+                                                    <img
+                                                        src={
+                                                            config.SERVER_URL +
+                                                            item?.attraction
+                                                                ?.images[0]
+                                                        }
+                                                        alt=""
+                                                        className="w-[40px] h-[30px] object-cover rounded"
+                                                    />
+                                                    <span>
+                                                        {item?.activity?.name}
+                                                    </span>
+                                                </div>
+                                                {/* </Link> */}
                                             </td>
                                             <td className="p-3">
                                                 {item?.count}

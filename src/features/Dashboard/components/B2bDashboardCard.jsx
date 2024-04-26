@@ -27,19 +27,20 @@ export default function B2bDashboardCard({ data }) {
                     isAmount={true}
                 />
                 <TopCard
-                    title={"Total Cost"}
-                    value={data.totalCost}
-                    link="/"
-                    linkText="View all booking"
-                    icon={bookingReceivedPng}
-                />
-                <TopCard
                     title={"Total Revenue"}
                     value={data.totalProfit}
                     link="/"
                     linkText="View all booking"
                     icon={bookingConfirmedPng}
                 />
+                <TopCard
+                    title={"Total Cost"}
+                    value={data.totalCost}
+                    link="/"
+                    linkText="View all booking"
+                    icon={bookingReceivedPng}
+                />
+
                 <TopCard
                     title={"Total Orders"}
                     value={data.totalOrders}
@@ -77,13 +78,17 @@ export default function B2bDashboardCard({ data }) {
     /> */}
             </div>
             <div className="grid grid-cols-2 gap-4 mt-5">
+                <LatestOrdersCard
+                    data={data.latestOrders || []}
+                    section="b2b"
+                />
                 <TopSellingActivitiesCard
                     data={data.topSellingActivities || []}
                 />
                 <TopSellingResellersCard
                     data={data.topSellingResellers || []}
+                    section="b2b"
                 />
-                <LatestOrdersCard data={data.latestOrders || []} />
             </div>
         </div>
     );
