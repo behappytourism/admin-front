@@ -80,6 +80,19 @@ export default function Dashboard() {
             [name]: value,
         }));
     };
+    useEffect(() => {
+        const today = new Date();
+        const todayFormatted = today.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+
+        const fromDate = new Date(today);
+        fromDate.setDate(fromDate.getDate() - 30);
+        const fromDateFormatted = fromDate.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+
+        setLimit({
+            fromDate: fromDateFormatted,
+            toDate: todayFormatted,
+        });
+    }, []);
 
     useEffect(() => {
         fetchDashboardData();
@@ -96,8 +109,9 @@ export default function Dashboard() {
                         Here's what's happening with your website today.
                     </span>
                 </div>
-                <div className="gap-10">
-                    <td className="border w-[140px] min-w-[140px]">
+                <div className="">
+                    <td className=" w-[140px] min-w-[140px]">
+                        <label>From Date</label>
                         <input
                             type="date"
                             name="fromDate"
@@ -106,7 +120,9 @@ export default function Dashboard() {
                             className="h-[100%] px-2 border-0"
                         />
                     </td>
-                    <td className="border w-[140px] min-w-[140px]">
+                    <td className=" w-[140px] min-w-[140px] pl-10">
+                        <label>To Date</label>
+
                         <input
                             type="date"
                             name="toDate"
