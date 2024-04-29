@@ -21,6 +21,7 @@ import { TopCard } from "../../features/Dashboard";
 import B2bDashboardCard from "../../features/Dashboard/components/B2bDashboardCard";
 import B2cDashboardCard from "../../features/Dashboard/components/B2cDashboardCard";
 import LatestOrdersCard from "../../features/Orders/components/LatestOrderCard";
+import { formatDate } from "../../utils";
 
 export default function Dashboard() {
     const [data, setData] = useState({
@@ -32,7 +33,7 @@ export default function Dashboard() {
         latestOrders: [],
     });
     const [section, setSection] = useState("b2b");
-    const [limit, setLimit] = useState(10);
+    const [limit, setLimit] = useState({ fromDate: "", toDate: "" });
     const [isPageLoading, setIsPageLoading] = useState(true);
 
     const { admin, jwtToken } = useSelector((state) => state.admin);
@@ -41,7 +42,7 @@ export default function Dashboard() {
             setIsPageLoading(true);
 
             const response = await axios.get(
-                `/dashboard/all?section=${section}&limit=${limit}`,
+                `/dashboard/all?section=${section}&fromDate=${limit.fromDate}&toDate=${limit.toDate}`,
                 {
                     headers: { authorization: `Bearer ${jwtToken}` },
                 }
@@ -72,9 +73,18 @@ export default function Dashboard() {
         setSection(value);
     };
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setLimit((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
     useEffect(() => {
         fetchDashboardData();
     }, [section, limit]);
+    console.log(section, limit?.fromDate, limit);
     return (
         <div className="p-6">
             <div className="flex items-center justify-between gap-[10px] mb-5">
@@ -86,20 +96,25 @@ export default function Dashboard() {
                         Here's what's happening with your website today.
                     </span>
                 </div>
-                <div>
-                    <select
-                        name="limit"
-                        id=""
-                        className="w-[150px]"
-                        onChange={(e) => {
-                            setLimit(e.target.value);
-                        }}
-                    >
-                        <option value="1">30</option>
-                        <option value="60">60</option>
-                        <option value="180">180</option>
-                        <option value="360">360</option>
-                    </select>
+                <div className="gap-10">
+                    <td className="border w-[140px] min-w-[140px]">
+                        <input
+                            type="date"
+                            name="fromDate"
+                            value={limit?.fromDate || ""}
+                            onChange={(e) => handleChange(e)}
+                            className="h-[100%] px-2 border-0"
+                        />
+                    </td>
+                    <td className="border w-[140px] min-w-[140px]">
+                        <input
+                            type="date"
+                            name="toDate"
+                            value={limit?.toDate || ""}
+                            onChange={(e) => handleChange(e)}
+                            className="h-[100%]  px-2  border-0"
+                        />
+                    </td>
                 </div>
             </div>
             <div className="flex items-center gap-[13px] px-4 border-b border-b-dahsed">
