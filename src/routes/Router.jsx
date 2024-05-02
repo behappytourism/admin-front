@@ -290,6 +290,9 @@ import EditBannerB2cPage from "../pages/B2cFrontend/EditBannerB2cPage";
 import B2bEnquiryDetailPage from "../pages/Resellers/B2BEnquiryDetailPage.jsx";
 import SingleUserOrdersPage from "../pages/Users/SingleUserOrderPage";
 import SingleResellerOrdersPage from "../pages/Resellers/SingleReselerOrderPage";
+import EmailConfigListPage from "../pages/EmailConfig/EmailConfigListPage";
+import AddEmailConfigPage from "../pages/EmailConfig/AddEmailConfigPage";
+import EditEmailConfigPage from "../pages/EmailConfig/EditEmailConfigPage";
 
 const ThemeRoutes = [
     {
@@ -1452,6 +1455,21 @@ const ThemeRoutes = [
             {
                 path: "/seo/main-category/:id/category/:categoryId/sub-category/:subCategoryId",
                 element: <SeoProductListPage />,
+            },
+
+            // email config
+
+            {
+                path: "/email-config",
+                element: <EmailConfigListPage />,
+            },
+            {
+                path: "/email-config/add",
+                element: <AddEmailConfigPage />,
+            },
+            {
+                path: "/email-config/:id/edit",
+                element: <EditEmailConfigPage />,
             },
         ],
     },

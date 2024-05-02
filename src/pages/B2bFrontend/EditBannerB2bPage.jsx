@@ -230,8 +230,8 @@ function EditBannerB2bPage() {
                                                                         <button
                                                                             className="h-auto bg-transparent text-green-500 text-xl"
                                                                             onClick={() => {
-                                                                                setIsModalOpen(
-                                                                                    true
+                                                                                setEditIndex(
+                                                                                    index
                                                                                 );
                                                                                 setCategoryModal(
                                                                                     {

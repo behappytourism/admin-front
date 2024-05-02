@@ -73,23 +73,14 @@ export default function TransferOrderPage() {
 
             const searchQuery = `skip=${filters?.skip}&limit=${filters.limit}&referenceNo=${filters.referenceNo}&status=${filters.status}&attraction=${filters.attraction}&activity=${filters.activity}&dateFrom=${filters.dateFrom}&dateTo=${filters.dateTo}&travellerEmail=${filters.travellerEmail}&agentCode=${filters.agentCode}`;
             let response;
-            if (section === "b2c") {
-                response = await axios.get(
-                    `/transfers/order/b2c/all?bookingType=ticket&${searchQuery}`,
-                    {
-                        headers: { authorization: `Bearer ${jwtToken}` },
-                    }
-                );
-            } else if (section === "reseller" || section === "sub-agent") {
-                response = await axios.get(
-                    `/transfers/order/list/all?orderedBy=${section}&${searchQuery}`,
-                    {
-                        headers: { authorization: `Bearer ${jwtToken}` },
-                    }
-                );
-            } else {
-                throw new Error("invalid arguments");
-            }
+
+            response = await axios.get(
+                `/transfers/order/list/all?orderedBy=${section}&${searchQuery}`,
+                {
+                    headers: { authorization: `Bearer ${jwtToken}` },
+                }
+            );
+
             setOrders(response?.data?.transferOrders || []);
             setFilters((prev) => {
                 return {
@@ -304,20 +295,21 @@ export default function TransferOrderPage() {
                         >
                             B2b
                         </button>
+
                         <button
                             className={
                                 "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
-                                (section === "sub-agent"
+                                (section === "b2c"
                                     ? "border-b border-b-orange-500"
                                     : "")
                             }
                             onClick={() =>
                                 setSearchParams((prev) => {
-                                    return { ...prev, section: "sub-agent" };
+                                    return { ...prev, section: "b2c" };
                                 })
                             }
                         >
-                            Sub Agent
+                            B2C
                         </button>
                     </div>
 

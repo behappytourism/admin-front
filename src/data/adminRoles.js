@@ -584,6 +584,15 @@ const adminRoles = [
         category: "marketing",
         permissions: [],
     },
+
+    //email config
+
+    {
+        name: "email-config",
+        displayName: "Email Config",
+        category: "settings",
+        permissions: [],
+    },
 ];
 
 export default adminRoles;

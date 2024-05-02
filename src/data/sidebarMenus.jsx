@@ -417,12 +417,13 @@ const sidebarMenus = {
                     link: "/transfers/area-group",
                     permission: ["transfers", "view"],
                 },
-                {
-                    name: "Transfer Order",
-                    link: "/transfers/orders",
-                    permission: ["transfers", "view"],
-                },
             ],
+        },
+        {
+            name: "Transfer Order",
+            link: "/transfers/orders",
+            icon: <RiSteeringFill />,
+            permission: ["transfers-orders", "view"],
         },
         {
             name: "Vehicle",
@@ -1019,11 +1020,12 @@ const sidebarMenus = {
         //     icon: <MdPayment />,
         //     link: "/payment-settings/services",
         // },
-        // {
-        //     name: "OTP Settings",
-        //     icon: <MdPassword />,
-        //     link: "/otp-settings",
-        // },
+        {
+            name: "Email Config",
+            link: "/email-config",
+            icon: <RiSteeringFill />,
+            permission: ["email-config", "view"],
+        },
         {
             name: "Invoice Settings",
             icon: <FiHome />,
