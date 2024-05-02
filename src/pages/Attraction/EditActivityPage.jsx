@@ -175,12 +175,12 @@ export default function EditActivityPage() {
             formData.append("adultAgeLimit", data?.adultAgeLimit);
             formData.append("childAgeLimit", data?.childAgeLimit);
             formData.append("infantAgeLimit", data?.infantAgeLimit);
-            formData.append("adultCost", data?.adultCost);
-            formData.append("childCost", data?.childCost);
-            formData.append("infantCost", data?.infantCost);
-            formData.append("hourlyCost", data?.hourlyCost);
+            formData.append("adultCost", data?.adultCost || "");
+            formData.append("childCost", data?.childCost || "");
+            formData.append("infantCost", data?.infantCost || "");
+            formData.append("hourlyCost", data?.hourlyCost || "");
             formData.append("isVat", data?.isVat);
-            formData.append("vat", data?.vat);
+            formData.append("vat", data?.vat || "");
             formData.append("base", data?.base);
             formData.append(
                 "isSharedTransferAvailable",
