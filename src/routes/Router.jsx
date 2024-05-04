@@ -1464,11 +1464,11 @@ const ThemeRoutes = [
                 element: <EmailConfigListPage />,
             },
             {
-                path: "/email-config/add",
+                path: "/email-config/add/:section",
                 element: <AddEmailConfigPage />,
             },
             {
-                path: "/email-config/:id/edit",
+                path: "/email-config/:id/edit/:section",
                 element: <EditEmailConfigPage />,
             },
         ],

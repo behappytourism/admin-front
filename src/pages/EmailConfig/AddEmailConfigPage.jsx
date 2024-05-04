@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import axios from "../../axios";
-import { BtnLoader } from "../../components";
+import { BtnLoader, MultipleSelectDropdown } from "../../components";
 import { useImageChange } from "../../hooks";
 
 export default function AddEmailConfigPage() {
     const [data, setData] = useState({
+        product: "",
         email: "",
         password: "",
         host: "",
         port: "",
         secure: false,
+        actions: [],
     });
+
+    const products = ["attraction", "transfer", "general"];
+    const actions = [
+        { name: "confirm" },
+        { name: "reject" },
+        { name: "cancel" },
+        { name: "order" },
+    ];
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
-
+    const { section } = useParams();
     const { jwtToken } = useSelector((state) => state.admin);
     const navigate = useNavigate();
 
@@ -32,13 +42,18 @@ export default function AddEmailConfigPage() {
             setIsLoading(true);
             setError("");
 
-            await axios.patch("/email-config/update", data, {
-                headers: { authorization: `Bearer ${jwtToken}` },
-            });
+            await axios.patch(
+                "/email-config/update",
+                { ...data, type: section },
+                {
+                    headers: { authorization: `Bearer ${jwtToken}` },
+                }
+            );
 
             setIsLoading(false);
             navigate("/email-config");
         } catch (err) {
+            console.log(err);
             setError(
                 err?.response?.data?.error || "Something went wrong, Try again"
             );
@@ -67,16 +82,42 @@ export default function AddEmailConfigPage() {
                     <form action="" onSubmit={handleSubmit}>
                         <div className="grid grid-cols-3 gap-4">
                             <div>
-                                <label htmlFor=""> Type *</label>
+                                <label htmlFor=""> Products *</label>
                                 <select
-                                    value={data.type || ""}
-                                    name="type"
+                                    value={data.product || ""}
+                                    name="product"
                                     onChange={handleChange}
                                 >
                                     <option hidden>Select Type</option>
-                                    <option value="products">Products</option>
-                                    <option value="action">Action</option>
+                                    {products.map((product) => {
+                                        return (
+                                            <option value={product}>
+                                                {product}
+                                            </option>
+                                        );
+                                    })}
                                 </select>
+                            </div>
+                            <div>
+                                <label htmlFor="">Actions</label>
+                                <div className="">
+                                    <MultipleSelectDropdown
+                                        data={actions}
+                                        displayName={"name"}
+                                        selectedData={data.actions || []}
+                                        setSelectedData={(datas) =>
+                                            setData((prev) => {
+                                                return {
+                                                    ...prev,
+                                                    actions: datas,
+                                                };
+                                            })
+                                        }
+                                        valueName={"name"}
+                                        randomIndex={"actions"}
+                                        disabled={false}
+                                    />
+                                </div>
                             </div>
                             <div>
                                 <label htmlFor="">Email</label>

@@ -16,6 +16,7 @@ export default function EmailConfigListPage() {
         totalAirlines: 0,
         searchQuery: "",
     });
+    const [section, setSection] = useState("b2b");
 
     const { jwtToken } = useSelector((state) => state.admin);
 
@@ -23,7 +24,7 @@ export default function EmailConfigListPage() {
         try {
             setIsLoading(true);
             const response = await axios.get(
-                `/email-config/all?skip=${filters.skip}&limit=${filters.limit}&searchQuery=${filters.searchQuery}`,
+                `/email-config/all?skip=${filters.skip}&limit=${filters.limit}&searchQuery=${filters.searchQuery}&type=${section}`,
                 {
                     headers: { authorization: `Bearer ${jwtToken}` },
                 }
@@ -35,6 +36,10 @@ export default function EmailConfigListPage() {
         } catch (err) {
             console.log(err);
         }
+    };
+    const handleSectionChange = (e, value) => {
+        e.preventDefault();
+        setSection(value);
     };
 
     const deleteAirline = async (id) => {
@@ -57,7 +62,7 @@ export default function EmailConfigListPage() {
 
     useEffect(() => {
         fetchEmailConfigs();
-    }, []);
+    }, [section]);
 
     return (
         <div>
@@ -90,7 +95,7 @@ export default function EmailConfigListPage() {
                                             };
                                         });
                                     } else {
-                                        fetchAirlines();
+                                        fetchEmailConfigs();
                                     }
                                 }}
                                 className="flex items-center gap-3"
@@ -115,10 +120,39 @@ export default function EmailConfigListPage() {
                                     Search
                                 </button>
                             </form>
-                            <Link to="add">
+                            <Link to={`add/${section}`}>
                                 <button className="px-3">+ Add Config</button>
                             </Link>
                         </div>
+                    </div>
+                    <div className="flex items-center gap-[13px] px-4 border-b border-b-dahsed">
+                        <button
+                            className={
+                                "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
+                                (section === "b2b"
+                                    ? "border-b border-b-orange-500"
+                                    : "")
+                            }
+                            onClick={(e) => {
+                                handleSectionChange(e, "b2b");
+                            }}
+                        >
+                            B2B
+                        </button>
+
+                        <button
+                            className={
+                                "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
+                                (section === "b2c"
+                                    ? "border-b border-b-orange-500"
+                                    : "")
+                            }
+                            onClick={(e) => {
+                                handleSectionChange(e, "b2c");
+                            }}
+                        >
+                            B2C
+                        </button>
                     </div>
                     {isLoading ? (
                         <PageLoader />
@@ -178,7 +212,7 @@ export default function EmailConfigListPage() {
                                                             <MdDelete />
                                                         </button>
                                                         <Link
-                                                            to={`${emailConfig?._id}/edit`}
+                                                            to={`${emailConfig?._id}/edit/${section}`}
                                                         >
                                                             <button className="h-auto bg-transparent text-green-500 text-xl">
                                                                 <BiEditAlt />
