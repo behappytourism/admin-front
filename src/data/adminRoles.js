@@ -272,6 +272,12 @@ const adminRoles = [
         category: "core",
         permissions: [],
     },
+    {
+        name: "vendor-list",
+        displayName: "Vendor List",
+        category: "core",
+        permissions: [],
+    },
 
     // b2b wallet
     {
@@ -581,6 +587,12 @@ const adminRoles = [
     {
         name: "seo-main-cateogry",
         displayName: "SEO",
+        category: "marketing",
+        permissions: [],
+    },
+    {
+        name: "promo-code",
+        displayName: "Promo Code",
         category: "marketing",
         permissions: [],
     },

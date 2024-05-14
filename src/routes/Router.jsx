@@ -293,6 +293,15 @@ import SingleResellerOrdersPage from "../pages/Resellers/SingleReselerOrderPage"
 import EmailConfigListPage from "../pages/EmailConfig/EmailConfigListPage";
 import AddEmailConfigPage from "../pages/EmailConfig/AddEmailConfigPage";
 import EditEmailConfigPage from "../pages/EmailConfig/EditEmailConfigPage";
+import PromoCodeListPage from "../pages/PromoCode/PromoCodeListPage";
+import AddPromoCodePage from "../pages/PromoCode/AddPromoCodePage";
+import EditPromoCodePage from "../pages/PromoCode/EditPromoCodePage";
+import VendorListPage from "../pages/Vendor/VendorListPage";
+import AddVendorPage from "../pages/Vendor/AddVendorPage";
+import SingleVendorLayout from "../layouts/SingleVendorLayout";
+import SingleVendorDetailsPage from "../pages/Vendor/SingleVendorDetailPage";
+import UpdateVendorDetailsPage from "../pages/Vendor/UpdateVendorDetailsPage";
+import UpdateVendorConfigPage from "../pages/Vendor/UpdateVendorConfigPage";
 
 const ThemeRoutes = [
     {
@@ -1470,6 +1479,88 @@ const ThemeRoutes = [
             {
                 path: "/email-config/:id/edit/:section",
                 element: <EditEmailConfigPage />,
+            },
+
+            // promocode
+
+            {
+                path: "/promo-code",
+                element: <PromoCodeListPage />,
+            },
+            {
+                path: "/promo-code/add/:section",
+                element: <AddPromoCodePage />,
+            },
+            {
+                path: "/promo-code/:id/edit/:section",
+                element: <EditPromoCodePage />,
+            },
+
+            //vendor
+
+            {
+                path: "/vendor",
+                element: <VendorListPage />,
+            },
+            {
+                path: "/vendor/add",
+                element: <AddVendorPage />,
+            },
+            {
+                path: "/vendor/:id/edit",
+                element: <UpdateVendorDetailsPage />,
+            },
+            {
+                path: "/vendor/:id",
+                element: <SingleVendorLayout />,
+                children: [
+                    { path: "details", element: <SingleVendorDetailsPage /> },
+                    {
+                        path: "transactions",
+                        element: <SingleResellerTransactionsPage />,
+                    },
+                    {
+                        path: "orders",
+                        element: <SingleResellerOrdersPage />,
+                    },
+
+                    // {
+                    //     path: "attractions-ticket-orders",
+                    //     element: <SingleResellerAttractionTicketOrdersPage />,
+                    // },
+                    // {
+                    //     path: "attractions-booking-orders",
+                    //     element: <SingleResellerAttractionBookingOrdersPage />,
+                    // },
+                    {
+                        path: "sub-agents",
+                        element: <SingleResellerSubAgentsPage />,
+                    },
+                    {
+                        path: "special-markup",
+                        element: <SpecialMarkupPage />,
+                    },
+                    {
+                        path: "special-markup/profile/edit",
+                        element: <EditB2bMarkupProfilePage />,
+                    },
+                    {
+                        path: "admin-access",
+                        element: <SingleResellerAdminAccessPage />,
+                    },
+                    // {
+                    //     path: "market-strategy",
+                    //     element: <ResellerMarketStrategyPage />,
+                    // },
+                    // {
+                    //     path: "hotel-settings",
+                    //     element: <SingleResellerHotelSettingsPage />,
+                    // },
+                ],
+            },
+            {
+                path: "/vendor/:id/edit/configurations",
+                element: <UpdateVendorConfigPage />,
             },
         ],
     },

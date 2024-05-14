@@ -58,6 +58,7 @@ import { FaGlobe, FaThList } from "react-icons/fa";
 import { BsFillChatLeftQuoteFill, BsImage } from "react-icons/bs";
 import { IoBusiness, IoWalletOutline } from "react-icons/io5";
 import { TbLicense } from "react-icons/tb";
+import { CiDiscount1 } from "react-icons/ci";
 
 const sidebarMenus = {
     Dashboard: [
@@ -646,6 +647,7 @@ const sidebarMenus = {
                 },
             ],
         },
+
         {
             name: "Location",
             icon: <HiOutlineLocationMarker />,
@@ -674,6 +676,14 @@ const sidebarMenus = {
             icon: <AiOutlineShop />,
             link: "/markets",
             permission: ["markets", "view"],
+        },
+    ],
+    Vendor: [
+        {
+            name: "Vendor List",
+            icon: <HiOutlineCurrencyDollar />,
+            link: "/vendor",
+            permission: ["vendor-list", "view"],
         },
     ],
     Marketing: [
@@ -715,6 +725,12 @@ const sidebarMenus = {
                     permission: ["seo-main-cateogry", "view"],
                 },
             ],
+        },
+        {
+            name: "PromoCode",
+            link: "/promo-code",
+            icon: <CiDiscount1 />,
+            permission: ["promo-code", "view"],
         },
         // {
         //     name: "Whatsapp Settings",
