@@ -823,7 +823,7 @@ export default function EditActivityPage() {
                                         />
                                     )}
                                 </div>
-                                <div className="mt-5">
+                                {/* <div className="mt-5">
                                     <div className="flex items-center gap-[10px]">
                                         <input
                                             type="checkbox"
@@ -855,7 +855,7 @@ export default function EditActivityPage() {
                                             />
                                         </div>
                                     )}
-                                </div>
+                                </div> */}
                                 <div className="mt-4">
                                     <label htmlFor="">Images</label>
                                     <input
