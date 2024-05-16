@@ -1,5 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MdClose } from "react-icons/md";
+import { useSelector } from "react-redux";
+import axios from "../../../axios";
+import { SelectDropdown } from "../../../components";
 
 import { useHandleClickOutside } from "../../../hooks";
 
@@ -11,14 +14,18 @@ export default function AddPrivateTransferModal({
     updatePvtTransfer,
 }) {
     const [data, setData] = useState({
-        name: addPvtTranferModal?.isEdit ? selectedTransfer?.name : "",
-        maxCapacity: addPvtTranferModal?.isEdit
-            ? selectedTransfer?.maxCapacity
+        vehicleTypeId: addPvtTranferModal?.isEdit
+            ? selectedTransfer.vehicleTypeId
             : "",
         price: addPvtTranferModal?.isEdit ? selectedTransfer?.price : "",
         cost: addPvtTranferModal?.isEdit ? selectedTransfer?.cost : "",
+        name: addPvtTranferModal?.isEdit ? selectedTransfer.name : "",
+        maxCapacity: addPvtTranferModal?.isEdit
+            ? selectedTransfer.maxCapacity
+            : "",
     });
-
+    const { jwtToken } = useSelector((state) => state.admin);
+    const [vehicles, setVehicles] = useState([]);
     const wrapperRef = useRef();
 
     useHandleClickOutside(wrapperRef, () =>
@@ -39,6 +46,25 @@ export default function AddPrivateTransferModal({
         }
         setAddPvtTransferModal({ isOpen: false, isEdit: false });
     };
+
+    const fetchVehicleType = async () => {
+        try {
+            const response = await axios.get(
+                `/transfers/vehicles/vehicle-type/list`,
+                {
+                    headers: { authorization: `Bearer ${jwtToken}` },
+                }
+            );
+
+            setVehicles(response?.data);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    useEffect(() => {
+        fetchVehicleType();
+    }, []);
 
     return (
         <div className="fixed inset-0 w-full h-full bg-[#fff5] flex items-center justify-center z-20 ">
@@ -65,26 +91,41 @@ export default function AddPrivateTransferModal({
                     </button>
                 </div>
                 <div className="p-4">
-                    <div>
-                        <label htmlFor="">Name</label>
-                        <input
-                            type="text"
-                            value={data.name || ""}
-                            onChange={handleChange}
-                            name="name"
-                            placeholder="Ex: 7 seater"
-                            required
-                        />
-                    </div>
                     <div className="mt-4">
-                        <label htmlFor="">Maximum Capacity</label>
-                        <input
-                            type="number"
-                            value={data.maxCapacity || ""}
-                            onChange={handleChange}
-                            name="maxCapacity"
-                            placeholder="Ex: 7"
-                            required
+                        <label htmlFor="vehcileTypeId">Vehcile</label>
+                        <SelectDropdown
+                            data={vehicles}
+                            valueName={"_id"}
+                            displayName={"name"}
+                            placeholder="Select Vehicle"
+                            selectedData={data.vehicleTypeId || ""}
+                            setSelectedData={(val) => {
+                                setData((prev) => {
+                                    return {
+                                        ...prev,
+                                        ["vehicleTypeId"]: val,
+                                    };
+                                });
+
+                                const findVeh = vehicles.find(
+                                    (v) => v._id == val
+                                );
+
+                                setData((prev) => {
+                                    return {
+                                        ...prev,
+                                        ["name"]: findVeh.name,
+                                    };
+                                });
+                                setData((prev) => {
+                                    return {
+                                        ...prev,
+                                        ["maxCapacity"]:
+                                            findVeh.normalOccupancy,
+                                    };
+                                });
+                            }}
+                            // disabled={!isEditPermission}
                         />
                     </div>
                     <div className="mt-4">

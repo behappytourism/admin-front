@@ -10,6 +10,9 @@ import ActivityMarkupRow from "../../features/Attractions/components/ActivityMar
 import { MdDelete } from "react-icons/md";
 import { config } from "../../constants";
 import { isImageValid } from "../../utils";
+import ActivityPricingTable from "../../features/Attractions/components/ActivityPricingTable";
+import ActivitySharedPricingTable from "../../features/Attractions/components/ActivitySharedPricingTable";
+import ActivityPrivatePricingTable from "../../features/Attractions/components/ActivityPrivatePricingTable";
 
 export default function EditActivityPage() {
     const [data, setData] = useState({
@@ -44,7 +47,9 @@ export default function EditActivityPage() {
         inculsionsAndExclusions: "",
         overview: "",
     });
-
+    const [ticketPrice, setTicketPrice] = useState([]);
+    const [sharedTransferPrice, setSharedTransferPrice] = useState([]);
+    const [privateTransferPrice, setPrivateTransferPrice] = useState([]);
     const [section, setSection] = useState("activity");
     const [markupUpdate, setMarkupUpdate] = useState([]);
 
@@ -59,6 +64,8 @@ export default function EditActivityPage() {
     const navigate = useNavigate();
     const { jwtToken } = useSelector((state) => state.admin);
     const [newImages, setNewImages] = useState([]);
+    const [vehicles, setVehicles] = useState([]);
+    const [seasons, setSeasons] = useState([]);
 
     const handleChange = (e) => {
         setData((prev) => {
@@ -132,6 +139,35 @@ export default function EditActivityPage() {
         }
     };
 
+    const fetchVehicles = async () => {
+        try {
+            const response = await axios.get(`/transfer/veh/all`, {
+                headers: { authorization: `Bearer ${jwtToken}` },
+            });
+
+            setVehicles(
+                response.data.map((vh) => {
+                    return {
+                        ...vh,
+                        price: 0,
+                    };
+                })
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const fetchSeasons = async () => {
+        try {
+            const response = await axios.get(`/season/all`, {
+                headers: { authorization: `Bearer ${jwtToken}` },
+            });
+
+            setSeasons(response.data.seasons);
+        } catch (err) {}
+    };
+
     useEffect(() => {
         fetchProfiles();
     }, []);
@@ -175,9 +211,7 @@ export default function EditActivityPage() {
             formData.append("adultAgeLimit", data?.adultAgeLimit);
             formData.append("childAgeLimit", data?.childAgeLimit);
             formData.append("infantAgeLimit", data?.infantAgeLimit);
-            formData.append("adultCost", data?.adultCost || "");
-            formData.append("childCost", data?.childCost || "");
-            formData.append("infantCost", data?.infantCost || "");
+            formData.append("ticketPrice", JSON.stringify(ticketPrice || []));
             formData.append("hourlyCost", data?.hourlyCost || "");
             formData.append("isVat", data?.isVat);
             formData.append("vat", data?.vat || "");
@@ -186,8 +220,10 @@ export default function EditActivityPage() {
                 "isSharedTransferAvailable",
                 data?.isSharedTransferAvailable
             );
-            formData.append("sharedTransferPrice", data?.sharedTransferPrice);
-            formData.append("sharedTransferCost", data?.sharedTransferCost);
+            formData.append(
+                "sharedTransferPrice",
+                JSON.stringify(sharedTransferPrice)
+            );
             formData.append("activityType", data?.activityType);
             formData.append(
                 "isPrivateTransferAvailable",
@@ -203,16 +239,17 @@ export default function EditActivityPage() {
             formData.append("b2bPromoAmountChild", data?.b2bPromoAmountChild);
             formData.append("bookingType", attraction?.bookingType);
             formData.append(
-                "privateTransfers",
-                JSON.stringify(privateTransfers)
+                "privateTransferPrice",
+                JSON.stringify(privateTransferPrice)
             );
-            formData.append("oldImages", JSON.stringify(data?.images));
-            formData.append("termsAndConditions", data?.termsAndConditions);
             formData.append(
                 "inculsionsAndExclusions",
                 data?.inculsionsAndExclusions
             );
             formData.append("overview", data?.overview);
+            formData.append("termsAndConditions", data?.termsAndConditions);
+
+            formData.append("oldImages", JSON.stringify(data?.images));
 
             for (let i = 0; i < newImages?.length; i++) {
                 formData.append("images", newImages[i]);
@@ -260,11 +297,11 @@ export default function EditActivityPage() {
                 vat,
                 base,
                 isSharedTransferAvailable,
+                ticketPrice,
                 sharedTransferPrice,
-                sharedTransferCost,
                 activityType,
                 isPrivateTransferAvailable,
-                privateTransfers,
+                privateTransferPrice,
                 isPromoCode,
                 promoCode,
                 promoAmountAdult,
@@ -285,16 +322,13 @@ export default function EditActivityPage() {
                 adultAgeLimit,
                 childAgeLimit,
                 infantAgeLimit,
-                adultCost,
-                childCost,
-                infantCost,
+
                 hourlyCost: hourlyCost || "",
                 isVat: isVat || false,
                 vat: vat || "",
                 base: base || "",
                 isSharedTransferAvailable: isSharedTransferAvailable || false,
-                sharedTransferPrice: sharedTransferPrice || "",
-                sharedTransferCost: sharedTransferCost || "",
+
                 activityType: activityType || "",
                 isPrivateTransferAvailable: isPrivateTransferAvailable || false,
                 images: images || [],
@@ -312,7 +346,18 @@ export default function EditActivityPage() {
             }));
 
             setAttraction(response?.data?.attraction);
-            setPrivateTransfers(privateTransfers || []);
+            // setPrivateTransfers(
+            //     privateTransfers.map((privateTransfer) => {
+            //         return {
+            //             vehicleTypeId: privateTransfer?._id,
+
+            //             price: privateTransfer?.price,
+            //         };
+            //     }) || []
+            // );
+            setTicketPrice(ticketPrice);
+            setSharedTransferPrice(sharedTransferPrice);
+            setPrivateTransferPrice(privateTransferPrice);
 
             setIsPageLoading(false);
         } catch (err) {
@@ -322,6 +367,8 @@ export default function EditActivityPage() {
 
     useEffect(() => {
         fetchActivity();
+        fetchSeasons();
+        fetchVehicles();
     }, []);
 
     const handleSectionChange = (e, value) => {
@@ -388,6 +435,19 @@ export default function EditActivityPage() {
                             <button
                                 className={
                                     "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
+                                    (section === "costing"
+                                        ? "border-b border-b-orange-500"
+                                        : "")
+                                }
+                                onClick={(e) => {
+                                    handleSectionChange(e, "costing");
+                                }}
+                            >
+                                Costing
+                            </button>
+                            <button
+                                className={
+                                    "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
                                     (section === "markup"
                                         ? "border-b border-b-orange-500"
                                         : "")
@@ -430,50 +490,8 @@ export default function EditActivityPage() {
                                             required
                                         />
                                     </div>
-                                    <div>
-                                        <label htmlFor="">Activity Type</label>
-                                        <select
-                                            name="activityType"
-                                            value={data.activityType || ""}
-                                            onChange={handleChange}
-                                            id=""
-                                            required
-                                        >
-                                            <option value="" hidden>
-                                                Select Activity Type
-                                            </option>
-                                            <option value="normal">
-                                                Normal Activity
-                                            </option>
-                                            {attraction?.bookingType ===
-                                                "booking" && (
-                                                <option value="transfer">
-                                                    Transfer Activity
-                                                </option>
-                                            )}
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="">Base</label>
-                                        <select
-                                            name="base"
-                                            value={data.base || ""}
-                                            onChange={handleChange}
-                                            required
-                                            id=""
-                                        >
-                                            <option value="person">
-                                                Person
-                                            </option>
-                                            {/* <option value="private">Private</option> */}
-                                            {attraction?.bookingType ===
-                                                "booking" && (
-                                                <option value="hourly">
-                                                    Hourly
-                                                </option>
-                                            )}
-                                        </select>
-                                    </div>
+                                </div>
+                                <div className="grid grid-cols-3 items-end gap-5 mt-2">
                                     <div className="">
                                         <label htmlFor="">
                                             Adult Age Limit
@@ -513,70 +531,6 @@ export default function EditActivityPage() {
                                             onChange={handleChange}
                                         />
                                     </div>
-                                    {data.base === "hourly" ? (
-                                        <>
-                                            <div className="">
-                                                <label htmlFor="">
-                                                    Purchase Cost (Hourly)
-                                                </label>
-                                                <input
-                                                    type="number"
-                                                    placeholder="Enter hours count"
-                                                    name="hourlyCost"
-                                                    value={
-                                                        data.hourlyCost || ""
-                                                    }
-                                                    onChange={handleChange}
-                                                    required
-                                                />
-                                            </div>
-                                        </>
-                                    ) : data?.activityType === "normal" ? (
-                                        <>
-                                            <div className="">
-                                                <label htmlFor="">
-                                                    Purchase Cost (Adult)
-                                                </label>
-                                                <input
-                                                    type="number"
-                                                    placeholder="Enter adult cost"
-                                                    name="adultCost"
-                                                    value={data.adultCost || ""}
-                                                    onChange={handleChange}
-                                                    required
-                                                />
-                                            </div>
-                                            <div>
-                                                <label htmlFor="">
-                                                    Purchase Cost (Child)
-                                                </label>
-                                                <input
-                                                    type="number"
-                                                    name="childCost"
-                                                    value={data.childCost || ""}
-                                                    onChange={handleChange}
-                                                    placeholder="Enter child cost"
-                                                    required
-                                                />
-                                            </div>
-                                            <div>
-                                                <label htmlFor="">
-                                                    Purchase Cost (Infant)
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    placeholder="Enter infant cost"
-                                                    name="infantCost"
-                                                    value={
-                                                        data.infantCost || ""
-                                                    }
-                                                    onChange={handleChange}
-                                                />
-                                            </div>
-                                        </>
-                                    ) : (
-                                        ""
-                                    )}
                                 </div>
                                 <div className="mt-5 grid grid-cols-3 gap-5 items-end">
                                     <div>
@@ -730,99 +684,7 @@ export default function EditActivityPage() {
                                         </div>
                                     )}
                                 </div>
-                                <div className="mt-5 grid grid-cols-3 gap-5 items-end">
-                                    <div>
-                                        <div className="flex items-center gap-[10px]">
-                                            <input
-                                                type="checkbox"
-                                                className="w-[16px] h-[16px]"
-                                                checked={
-                                                    data.isSharedTransferAvailable
-                                                }
-                                                onChange={(e) =>
-                                                    setData((prev) => {
-                                                        return {
-                                                            ...prev,
-                                                            isSharedTransferAvailable:
-                                                                e.target
-                                                                    .checked,
-                                                        };
-                                                    })
-                                                }
-                                            />
-                                            <label htmlFor="" className="mb-0">
-                                                Shared Transfer Available
-                                            </label>
-                                        </div>
-                                        {data.isSharedTransferAvailable && (
-                                            <div className="mt-2">
-                                                <label htmlFor="">
-                                                    Shared Transfer Price
-                                                </label>
-                                                <input
-                                                    type="number"
-                                                    name="sharedTransferPrice"
-                                                    value={
-                                                        data.sharedTransferPrice ||
-                                                        ""
-                                                    }
-                                                    onChange={handleChange}
-                                                    placeholder="Enter shared transfer price"
-                                                    required
-                                                />
-                                            </div>
-                                        )}
-                                    </div>
-                                    {data.isSharedTransferAvailable && (
-                                        <div>
-                                            <label htmlFor="">
-                                                Shared Transfer Cost
-                                            </label>
-                                            <input
-                                                type="number"
-                                                name="sharedTransferCost"
-                                                value={
-                                                    data.sharedTransferCost ||
-                                                    ""
-                                                }
-                                                onChange={handleChange}
-                                                placeholder="Enter shared transfer cost"
-                                                required
-                                            />
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="mt-5">
-                                    <div className="flex items-center gap-[10px]">
-                                        <input
-                                            type="checkbox"
-                                            className="w-[16px] h-[16px]"
-                                            checked={
-                                                data.isPrivateTransferAvailable
-                                            }
-                                            onChange={(e) =>
-                                                setData((prev) => {
-                                                    return {
-                                                        ...prev,
-                                                        isPrivateTransferAvailable:
-                                                            e.target.checked,
-                                                    };
-                                                })
-                                            }
-                                        />
-                                        <label htmlFor="" className="mb-0">
-                                            Private Transfer Available
-                                        </label>
-                                    </div>
-                                    {data.isPrivateTransferAvailable && (
-                                        <ActivityPrivateTransfersSection
-                                            privateTransfers={privateTransfers}
-                                            setPrivateTransfers={
-                                                setPrivateTransfers
-                                            }
-                                        />
-                                    )}
-                                </div>
+
                                 <div className="mt-5">
                                     <div className="flex items-center gap-[10px]">
                                         <input
@@ -987,28 +849,188 @@ export default function EditActivityPage() {
                                         />
                                     </div>
                                 </div>
-
-                                {error && (
-                                    <span className="text-sm block text-red-500 mt-2">
-                                        {error}
-                                    </span>
-                                )}
-                                <div className="mt-4 flex items-center justify-end gap-[12px]">
-                                    <button
-                                        className="bg-slate-300 text-textColor px-[15px]"
-                                        type="button"
-                                        onClick={() => navigate(-1)}
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button className="w-[150px]">
-                                        {isLoading ? (
-                                            <BtnLoader />
-                                        ) : (
-                                            "Update Activity"
-                                        )}
-                                    </button>
+                            </div>
+                            <div
+                                className={` ${
+                                    section === "costing" ? "" : "hidden"
+                                }`}
+                            >
+                                {" "}
+                                <div className="grid grid-cols-3 items-end gap-5 pt-10">
+                                    <div>
+                                        <label htmlFor="">Activity Type</label>
+                                        <select
+                                            name="activityType"
+                                            value={data.activityType || ""}
+                                            onChange={handleChange}
+                                            id=""
+                                        >
+                                            <option value="" hidden>
+                                                Select Activity Type
+                                            </option>
+                                            <option value="normal">
+                                                Normal Activity
+                                            </option>
+                                            {attraction?.bookingType ===
+                                                "booking" && (
+                                                <option value="transfer">
+                                                    Transfer Activity
+                                                </option>
+                                            )}
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="">Base</label>
+                                        <select
+                                            name="base"
+                                            value={data.base || ""}
+                                            onChange={handleChange}
+                                            required
+                                            id=""
+                                        >
+                                            <option value="person">
+                                                Person
+                                            </option>
+                                            {/* <option value="private">Private</option> */}
+                                            {attraction?.bookingType ===
+                                                "booking" && (
+                                                <option value="hourly">
+                                                    Hourly
+                                                </option>
+                                            )}
+                                        </select>
+                                    </div>
+                                    {data.base === "hourly" && (
+                                        <>
+                                            <div className="">
+                                                <label htmlFor="">
+                                                    Purchase Cost (Hourly)
+                                                </label>
+                                                <input
+                                                    type="number"
+                                                    placeholder="Enter hours count"
+                                                    name="hourlyCost"
+                                                    value={
+                                                        data.hourlyCost || ""
+                                                    }
+                                                    onChange={handleChange}
+                                                    required
+                                                />
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
+                                <div className="mt-2">
+                                    {data.activityType === "normal" &&
+                                        data.base === "person" && (
+                                            <>
+                                                <h1 className="text-[16px] py-2 font-[600] underline pb-4">
+                                                    Price
+                                                </h1>
+                                                <ActivityPricingTable
+                                                    setPricing={setTicketPrice}
+                                                    pricing={ticketPrice}
+                                                    seasons={seasons}
+                                                />
+                                            </>
+                                        )}
+                                </div>
+                                <div className="flex items-center gap-[10px] pt-10">
+                                    <input
+                                        type="checkbox"
+                                        className="w-[16px] h-[16px]"
+                                        checked={data.isSharedTransferAvailable}
+                                        onChange={(e) =>
+                                            setData((prev) => {
+                                                return {
+                                                    ...prev,
+                                                    isSharedTransferAvailable:
+                                                        e.target.checked,
+                                                };
+                                            })
+                                        }
+                                    />
+                                    <label
+                                        htmlFor=""
+                                        className="mb-0 text-[16px] py-2 font-[600]"
+                                    >
+                                        Shared Transfer Available
+                                    </label>
+                                </div>
+                                {data.isSharedTransferAvailable && (
+                                    <div className="mt-2">
+                                        <h1 className="text-[16px] py-2 font-[600] underline  pb-4">
+                                            Shared Transfer Price
+                                        </h1>
+                                        <ActivitySharedPricingTable
+                                            setPricing={setSharedTransferPrice}
+                                            pricing={sharedTransferPrice}
+                                            seasons={seasons}
+                                        />{" "}
+                                    </div>
+                                )}
+                                <div className="mt-5">
+                                    <div className="flex items-center gap-[10px]">
+                                        <input
+                                            type="checkbox"
+                                            className="w-[16px] h-[16px]"
+                                            checked={
+                                                data.isPrivateTransferAvailable
+                                            }
+                                            onChange={(e) =>
+                                                setData((prev) => {
+                                                    return {
+                                                        ...prev,
+                                                        isPrivateTransferAvailable:
+                                                            e.target.checked,
+                                                    };
+                                                })
+                                            }
+                                        />
+                                        <label
+                                            htmlFor=""
+                                            className="mb-0 text-[16px] py-2 font-[600]"
+                                        >
+                                            Private Transfer Available
+                                        </label>
+                                    </div>
+                                    {data.isPrivateTransferAvailable && (
+                                        <div className="mt-2">
+                                            <h1 className="text-[16px] py-2 font-[600] underline  pb-4">
+                                                Private Transfer Price
+                                            </h1>
+                                            <ActivityPrivatePricingTable
+                                                vehicles={vehicles}
+                                                pricing={privateTransferPrice}
+                                                setPricing={
+                                                    setPrivateTransferPrice
+                                                }
+                                                seasons={seasons}
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            {error && (
+                                <span className="text-sm block text-red-500 mt-2">
+                                    {error}
+                                </span>
+                            )}
+                            <div className="mt-4 flex items-center justify-end gap-[12px]">
+                                <button
+                                    className="bg-slate-300 text-textColor px-[15px]"
+                                    type="button"
+                                    onClick={() => navigate(-1)}
+                                >
+                                    Cancel
+                                </button>
+                                <button className="w-[150px]">
+                                    {isLoading ? (
+                                        <BtnLoader />
+                                    ) : (
+                                        "Update Activity"
+                                    )}
+                                </button>
                             </div>
                         </form>
 
