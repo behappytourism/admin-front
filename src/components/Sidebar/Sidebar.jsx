@@ -6,7 +6,6 @@ import SidebarMenu from "./SidebarMenu";
 import { sidebarMenus } from "../../data";
 import { hasAnyViewPermission, hasPermission } from "../../utils";
 import { config } from "../../constants";
-import starGif from "../../assets/images/star2.gif";
 
 const names = [
     "recent-hotel-reservations",

@@ -52,6 +52,14 @@ export default function SingleOrderDetailsPage() {
                 cancellations: response?.data?.cancellations,
                 refunds: response?.data?.refunds,
             });
+
+            let statusChange = await axios.patch(
+                `/orders/count/${orderId}`,
+                { type: section },
+                {
+                    headers: { authorization: `Bearer ${jwtToken}` },
+                }
+            );
             setIsPageLoading(false);
         } catch (err) {
             console.log(err);

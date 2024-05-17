@@ -34,6 +34,10 @@ export default function OrdersListingPage() {
         });
     };
 
+    const { b2bOrderCount, b2cOrderCount } = useSelector(
+        (state) => state.general
+    );
+
     const handleDownload = () => {};
 
     const clearFilters = () => {
@@ -252,11 +256,17 @@ export default function OrdersListingPage() {
                                 })
                             }
                         >
-                            B2B
+                            {" "}
+                            <span className="flex justify-items items-center gap-2">
+                                B2B
+                                <div className="bg-red-500 w-[20px] h-[20px] text-white rounded-full">
+                                    {b2bOrderCount}
+                                </div>
+                            </span>
                         </button>
                         <button
                             className={
-                                "px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none " +
+                                "relative px-2 py-4 h-auto bg-transparent text-primaryColor font-medium rounded-none z-20" +
                                 (section === "b2c"
                                     ? "border-b border-b-orange-500"
                                     : "")
@@ -267,7 +277,12 @@ export default function OrdersListingPage() {
                                 })
                             }
                         >
-                            B2C
+                            <span className="flex justify-items items-center gap-2">
+                                B2C
+                                <div className="bg-red-500 w-[20px] h-[20px] text-white rounded-full">
+                                    {b2cOrderCount}
+                                </div>
+                            </span>{" "}
                         </button>
                     </div>
 
@@ -325,7 +340,15 @@ export default function OrdersListingPage() {
                                                 }
                                             >
                                                 <td className="p-3">
-                                                    {order?.referenceNumber}
+                                                    <span className="flex items-center gap-2">
+                                                        {order?.referenceNumber}
+                                                        {order?.isViewed ===
+                                                            false && (
+                                                            <div className="inline-block w-[25px] h-[20px] bg-red-500 text-white flex items-center justify-center font-small text-[8px]">
+                                                                New
+                                                            </div>
+                                                        )}
+                                                    </span>
                                                 </td>
                                                 <td className="p-3 capitalize">
                                                     {section === "b2b"
