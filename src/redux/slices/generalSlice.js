@@ -27,7 +27,21 @@ export const fetchGeneralData2 = createAsyncThunk(
     }
 );
 
-const UAE_FLAG = "https://cdn.jsdelivr.net/npm/svg-country-flags@1.2.10/svg/ae.svg";
+export const fetchOrderData = createAsyncThunk(
+    "generalSlice/fetchOrderData",
+    async (_, { getState }) => {
+        const { jwtToken } = getState().admin;
+        const response = await axios.get("/orders/count", {
+            headers: {
+                authorization: `Bearer ${jwtToken}`,
+            },
+        });
+        return response.data;
+    }
+);
+
+const UAE_FLAG =
+    "https://cdn.jsdelivr.net/npm/svg-country-flags@1.2.10/svg/ae.svg";
 
 const initialState = {
     isGeneralLoading: true,
@@ -45,6 +59,8 @@ const initialState = {
               conversionRate: 1,
               flag: UAE_FLAG,
           },
+    b2bOrderCount: 0,
+    b2cOrderCount: 0,
 };
 
 export const generalSlice = createSlice({
@@ -70,9 +86,11 @@ export const generalSlice = createSlice({
             state.destinations?.unshift(action.payload);
         },
         deleteDestination: (state, action) => {
-            const filteredDestinations = state.destinations.filter((destination) => {
-                return destination?._id !== action.payload;
-            });
+            const filteredDestinations = state.destinations.filter(
+                (destination) => {
+                    return destination?._id !== action.payload;
+                }
+            );
             state.destinations = filteredDestinations;
         },
         updateDestination: (state, action) => {
@@ -117,7 +135,10 @@ export const generalSlice = createSlice({
                 conversionRate: action.payload?.conversionRate,
                 flag: action.payload?.country?.flag,
             };
-            localStorage.setItem("currency", JSON.stringify(state.selectedCurrency));
+            localStorage.setItem(
+                "currency",
+                JSON.stringify(state.selectedCurrency)
+            );
         },
         addState: (state, action) => {
             state.states?.unshift(action.payload);
@@ -178,13 +199,15 @@ export const generalSlice = createSlice({
             if (localCurrency) {
                 const objIndex = state.currencies?.findIndex((currency) => {
                     return (
-                        currency?.isocode?.toUpperCase() === localCurrency?.isocode?.toUpperCase()
+                        currency?.isocode?.toUpperCase() ===
+                        localCurrency?.isocode?.toUpperCase()
                     );
                 });
                 if (objIndex !== -1) {
                     state.selectedCurrency = {
                         isocode: state.currencies[objIndex]?.isocode,
-                        conversionRate: state.currencies[objIndex]?.conversionRate,
+                        conversionRate:
+                            state.currencies[objIndex]?.conversionRate,
                         flag: state.currencies[objIndex]?.country?.flag,
                     };
                 } else {
@@ -202,13 +225,20 @@ export const generalSlice = createSlice({
                 };
             }
 
-            localStorage.setItem("currency", JSON.stringify(state.selectedCurrency));
+            localStorage.setItem(
+                "currency",
+                JSON.stringify(state.selectedCurrency)
+            );
             state.isGeneralLoading = false;
         },
         [fetchGeneralData2.fulfilled]: (state, action) => {
             state.states = action.payload?.states;
             state.cities = action.payload?.cities;
             state.areas = action.payload?.areas;
+        },
+        [fetchOrderData.fulfilled]: (state, action) => {
+            state.b2bOrderCount = action.payload?.b2bOrderCount;
+            state.b2cOrderCount = action.payload?.b2cOrderCount;
         },
     },
 });

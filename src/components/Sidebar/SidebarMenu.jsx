@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FiChevronRight } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function SidebarMenu({ icon, name, dropdown, link }) {
+export default function SidebarMenu({ icon, name, dropdown, link, count }) {
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
-    const location = useLocation();
     const { admin } = useSelector((state) => state.admin);
 
     return (
@@ -26,7 +25,13 @@ export default function SidebarMenu({ icon, name, dropdown, link }) {
                 <span className="flex items-center gap-[15px] transition-all">
                     <i className="transition-all text-lg">{icon}</i>
                     {name}
-                </span>
+                    {name === "Orders" && (
+                        <div className="w-[20px] h-[20px] rounded-full bg-red-500 text-white flex items-center justify-center ">
+                            {" "}
+                            {count}{" "}
+                        </div>
+                    )}
+                </span>{" "}
                 <span
                     className={
                         "transition-all " +

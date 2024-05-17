@@ -1,11 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import SidebarMenu from "./SidebarMenu";
 import { sidebarMenus } from "../../data";
 import { hasAnyViewPermission, hasPermission } from "../../utils";
 import { config } from "../../constants";
+import starGif from "../../assets/images/star2.gif";
 
 const names = [
     "recent-hotel-reservations",
@@ -17,12 +18,23 @@ const names = [
     "top-hotel-reservation-hotels",
     "top-hotel-reservation-resellers",
 ];
+import { fetchOrderData } from "./../../redux/slices/generalSlice";
 
 export default function Sidebar() {
     const { admin } = useSelector((state) => state.admin);
+    const { b2bOrderCount, b2cOrderCount } = useSelector(
+        (state) => state.general
+    );
+    const dispatch = useDispatch();
 
-    const isHotelDashboard = hasAnyViewPermission({ roles: admin?.roles || [], names });
-
+    const location = useLocation();
+    const isHotelDashboard = hasAnyViewPermission({
+        roles: admin?.roles || [],
+        names,
+    });
+    useEffect(() => {
+        dispatch(fetchOrderData());
+    }, [location.pathname]);
     const filteredSidebars = {};
     Object.keys(sidebarMenus)?.map((item) => {
         const menus = sidebarMenus[item]?.filter((menu) => {
@@ -32,7 +44,8 @@ export default function Sidebar() {
                         hasPermission({
                             roles: admin?.roles,
                             name: subMenu?.permission && subMenu?.permission[0],
-                            permission: subMenu?.permission && subMenu?.permission[1],
+                            permission:
+                                subMenu?.permission && subMenu?.permission[1],
                         })
                     ) {
                         return subMenu;
@@ -75,17 +88,20 @@ export default function Sidebar() {
             <Link to="/" className="flex items-center justify-center py-5">
                 <h2 className="text-lg font-[600] text-white uppercase">
                     {config.COMPANY_NAME?.split(" ")[0]}{" "}
-                    <span className="text-sm text-red-500">{config.COMPANY_NAME?.split(" ")[1]}</span>
+                    <span className="text-sm text-red-500">
+                        {config.COMPANY_NAME?.split(" ")[1]}
+                    </span>
                 </h2>
             </Link>
 
             <div id="sidebar" className="flex-1 overflow-y-auto mr-[3px]">
                 {Object.keys(filteredSidebars)?.map((item, index) => {
                     return (
-                        <div key={index} className="mt-6 first:mt-0">
+                        <div key={index} className="relative mt-6 first:mt-0">
                             <h4 className="px-[15px] text-[#b6b2d2] font-medium text-sm uppercase mb-1">
                                 {item}
                             </h4>
+
                             <ul className="h-[100%]">
                                 {filteredSidebars[item].map((item, index) => {
                                     // if (
@@ -94,7 +110,16 @@ export default function Sidebar() {
                                     // ) {
                                     //     return <></>;
                                     // }
-                                    return <SidebarMenu key={index} {...item} />;
+                                    return (
+                                        <SidebarMenu
+                                            key={index}
+                                            {...item}
+                                            count={
+                                                Number(b2bOrderCount) +
+                                                Number(b2cOrderCount)
+                                            }
+                                        />
+                                    );
                                 })}
                             </ul>
                         </div>
