@@ -518,6 +518,11 @@ const sidebarMenus = {
                     link: "/b2b/frontend/home/settings/home-sections",
                     permission: ["b2b-frontend", "view"],
                 },
+                {
+                    name: "About Us",
+                    link: "/b2b/frontend/home/settings/about-us",
+                    permission: ["b2b-frontend", "view"],
+                },
             ],
         },
         {
@@ -564,6 +569,11 @@ const sidebarMenus = {
                 {
                     name: "Banners",
                     link: "/b2c/frontend/home/settings/banners",
+                    permission: ["b2c-frontend", "view"],
+                },
+                {
+                    name: "About Us",
+                    link: "/b2c/frontend/home/settings/about-us",
                     permission: ["b2c-frontend", "view"],
                 },
             ],

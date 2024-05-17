@@ -305,6 +305,8 @@ import UpdateVendorConfigPage from "../pages/Vendor/UpdateVendorConfigPage";
 import EmailReceiverConfigListPage from "../pages/EmailReceiverConfig/EmailReceiverConfigListPage";
 import AddEmailReceiverConfigPage from "../pages/EmailReceiverConfig/AddEmailReceiverConfigPage";
 import EditEmailReceiverConfigPage from "../pages/EmailReceiverConfig/EditEmailReceiverConfigPage";
+import AddAboutUsB2cPage from "../pages/B2cFrontend/AddAboutUsB2cPage";
+import AddAboutUsB2bPage from "../pages/B2bFrontend/AddAboutUsB2bPage";
 
 const ThemeRoutes = [
     {
@@ -846,6 +848,15 @@ const ThemeRoutes = [
             {
                 path: "/b2b/frontend/home/settings/home-sections/:id/edit",
                 element: <HomeBannerB2bPage />,
+            },
+            {
+                path: "/b2c/frontend/home/settings/about-us",
+                element: <AddAboutUsB2cPage />,
+            },
+
+            {
+                path: "/b2b/frontend/home/settings/about-us",
+                element: <AddAboutUsB2bPage />,
             },
 
             ///
@@ -1483,7 +1494,6 @@ const ThemeRoutes = [
                 path: "/email-config/:id/edit/:section",
                 element: <EditEmailConfigPage />,
             },
-
 
             {
                 path: "/email-receiver-config",
