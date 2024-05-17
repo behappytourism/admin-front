@@ -78,6 +78,14 @@ const sidebarMenus = {
         //     icon: <MdAttractions />,
         // },
     ],
+    Orders: [
+        {
+            name: "Orders",
+            link: "/orders",
+            icon: <HiOutlineUsers />,
+            permission: ["orders", "view"],
+        },
+    ],
     Attraction: [
         {
             name: "Attractions List",
@@ -916,14 +924,6 @@ const sidebarMenus = {
             link: "/users",
             icon: <HiOutlineUsers />,
             permission: ["users", "view"],
-        },
-    ],
-    Orders: [
-        {
-            name: "Orders",
-            link: "/orders",
-            icon: <HiOutlineUsers />,
-            permission: ["orders", "view"],
         },
     ],
 
