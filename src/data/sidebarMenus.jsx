@@ -1043,6 +1043,13 @@ const sidebarMenus = {
             permission: ["email-config", "view"],
         },
         {
+            name: "Email ReceiverConfig",
+            link: "/email-receiver-config",
+            icon: <RiSteeringFill />,
+            permission: ["email-receiver-config", "view"],
+        },
+
+        {
             name: "Invoice Settings",
             icon: <FiHome />,
             link: "#",

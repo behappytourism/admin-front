@@ -605,6 +605,13 @@ const adminRoles = [
         category: "settings",
         permissions: [],
     },
+
+    {
+        name: "email-receiver-config",
+        displayName: "Email Receiver Config",
+        category: "settings",
+        permissions: [],
+    },
 ];
 
 export default adminRoles;
