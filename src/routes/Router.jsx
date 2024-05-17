@@ -302,6 +302,9 @@ import SingleVendorLayout from "../layouts/SingleVendorLayout";
 import SingleVendorDetailsPage from "../pages/Vendor/SingleVendorDetailPage";
 import UpdateVendorDetailsPage from "../pages/Vendor/UpdateVendorDetailsPage";
 import UpdateVendorConfigPage from "../pages/Vendor/UpdateVendorConfigPage";
+import EmailReceiverConfigListPage from "../pages/EmailReceiverConfig/EmailReceiverConfigListPage";
+import AddEmailReceiverConfigPage from "../pages/EmailReceiverConfig/AddEmailReceiverConfigPage";
+import EditEmailReceiverConfigPage from "../pages/EmailReceiverConfig/EditEmailReceiverConfigPage";
 
 const ThemeRoutes = [
     {
@@ -1481,6 +1484,19 @@ const ThemeRoutes = [
                 element: <EditEmailConfigPage />,
             },
 
+
+            {
+                path: "/email-receiver-config",
+                element: <EmailReceiverConfigListPage />,
+            },
+            {
+                path: "/email-receiver-config/add/:section",
+                element: <AddEmailReceiverConfigPage />,
+            },
+            {
+                path: "/email-receiver-config/:id/edit/:section",
+                element: <EditEmailReceiverConfigPage />,
+            },
             // promocode
 
             {
