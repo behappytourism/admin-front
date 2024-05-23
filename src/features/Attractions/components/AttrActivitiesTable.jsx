@@ -56,7 +56,10 @@ export default function AttrActivitiesTable({ section }) {
                 }
             );
 
-            console.log(response.data.balanceDetails, "response.data.balanceDetails");
+            console.log(
+                response.data.balanceDetails,
+                "response.data.balanceDetails"
+            );
 
             setBalanceDetail(response.data.balanceDetails);
             setIsBalanceModalOpen(true);
@@ -71,18 +74,30 @@ export default function AttrActivitiesTable({ section }) {
                     <div className="flex gap-4">
                         {data.isApiConnected === true ? (
                             <div>
-                                <button className="px-3 bg-orange-500" onClick={onHandleConnect}>
-                                    {isConnetLoading ? <BtnLoader /> : "Connect"}{" "}
+                                <button
+                                    className="px-3 bg-orange-500"
+                                    onClick={onHandleConnect}
+                                >
+                                    {isConnetLoading ? (
+                                        <BtnLoader />
+                                    ) : (
+                                        "Connect"
+                                    )}{" "}
                                 </button>
                             </div>
                         ) : (
                             <Link to="activities/add">
-                                <button className="px-3 bg-orange-500">+ Add Activity</button>
+                                <button className="px-3 bg-orange-500">
+                                    + Add Activity
+                                </button>
                             </Link>
                         )}
                         {data.isApiConnected === true ? (
                             <div>
-                                <button className="px-3 bg-orange-500" onClick={onHandleBalance}>
+                                <button
+                                    className="px-3 bg-orange-500"
+                                    onClick={onHandleBalance}
+                                >
                                     {isLoading ? <BtnLoader /> : "Balance"}
                                 </button>
                             </div>
@@ -116,12 +131,20 @@ export default function AttrActivitiesTable({ section }) {
                                 )}
                                 {/* <th className="font-[500] p-3">Promo Code</th> */}
                                 <th className="font-[500] p-3">B2c Markup</th>
+                                <th className="font-[500] p-3">B2c </th>
+                                <th className="font-[500] p-3">B2b </th>
+
                                 <th className="font-[500] p-3">Action</th>
                             </tr>
                         </thead>
                         <tbody className="text-sm">
                             {activities?.map((activity, index) => {
-                                return <SingleActivityRow activity={activity} key={index} />;
+                                return (
+                                    <SingleActivityRow
+                                        activity={activity}
+                                        key={index}
+                                    />
+                                );
                             })}
                         </tbody>
                     </table>

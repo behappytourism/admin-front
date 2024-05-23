@@ -13,11 +13,19 @@ import UploadTicketModal from "./UploadTicketModal";
 import { priceConversion } from "../../../utils";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import B2cAttractionMarkupEditModal from "./B2cAttractionMarkupEditModal";
+import { RiCloseCircleFill } from "react-icons/ri";
+import { TiTick } from "react-icons/ti";
 
 export default function SingleActivityRow({ activity }) {
     const { data } = useSelector((state) => state.attractionForm);
     const { jwtToken } = useSelector((state) => state.admin);
-    const [isActiveStatus, setIsActiveStatus] = useState(activity?.isActive);
+    const [isB2cActiveStatus, setIsB2cActiveStatus] = useState(
+        activity?.isB2cActive
+    );
+    const [isB2bActiveStatus, setIsB2bActiveStatus] = useState(
+        activity?.isB2bActive
+    );
+
     const { selectedCurrency } = useSelector((state) => state.general);
     const { id } = useParams();
     const dispatch = useDispatch();
@@ -35,9 +43,12 @@ export default function SingleActivityRow({ activity }) {
         try {
             const isConfirm = window.confirm("Are you sure to delete?");
             if (isConfirm) {
-                await axios.delete(`/attractions/activities/delete/${activity?._id}`, {
-                    headers: { authorization: `Bearer ${jwtToken}` },
-                });
+                await axios.delete(
+                    `/attractions/activities/delete/${activity?._id}`,
+                    {
+                        headers: { authorization: `Bearer ${jwtToken}` },
+                    }
+                );
                 dispatch(deleteAttractionActivity(activity?._id));
             }
         } catch (err) {
@@ -49,12 +60,27 @@ export default function SingleActivityRow({ activity }) {
         try {
             let response = await axios.patch(
                 `/attractions/update/activities/${activity?._id}/is-active`,
-                { isActive: !isActiveStatus },
+                { isB2cActive: !isB2cActiveStatus },
                 {
                     headers: { Authorization: `Bearer ${jwtToken}` },
                 }
             );
-            setIsActiveStatus(response?.data?.isActive);
+            setIsB2cActiveStatus(response?.data?.isB2cActive);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const changeB2bActiveStatus = async () => {
+        try {
+            let response = await axios.patch(
+                `/attractions/update/activities/${activity?._id}/is-active`,
+                { isB2bActive: !isB2bActiveStatus },
+                {
+                    headers: { Authorization: `Bearer ${jwtToken}` },
+                }
+            );
+            setIsB2bActiveStatus(response?.data?.isB2bActive);
         } catch (err) {
             console.log(err);
         }
@@ -70,22 +96,38 @@ export default function SingleActivityRow({ activity }) {
             </td>
             <td className="p-3">
                 {activity?.adultCost
-                    ? priceConversion(activity?.adultCost, selectedCurrency, true)
+                    ? priceConversion(
+                          activity?.adultCost,
+                          selectedCurrency,
+                          true
+                      )
                     : "N/A"}
             </td>
             <td className="p-3">
                 {activity?.childCost
-                    ? priceConversion(activity?.childCost, selectedCurrency, true)
+                    ? priceConversion(
+                          activity?.childCost,
+                          selectedCurrency,
+                          true
+                      )
                     : "N/A"}
             </td>
             <td className="p-3">
                 {activity?.infantCost
-                    ? priceConversion(activity?.infantCost, selectedCurrency, true)
+                    ? priceConversion(
+                          activity?.infantCost,
+                          selectedCurrency,
+                          true
+                      )
                     : "N/A"}
             </td>
             <td className="p-3">
                 {activity?.hourlyCost
-                    ? priceConversion(activity?.hourlyCost, selectedCurrency, true)
+                    ? priceConversion(
+                          activity?.hourlyCost,
+                          selectedCurrency,
+                          true
+                      )
                     : "N/A"}
             </td>
             {/* <td className="p-3">{activity?.isVat ? activity?.vat + "%" : "N/A"}</td>
@@ -121,7 +163,9 @@ export default function SingleActivityRow({ activity }) {
                 <div className="flex items-center gap-[15px]">
                     {b2cmarkup?.adultMarkup
                         ? b2cmarkup?.adultMarkup +
-                          (b2cmarkup?.adultMarkupType === "percentage" ? "%" : " AED")
+                          (b2cmarkup?.adultMarkupType === "percentage"
+                              ? "%"
+                              : " AED")
                         : "N/A"}
 
                     <button
@@ -140,15 +184,37 @@ export default function SingleActivityRow({ activity }) {
                         />
                     )}
                 </div>
-            </td>
+            </td>{" "}
             <td className="p-3">
                 <div className="flex gap-[10px]">
                     <button
                         className="h-auto bg-transparent text-grayColor text-xl"
                         onClick={changeActiveStatus}
                     >
-                        {isActiveStatus === true ? <AiFillEye /> : <AiFillEyeInvisible />}
+                        {isB2cActiveStatus === true ? (
+                            <TiTick className="text-green-500" />
+                        ) : (
+                            <RiCloseCircleFill className="text-red-500" />
+                        )}
                     </button>
+                </div>
+            </td>
+            <td className="p-3">
+                <div className="flex gap-[10px]">
+                    <button
+                        className="h-auto bg-transparent text-grayColor text-xl"
+                        onClick={changeB2bActiveStatus}
+                    >
+                        {isB2bActiveStatus === true ? (
+                            <TiTick className="text-green-500" />
+                        ) : (
+                            <RiCloseCircleFill className="text-red-500" />
+                        )}
+                    </button>
+                </div>
+            </td>
+            <td className="p-3">
+                <div className="flex gap-[10px]">
                     <button
                         className="h-auto bg-transparent text-red-500 text-xl"
                         onClick={() => deleteActivity(activity?._id)}
