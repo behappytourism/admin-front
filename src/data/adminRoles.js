@@ -275,7 +275,7 @@ const adminRoles = [
     {
         name: "vendor-list",
         displayName: "Vendor List",
-        category: "core",
+        category: "vendor",
         permissions: [],
     },
 
