@@ -284,9 +284,6 @@ export default function CommonCancellationModal({
                                                                 }}
                                                                 className="w-[17px] h-[17px]"
                                                                 id="allGuestDetailsRequired"
-                                                                disabled={
-                                                                    cancellationTb
-                                                                }
                                                             />{" "}
                                                         </td>
                                                         <td className="p-3">
@@ -422,9 +419,6 @@ export default function CommonCancellationModal({
                                                                 }}
                                                                 className="w-[17px] h-[17px]"
                                                                 id="allGuestDetailsRequired"
-                                                                disabled={
-                                                                    cancellationTb
-                                                                }
                                                             />{" "}
                                                         </td>
                                                         <td className="p-3">

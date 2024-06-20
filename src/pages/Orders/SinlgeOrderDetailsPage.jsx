@@ -324,7 +324,7 @@ export default function SingleOrderDetailsPage() {
                                                 <span
                                                     className={
                                                         "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
-                                                        "bg-red-200 text-red-500"
+                                                        "bg-red-200 text-red-500 cursor-pointer"
                                                     }
                                                     onClick={(e) => {
                                                         setIsCancelModalOpen(
@@ -346,7 +346,7 @@ export default function SingleOrderDetailsPage() {
                                                 <span
                                                     className={
                                                         "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
-                                                        "bg-red-200 text-red-500"
+                                                        "bg-red-200 text-red-500 cursor-pointer"
                                                     }
                                                     onClick={(e) => {
                                                         setIsCancelApproveModalOpen(
@@ -1079,9 +1079,9 @@ export default function SingleOrderDetailsPage() {
                                                     <th className="font-[500] p-3">
                                                         Status
                                                     </th>
-                                                    <th className="font-[500] p-3">
+                                                    {/* <th className="font-[500] p-3">
                                                         Action
-                                                    </th>
+                                                    </th> */}
                                                 </tr>
                                             </thead>
                                             <tbody className="text-sm">

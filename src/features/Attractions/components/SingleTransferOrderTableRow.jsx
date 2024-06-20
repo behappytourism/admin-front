@@ -142,7 +142,7 @@ export default function SingleTransferOrderTableRow({
                         {item?.status}
                     </span>
                 </td>
-                <td>
+                {/* <td>
                     {item?.status === "confirmed" && (
                         <div onClick={(e) => e.stopPropagation()}>
                             <select
@@ -163,7 +163,7 @@ export default function SingleTransferOrderTableRow({
                             </select>
                         </div>
                     )}
-                </td>
+                </td> */}
                 {/* <td className="p-3">
             <span
                 className={

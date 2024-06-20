@@ -217,12 +217,12 @@ export default function SingleAttrOrderActivitiesTableRow({
                                 Booked
                             </option>
                             <option value="confirm">Confirm</option>
-                            <option value="cancel">Cancel</option>
+                            {/* <option value="cancel">Cancel</option> */}
                         </select>
                     </div>
                 )}
 
-                {orderData?.status === "confirmed" && (
+                {/* {orderData?.status === "confirmed" && (
                     <div onClick={(e) => e.stopPropagation()}>
                         <select
                             className="h-[35px] py-0 w-[90px] mt-5"
@@ -241,7 +241,7 @@ export default function SingleAttrOrderActivitiesTableRow({
                             <option value="cancel">Cancel</option>
                         </select>
                     </div>
-                )}
+                )} */}
             </td>
             {isBookingConfirmationModalOpen && (
                 <BookingConfirmationModal
