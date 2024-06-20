@@ -1,4 +1,3 @@
-// VITE_NODE_ENV = PROD_LIVE, PROD_LOCAL, TEST_LIVE, TEST_LOCAL
 const testLocal = {
     SERVER_URL: "http://localhost:8189",
     COMPANY_NAME: "Be Happy",
@@ -21,10 +20,10 @@ const devLocal = {
 };
 
 const devLive = {
-    SERVER_URL: "https://api-server-i1.mytravellerschoice.com",
+    SERVER_URL: "https://api-server-i.behappytourism.com",
     COMPANY_NAME: "Be Happy",
     COMPANY_LOGO:
-        "https://login.mytravellerschoice.com/assets/logo-2c140806.png",
+        "https://res.cloudinary.com/duuidrhyl/image/upload/v1705058334/Website/logo/unpb5sdovoeysv98fnnk.png",
 };
 
 export const config =
