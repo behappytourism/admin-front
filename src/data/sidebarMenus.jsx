@@ -85,6 +85,12 @@ const sidebarMenus = {
             icon: <HiOutlineUsers />,
             permission: ["orders", "view"],
         },
+        {
+            name: "Orders Cancellation",
+            link: "/order/cancellation",
+            icon: <HiOutlineUsers />,
+            permission: ["orders-cancellation", "view"],
+        },
     ],
     Attraction: [
         {

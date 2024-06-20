@@ -239,6 +239,8 @@ export const generalSlice = createSlice({
         [fetchOrderData.fulfilled]: (state, action) => {
             state.b2bOrderCount = action.payload?.b2bOrderCount;
             state.b2cOrderCount = action.payload?.b2cOrderCount;
+            state.b2bCancellationOrderCount =
+                action.payload?.b2bCancellationOrderCount;
         },
     },
 });

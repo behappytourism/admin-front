@@ -3,7 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import { FiChevronRight } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function SidebarMenu({ icon, name, dropdown, link, count }) {
+export default function SidebarMenu({
+    icon,
+    name,
+    dropdown,
+    link,
+    count,
+    cancellationCount,
+}) {
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
     const { admin } = useSelector((state) => state.admin);
@@ -29,6 +36,12 @@ export default function SidebarMenu({ icon, name, dropdown, link, count }) {
                         <div className="w-[20px] h-[20px] rounded-full bg-red-500 text-white flex items-center justify-center ">
                             {" "}
                             {count}{" "}
+                        </div>
+                    )}
+                    {name === "Orders Cancellation" && (
+                        <div className="w-[20px] h-[20px] rounded-full bg-red-500 text-white flex items-center justify-center ">
+                            {" "}
+                            {cancellationCount}{" "}
                         </div>
                     )}
                 </span>{" "}

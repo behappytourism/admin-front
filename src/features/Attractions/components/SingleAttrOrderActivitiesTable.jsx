@@ -3,7 +3,8 @@ import BookingConfirmationModal from "../../Orders/components/BookingConfirmatio
 import SingleAttrOrderActivitiesTableRow from "./SingleAttrOrderActivitiesTableRow";
 
 export default function SingleAttrOrderActivitiesTable({
-    attractionOrder,
+    order,
+    setOrder,
     section,
 }) {
     return (
@@ -17,22 +18,22 @@ export default function SingleAttrOrderActivitiesTable({
                         <th className="font-[500] p-3">Transfer</th>
                         <th className="font-[500] p-3">Tickets / Id</th>
                         <th className="font-[500] p-3">Amount</th>
-                        <th className="font-[500] p-3">Status</th>
+                        <th className="font-[500] p-3">Status</th>{" "}
+                        <th className="font-[500] p-3">Action</th>
                     </tr>
                 </thead>
                 <tbody className="text-sm">
-                    {attractionOrder?.activities?.map(
-                        (orderItem, orderItemIndex) => {
-                            return (
-                                <SingleAttrOrderActivitiesTableRow
-                                    key={orderItemIndex}
-                                    orderItem={orderItem}
-                                    attractionOrder={attractionOrder}
-                                    section={section}
-                                />
-                            );
-                        }
-                    )}
+                    {order?.activities?.map((orderItem, orderItemIndex) => {
+                        return (
+                            <SingleAttrOrderActivitiesTableRow
+                                key={orderItemIndex}
+                                orderItem={orderItem}
+                                order={order}
+                                setOrder={setOrder}
+                                section={section}
+                            />
+                        );
+                    })}
                 </tbody>
             </table>
         </div>

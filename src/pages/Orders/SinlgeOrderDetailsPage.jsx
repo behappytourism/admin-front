@@ -16,6 +16,12 @@ import axios from "../../axios";
 import { config } from "../../constants";
 import StatusModal from "./StatusModal";
 import SingleAttrOrderActivitiesTableRow from "../../features/Attractions/components/SingleAttrOrderActivitiesTableRow";
+import AttractionOrderCancellationTableRow from "../../features/Attractions/components/AttractionOrderCancellationTableRow";
+import { formatDate } from "../../utils";
+import SingleTransferOrderTableRow from "../../features/Attractions/components/SingleTransferOrderTableRow";
+import ActivityCancellationModal from "../../features/Orders/components/ActivityCancellationModal";
+import CommonCancellationModal from "../../features/Orders/components/CommonCancellationModal";
+import TransferOrderCancellationTableRow from "../../features/Transfer/TransferOrderCancellationTableRow";
 
 const sections = {
     payments: "Payments",
@@ -26,9 +32,16 @@ const sections = {
 export default function SingleOrderDetailsPage() {
     const [isPageLoading, setIsPageLoading] = useState(true);
     const [order, setOrder] = useState({});
+    const [attractionOrder, setAttractionOrder] = useState({});
+    const [transferOrder, setTransferOrder] = useState({});
     const [selectedSection, setSelectedSection] = useState("payments");
     const [isModal, setIsModal] = useState(false);
+    const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+    const [isCancelApproveModalOpen, setIsCancelApproveModalOpen] =
+        useState(false);
 
+    const [cancellations, setCancellations] = useState([]);
+    const [refunds, setRefunds] = useState([]);
     const { orderId, section } = useParams();
     const { jwtToken } = useSelector((state) => state.admin);
 
@@ -49,9 +62,12 @@ export default function SingleOrderDetailsPage() {
             setOrder({
                 ...response?.data?.order,
                 payments: response?.data?.payments,
-                cancellations: response?.data?.cancellations,
-                refunds: response?.data?.refunds,
             });
+            setCancellations(response?.data?.cancellations || []);
+            setRefunds(response?.data?.refunds || []);
+
+            setTransferOrder(response?.data?.order?.transferOrder);
+            setAttractionOrder(response?.data?.order?.attractionOrder);
 
             let statusChange = await axios.patch(
                 `/orders/count/${orderId}`,
@@ -299,6 +315,49 @@ export default function SingleOrderDetailsPage() {
                                             Download
                                         </button>
                                     )} */}
+                                    {order?.orderStatus === "completed" &&
+                                        cancellations?.length < 1 && (
+                                            <div className="text-center">
+                                                <span className="block text-[12px] text-grayColor font-medium">
+                                                    Cancel Order
+                                                </span>
+                                                <span
+                                                    className={
+                                                        "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
+                                                        "bg-red-200 text-red-500"
+                                                    }
+                                                    onClick={(e) => {
+                                                        setIsCancelModalOpen(
+                                                            true
+                                                        );
+                                                    }}
+                                                >
+                                                    Cancel
+                                                </span>
+                                            </div>
+                                        )}
+
+                                    {order?.orderStatus === "completed" &&
+                                        cancellations?.length > 0 && (
+                                            <div className="text-center">
+                                                <span className="block text-[12px] text-grayColor font-medium">
+                                                    Cancellation Request
+                                                </span>
+                                                <span
+                                                    className={
+                                                        "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
+                                                        "bg-red-200 text-red-500"
+                                                    }
+                                                    onClick={(e) => {
+                                                        setIsCancelApproveModalOpen(
+                                                            true
+                                                        );
+                                                    }}
+                                                >
+                                                    Cancellation Request
+                                                </span>
+                                            </div>
+                                        )}
                                 </div>
                             </div>
 
@@ -382,7 +441,7 @@ export default function SingleOrderDetailsPage() {
                                 </div>
                                 <div>
                                     <div className="px-2">
-                                        {order?.attractionOrder && (
+                                        {attractionOrder && (
                                             <>
                                                 {" "}
                                                 <div className="odd:bg-[#f3f6f9]">
@@ -392,7 +451,7 @@ export default function SingleOrderDetailsPage() {
                                                 </div>
                                                 <table className="w-full text-[15px]">
                                                     <tbody>
-                                                        {order?.attractionOrder?.activities?.map(
+                                                        {attractionOrder?.activities?.map(
                                                             (
                                                                 orderItem,
                                                                 orderItemIndex
@@ -545,7 +604,7 @@ export default function SingleOrderDetailsPage() {
                                                                     <div className="border-b border-dashed flex-1"></div>
                                                                     <span className="text-right font-[600] text-lg text-green-500 whitespace-nowrap">
                                                                         AED{" "}
-                                                                        {order?.attractionOrder?.totalAmount?.toFixed(
+                                                                        {attractionOrder?.totalAmount?.toFixed(
                                                                             2
                                                                         )}
                                                                     </span>
@@ -556,7 +615,7 @@ export default function SingleOrderDetailsPage() {
                                                 </table>
                                             </>
                                         )}
-                                        {order?.transferOrder && (
+                                        {transferOrder && (
                                             <>
                                                 <div className="odd:bg-[#f3f6f9]">
                                                     <h2 className="p-2 w-[180px]">
@@ -565,7 +624,7 @@ export default function SingleOrderDetailsPage() {
                                                 </div>
                                                 <table className="w-full text-[15px]">
                                                     <tbody>
-                                                        {order?.transferOrder?.journey?.map(
+                                                        {transferOrder?.journey?.map(
                                                             (
                                                                 item,
                                                                 orderItemIndex
@@ -733,10 +792,31 @@ export default function SingleOrderDetailsPage() {
                                                 </table>
                                             </>
                                         )}
+                                        {order.isCardPayment && (
+                                            <>
+                                                <div className="odd:bg-[#f3f6f9]">
+                                                    <h2 className="p-2 w-[180px]">
+                                                        Card Payment
+                                                    </h2>
+                                                </div>
+                                                <div className="flex gap-[15px] items-center w-full">
+                                                    <span className="">
+                                                        Net Price
+                                                    </span>
+                                                    <div className="border-b border-dashed flex-1"></div>
+                                                    <span className="text-right font-[600] text-lg text-green-500 whitespace-nowrap">
+                                                        AED{" "}
+                                                        {order?.cardCharge?.toFixed(
+                                                            2
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             </div>
-                            {order?.attractionOrder && (
+                            {attractionOrder && (
                                 <>
                                     <div className="mt-10">
                                         <table className="w-full">
@@ -763,10 +843,13 @@ export default function SingleOrderDetailsPage() {
                                                     <th className="font-[500] p-3">
                                                         Status
                                                     </th>
+                                                    <th className="font-[500] p-3">
+                                                        Action
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody className="text-sm">
-                                                {order?.attractionOrder?.activities?.map(
+                                                {attractionOrder?.activities?.map(
                                                     (
                                                         orderItem,
                                                         orderItemIndex
@@ -779,12 +862,13 @@ export default function SingleOrderDetailsPage() {
                                                                 orderItem={
                                                                     orderItem
                                                                 }
-                                                                attractionOrder={
-                                                                    order?.attractionOrder
-                                                                }
                                                                 section={
                                                                     section
                                                                 }
+                                                                setOrder={
+                                                                    setAttractionOrder
+                                                                }
+                                                                order={order}
                                                             />
                                                         );
                                                     }
@@ -792,10 +876,183 @@ export default function SingleOrderDetailsPage() {
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div className="mt-7">
+                                        <h1 className="font-[600] flex items-center gap-[10px] text-[15px] mb-2">
+                                            <BsFillArrowRightCircleFill />{" "}
+                                            Cancellation Requests
+                                        </h1>
+                                        {attractionOrder?.cancellations
+                                            ?.length < 1 ? (
+                                            <div className="p-4 flex flex-col items-center">
+                                                <span className="text-sm text-grayColor block mt-[6px]">
+                                                    Oops.. No Cancellations
+                                                    Found
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <div className="overflow-x-auto">
+                                                <table className="w-full text-[14px]">
+                                                    <tbody>
+                                                        <tr className="odd:bg-[#f3f6f9]">
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Activity Name
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Date
+                                                            </td>
+
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Charge
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Remark
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Cancelled By
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Admin
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Status
+                                                            </td>
+                                                        </tr>
+                                                        {attractionOrder?.cancellations?.map(
+                                                            (
+                                                                cancellation,
+                                                                index
+                                                            ) => {
+                                                                return (
+                                                                    <AttractionOrderCancellationTableRow
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                        cancellation={
+                                                                            cancellation
+                                                                        }
+                                                                        setOrder={
+                                                                            setAttractionOrder
+                                                                        }
+                                                                        order={
+                                                                            order
+                                                                        }
+
+                                                                        // setHotelOrder={
+                                                                        //     setHotelOrder
+                                                                        // }
+                                                                    />
+                                                                );
+                                                            }
+                                                        )}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="mt-7">
+                                        <h1 className="font-[600] flex items-center gap-[10px] text-[15px] mb-2">
+                                            <BsFillArrowRightCircleFill />{" "}
+                                            Refunds
+                                        </h1>
+                                        {attractionOrder?.refunds?.length <
+                                        1 ? (
+                                            <div className="p-4 flex flex-col items-center">
+                                                <span className="text-sm text-grayColor block mt-[6px]">
+                                                    Oops.. No Refunds Found
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <div className="overflow-x-auto">
+                                                <table className="w-full text-[14px]">
+                                                    <tbody>
+                                                        <tr className="odd:bg-[#f3f6f9]">
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Activity Name
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Date
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Payment Method
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Amount
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Note
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Status
+                                                            </td>
+                                                        </tr>
+                                                        {attractionOrder?.refunds?.map(
+                                                            (refund, index) => {
+                                                                return (
+                                                                    <tr
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                        className="odd:bg-[#f3f6f9]"
+                                                                    >
+                                                                        {" "}
+                                                                        <td className="p-2">
+                                                                            {
+                                                                                refund?.activityName
+                                                                            }
+                                                                        </td>
+                                                                        <td className="p-2">
+                                                                            {formatDate(
+                                                                                refund?.createdAt,
+                                                                                true
+                                                                            )}
+                                                                        </td>
+                                                                        <td className="p-2 capitalize">
+                                                                            {
+                                                                                refund?.paymentMethod
+                                                                            }
+                                                                        </td>
+                                                                        <td className="p-2 whitespace-nowrap">
+                                                                            {refund?.amount?.toFixed(
+                                                                                2
+                                                                            )}{" "}
+                                                                            AED
+                                                                        </td>
+                                                                        <td className="p-2">
+                                                                            {refund?.note ||
+                                                                                "N/A"}
+                                                                        </td>
+                                                                        <td className="p-2">
+                                                                            <span
+                                                                                className={
+                                                                                    "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
+                                                                                    (refund?.status ===
+                                                                                    "failed"
+                                                                                        ? "bg-[#f065481A] text-[#f06548]"
+                                                                                        : refund?.status ===
+                                                                                          "success"
+                                                                                        ? "text-[#0ab39c] bg-[#0ab39c1A]"
+                                                                                        : "bg-[#f7b84b1A] text-[#f7b84b]")
+                                                                                }
+                                                                            >
+                                                                                {
+                                                                                    refund?.status
+                                                                                }
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                );
+                                                            }
+                                                        )}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        )}
+                                    </div>
                                 </>
                             )}
 
-                            {order?.transferOrder && (
+                            {transferOrder && (
                                 <>
                                     <div className="mt-10">
                                         <table className="w-full">
@@ -822,170 +1079,31 @@ export default function SingleOrderDetailsPage() {
                                                     <th className="font-[500] p-3">
                                                         Status
                                                     </th>
+                                                    <th className="font-[500] p-3">
+                                                        Action
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody className="text-sm">
-                                                {order?.transferOrder?.journey?.map(
+                                                {transferOrder?.journey?.map(
                                                     (item, orderItemIndex) => {
                                                         return (
-                                                            <tr
+                                                            <SingleTransferOrderTableRow
                                                                 key={
                                                                     orderItemIndex
                                                                 }
-                                                            >
-                                                                <td className="p-3">
-                                                                    <div className="flex gap-3">
-                                                                        <span className="">
-                                                                            {item?.trips[0]?.suggestionType.split(
-                                                                                "-"
-                                                                            )[0] ===
-                                                                            "AIRPORT"
-                                                                                ? item
-                                                                                      ?.trips[0]
-                                                                                      ?.transferFrom
-                                                                                      ?.airportName
-                                                                                : item
-                                                                                      ?.trips[0]
-                                                                                      ?.transferFrom
-                                                                                      ?.name}{" "}
-                                                                            -
-                                                                            {item?.trips[0]?.suggestionType.split(
-                                                                                "-"
-                                                                            )[1] ===
-                                                                            "AIRPORT"
-                                                                                ? item
-                                                                                      ?.trips[0]
-                                                                                      ?.transferTo
-                                                                                      ?.airportName
-                                                                                : item
-                                                                                      ?.trips[0]
-                                                                                      ?.transferTo
-                                                                                      ?.name}
-                                                                        </span>
-                                                                    </div>
-                                                                </td>
-                                                                <td className="p-3 capitalize">
-                                                                    {
-                                                                        item.transferType
-                                                                    }
-                                                                </td>
-                                                                <td className="p-3 capitalize">
-                                                                    <div>
-                                                                        Ow -{" "}
-                                                                        {item.trips[0]?.vehicleTypes.map(
-                                                                            (
-                                                                                type
-                                                                            ) => (
-                                                                                // Use + operator or template string to concatenate name and count
-                                                                                <span
-                                                                                    key={
-                                                                                        type.name
-                                                                                    }
-                                                                                >
-                                                                                    {
-                                                                                        type?.name
-                                                                                    }{" "}
-                                                                                    x
-                                                                                    (
-                                                                                    {
-                                                                                        type?.count
-                                                                                    }
-
-                                                                                    )
-                                                                                    ,
-                                                                                </span>
-                                                                            )
-                                                                        )}
-                                                                    </div>
-                                                                    {item
-                                                                        ?.trips[1] && (
-                                                                        <div>
-                                                                            Rtn
-                                                                            -{" "}
-                                                                            {item?.trips[1]?.vehicleTypes.map(
-                                                                                (
-                                                                                    type
-                                                                                ) => (
-                                                                                    // Use + operator or template string to concatenate name and count
-                                                                                    <span
-                                                                                        key={
-                                                                                            type.name
-                                                                                        }
-                                                                                    >
-                                                                                        {
-                                                                                            type?.name
-                                                                                        }{" "}
-                                                                                        x
-                                                                                        {
-                                                                                            type?.count
-                                                                                        }{" "}
-                                                                                    </span>
-                                                                                )
-                                                                            )}
-                                                                        </div>
-                                                                    )}
-                                                                </td>
-
-                                                                <td className="p-3">
-                                                                    {moment(
-                                                                        item?.date
-                                                                    ).format(
-                                                                        "MMM D, YYYY"
-                                                                    )}
-                                                                </td>
-                                                                <td className="p-3">
-                                                                    {
-                                                                        item?.noOfAdults
-                                                                    }{" "}
-                                                                    ADT,{" "}
-                                                                    {
-                                                                        item?.noOfChildrens
-                                                                    }{" "}
-                                                                    CHD{" "}
-                                                                </td>
-                                                                <td className="p-3">
-                                                                    {
-                                                                        item?.netPrice
-                                                                    }{" "}
-                                                                    AED
-                                                                </td>
-                                                                <td className="p-3">
-                                                                    <span
-                                                                        className={
-                                                                            "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
-                                                                            (item?.status ===
-                                                                            "cancelled"
-                                                                                ? "bg-[#f065481A] text-[#f06548]"
-                                                                                : item?.status ===
-                                                                                  "confirmed"
-                                                                                ? "text-[#0ab39c] bg-[#0ab39c1A]"
-                                                                                : "bg-[#f7b84b1A] text-[#f7b84b]")
-                                                                        }
-                                                                    >
-                                                                        {
-                                                                            item?.status
-                                                                        }
-                                                                    </span>
-                                                                </td>
-                                                                {/* <td className="p-3">
-                                                                    <span
-                                                                        className={
-                                                                            "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
-                                                                            (item?.status ===
-                                                                            "cancelled"
-                                                                                ? "bg-[#f065481A] text-[#f06548]"
-                                                                                : item?.status ===
-                                                                                  "confirmed"
-                                                                                ? "text-[#0ab39c] bg-[#0ab39c1A]"
-                                                                                : "bg-[#f7b84b1A] text-[#f7b84b]")
-                                                                        }
-                                                                    >
-                                                                        {
-                                                                            item?.status
-                                                                        }
-                                                                    </span>
-                                                                </td> */}
-                                                            </tr>
+                                                                item={item}
+                                                                transferOrder={
+                                                                    transferOrder
+                                                                }
+                                                                section={
+                                                                    section
+                                                                }
+                                                                setOrder={
+                                                                    setTransferOrder
+                                                                }
+                                                                order={order}
+                                                            />
                                                         );
                                                     }
                                                 )}
@@ -994,7 +1112,177 @@ export default function SingleOrderDetailsPage() {
                                     </div>
                                 </>
                             )}
+                            {transferOrder && (
+                                <>
+                                    <div className="mt-7">
+                                        <h1 className="font-[600] flex items-center gap-[10px] text-[15px] mb-2">
+                                            <BsFillArrowRightCircleFill />{" "}
+                                            Cancellation Requests
+                                        </h1>
+                                        {transferOrder?.cancellations?.length <
+                                        1 ? (
+                                            <div className="p-4 flex flex-col items-center">
+                                                <span className="text-sm text-grayColor block mt-[6px]">
+                                                    Oops.. No Cancellations
+                                                    Found
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <div className="overflow-x-auto">
+                                                <table className="w-full text-[14px]">
+                                                    <tbody>
+                                                        <tr className="odd:bg-[#f3f6f9]">
+                                                            {/* <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Activity Name
+                                                            </td> */}
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Date
+                                                            </td>
 
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Charge
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Remark
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Cancelled By
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Admin
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Status
+                                                            </td>
+                                                        </tr>
+                                                        {transferOrder?.cancellations?.map(
+                                                            (
+                                                                cancellation,
+                                                                index
+                                                            ) => {
+                                                                return (
+                                                                    <TransferOrderCancellationTableRow
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                        cancellation={
+                                                                            cancellation
+                                                                        }
+                                                                        setOrder={
+                                                                            setTransferOrder
+                                                                        }
+                                                                        order={
+                                                                            order
+                                                                        }
+                                                                        section={
+                                                                            section
+                                                                        }
+
+                                                                        // setHotelOrder={
+                                                                        //     setHotelOrder
+                                                                        // }
+                                                                    />
+                                                                );
+                                                            }
+                                                        )}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="mt-7">
+                                        <h1 className="font-[600] flex items-center gap-[10px] text-[15px] mb-2">
+                                            <BsFillArrowRightCircleFill />{" "}
+                                            Refunds
+                                        </h1>
+                                        {transferOrder?.refunds?.length < 1 ? (
+                                            <div className="p-4 flex flex-col items-center">
+                                                <span className="text-sm text-grayColor block mt-[6px]">
+                                                    Oops.. No Refunds Found
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <div className="overflow-x-auto">
+                                                <table className="w-full text-[14px]">
+                                                    <tbody>
+                                                        <tr className="odd:bg-[#f3f6f9]">
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Date
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Payment Method
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Amount
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Note
+                                                            </td>
+                                                            <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Status
+                                                            </td>
+                                                        </tr>
+                                                        {transferOrder?.refunds?.map(
+                                                            (refund, index) => {
+                                                                return (
+                                                                    <tr
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                        className="odd:bg-[#f3f6f9]"
+                                                                    >
+                                                                        {" "}
+                                                                        <td className="p-2">
+                                                                            {formatDate(
+                                                                                refund?.createdAt,
+                                                                                true
+                                                                            )}
+                                                                        </td>
+                                                                        <td className="p-2 capitalize">
+                                                                            {
+                                                                                refund?.paymentMethod
+                                                                            }
+                                                                        </td>
+                                                                        <td className="p-2 whitespace-nowrap">
+                                                                            {refund?.amount?.toFixed(
+                                                                                2
+                                                                            )}{" "}
+                                                                            AED
+                                                                        </td>
+                                                                        <td className="p-2">
+                                                                            {refund?.note ||
+                                                                                "N/A"}
+                                                                        </td>
+                                                                        <td className="p-2">
+                                                                            <span
+                                                                                className={
+                                                                                    "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
+                                                                                    (refund?.status ===
+                                                                                    "failed"
+                                                                                        ? "bg-[#f065481A] text-[#f06548]"
+                                                                                        : refund?.status ===
+                                                                                          "success"
+                                                                                        ? "text-[#0ab39c] bg-[#0ab39c1A]"
+                                                                                        : "bg-[#f7b84b1A] text-[#f7b84b]")
+                                                                                }
+                                                                            >
+                                                                                {
+                                                                                    refund?.status
+                                                                                }
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                );
+                                                            }
+                                                        )}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        )}
+                                    </div>
+                                </>
+                            )}
                             <div className="mt-10">
                                 <div className="flex items-center">
                                     <ul className="dir-btn">
@@ -1024,7 +1312,6 @@ export default function SingleOrderDetailsPage() {
                                         )}
                                     </ul>
                                 </div>
-
                                 {selectedSection === "payments" && (
                                     <div className="mt-2">
                                         {order?.payments?.length < 1 ? (
@@ -1116,10 +1403,9 @@ export default function SingleOrderDetailsPage() {
                                         )}
                                     </div>
                                 )}
-
                                 {selectedSection === "cancellations" && (
                                     <div className="mt-2">
-                                        {order?.cancellations?.length < 1 ? (
+                                        {cancellations?.length < 1 ? (
                                             <div className="p-4 flex flex-col items-center">
                                                 <span className="text-sm text-grayColor block mt-[6px]">
                                                     Oops.. No Cancellations
@@ -1131,12 +1417,13 @@ export default function SingleOrderDetailsPage() {
                                                 <table className="w-full text-[14px]">
                                                     <tbody>
                                                         <tr className="odd:bg-[#f3f6f9]">
+                                                            {/* <td className="p-2 text-sm text-grayColor font-medium">
+                                                                Activity Name
+                                                            </td> */}
                                                             <td className="p-2 text-sm text-grayColor font-medium">
                                                                 Date
                                                             </td>
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Provider
-                                                            </td>
+
                                                             <td className="p-2 text-sm text-grayColor font-medium">
                                                                 Charge
                                                             </td>
@@ -1153,26 +1440,92 @@ export default function SingleOrderDetailsPage() {
                                                                 Status
                                                             </td>
                                                         </tr>
-                                                        {order?.cancellations?.map(
+                                                        {cancellations?.map(
                                                             (
                                                                 cancellation,
                                                                 index
                                                             ) => {
                                                                 return (
-                                                                    <HotelReservationCancellationTableRow
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        cancellation={
-                                                                            cancellation
-                                                                        }
-                                                                        hotelOrder={
-                                                                            hotelOrder
-                                                                        }
-                                                                        setHotelOrder={
-                                                                            setHotelOrder
-                                                                        }
-                                                                    />
+                                                                    <tr className="odd:bg-[#f3f6f9]">
+                                                                        {" "}
+                                                                        <td className="p-2">
+                                                                            {formatDate(
+                                                                                cancellation?.createdAt,
+                                                                                true
+                                                                            )}
+                                                                        </td>
+                                                                        <td className="p-2 whitespace-nowrap">
+                                                                            {cancellation?.cancellationCharge
+                                                                                ? `${cancellation?.cancellationCharge?.toFixed(
+                                                                                      2
+                                                                                  )} AED`
+                                                                                : "N/A"}
+                                                                        </td>
+                                                                        <td className="p-2">
+                                                                            {cancellation?.cancellationRemark ||
+                                                                                "N/A"}
+                                                                        </td>
+                                                                        <td className="p-2 capitalize">
+                                                                            {
+                                                                                cancellation?.cancelledBy
+                                                                            }
+                                                                        </td>
+                                                                        <td className="p-2">
+                                                                            {cancellation
+                                                                                ?.adminId
+                                                                                ?.name ||
+                                                                                "N/A"}
+                                                                        </td>
+                                                                        {/* <td className="p-2">
+                                                                        {cancellation?.cancellationStatus === "pending" ? (
+                                                                            <div onClick={(e) => e.stopPropagation()}>
+                                                                                <select
+                                                                                    className="h-[35px] py-0 w-[100px] capitalize"
+                                                                                    onChange={(e) => {
+                                                                                        if (e.target.value === "cancel") {
+                                                                                            setIsCancelModalOpen(true);
+                                                                                        }
+                                                                                    }}
+                                                                                    value={cancellation?.cancellationStatus}
+                                                                                >
+                                                                                    <option value="" hidden>
+                                                                                        {cancellation?.cancellationStatus}
+                                                                                    </option>
+                                                                                    <option value="cancel">Cancel</option>
+                                                                                </select>
+                                                                                {isCancelModalOpen && (
+                                                                                    <ActivityCancellationModal
+                                                                                        setIsBookingConfirmationModalOpen={
+                                                                                            setIsCancelModalOpen
+                                                                                        }
+                                                                                        cancellationTb={true}
+                                                                                        setOrderData={setOrder}
+                                                                                        order={order}
+                                                                                        cancellationId={cancellation?._id}
+                                                                                        section={section}
+                                                                                    />
+                                                                                )}
+                                                                            </div>
+                                                                        ) : (
+                                                                            <span
+                                                                                className={
+                                                                                    "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
+                                                                                    (cancellation?.cancellationStatus === "failed"
+                                                                                        ? "bg-[#f065481A] text-[#f06548]"
+                                                                                        : cancellation?.cancellationStatus === "success"
+                                                                                        ? "text-[#0ab39c] bg-[#0ab39c1A]"
+                                                                                        : "bg-[#f7b84b1A] text-[#f7b84b]")
+                                                                                }
+                                                                            >
+                                                                                {cancellation?.cancellationStatus}
+                                                                            </span>
+                                                                        )}
+                                                                    </td> */}
+                                                                        <td className="p-2">
+                                                                            {cancellation?.cancellationStatus ||
+                                                                                "N/A"}
+                                                                        </td>
+                                                                    </tr>
                                                                 );
                                                             }
                                                         )}
@@ -1181,11 +1534,10 @@ export default function SingleOrderDetailsPage() {
                                             </div>
                                         )}
                                     </div>
-                                )}
-
+                                )}{" "}
                                 {selectedSection === "refunds" && (
                                     <div className="mt-2">
-                                        {order?.refunds?.length < 1 ? (
+                                        {refunds?.length < 1 ? (
                                             <div className="p-4 flex flex-col items-center">
                                                 <span className="text-sm text-grayColor block mt-[6px]">
                                                     Oops.. No Refunds Found
@@ -1212,7 +1564,7 @@ export default function SingleOrderDetailsPage() {
                                                                 Status
                                                             </td>
                                                         </tr>
-                                                        {order?.refunds?.map(
+                                                        {refunds?.map(
                                                             (refund, index) => {
                                                                 return (
                                                                     <tr
@@ -1221,11 +1573,11 @@ export default function SingleOrderDetailsPage() {
                                                                         }
                                                                         className="odd:bg-[#f3f6f9]"
                                                                     >
+                                                                        {" "}
                                                                         <td className="p-2">
-                                                                            {moment(
-                                                                                refund?.createdAt
-                                                                            ).format(
-                                                                                "MMM D, YYYY HH:mm"
+                                                                            {formatDate(
+                                                                                refund?.createdAt,
+                                                                                true
                                                                             )}
                                                                         </td>
                                                                         <td className="p-2 capitalize">
@@ -1275,6 +1627,37 @@ export default function SingleOrderDetailsPage() {
                         </div>
                     </div>
                 </div>
+            )}
+            {isCancelModalOpen && (
+                <CommonCancellationModal
+                    setIsBookingConfirmationModalOpen={setIsCancelModalOpen}
+                    setAttractionOrder={setAttractionOrder}
+                    attractionOrder={attractionOrder}
+                    setTransferOrder={setTransferOrder}
+                    transferOrder={transferOrder}
+                    orderId={orderId}
+                    // bookingId={orderItem?._id}
+                    // orderedBy={section}
+                    // order={order}
+                    cancellationTb={false}
+                    section={section}
+                />
+            )}
+            {isCancelApproveModalOpen && (
+                <CommonCancellationModal
+                    setIsBookingConfirmationModalOpen={
+                        setIsCancelApproveModalOpen
+                    }
+                    setAttractionOrder={setAttractionOrder}
+                    attractionOrder={attractionOrder}
+                    setTransferOrder={setTransferOrder}
+                    transferOrder={transferOrder}
+                    orderId={orderId}
+                    cancellationId={cancellations[0]?._id}
+                    cancellationTb={true}
+                    // order={order}
+                    section={section}
+                />
             )}
         </div>
     );

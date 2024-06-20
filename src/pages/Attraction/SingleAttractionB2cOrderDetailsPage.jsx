@@ -11,11 +11,10 @@ import { PageLoader } from "../../components";
 import axios from "../../axios";
 import { config } from "../../constants";
 import { SingleAttrOrderActivitiesTable } from "../../features/Attractions";
+import AttractionOrderCancellationTableRow from "../../features/Attractions/components/AttractionOrderCancellationTableRow";
 
 const sections = {
     payments: "Payments",
-    cancellations: "Cancellations",
-    refunds: "Refunds",
 };
 
 export default function SingleAttractionB2cOrderDetailsPage() {
@@ -405,7 +404,177 @@ export default function SingleAttractionB2cOrderDetailsPage() {
                                 <SingleAttrOrderActivitiesTable
                                     attractionOrder={attractionOrder}
                                     section={"b2c"}
+                                    setOrder={setAttractionOrder}
                                 />
+                                <div className="mt-7">
+                                    <h1 className="font-[600] flex items-center gap-[10px] text-[15px] mb-2">
+                                        <BsFillArrowRightCircleFill />{" "}
+                                        Cancellation Requests
+                                    </h1>
+                                    {attractionOrder?.cancellations?.length <
+                                    1 ? (
+                                        <div className="p-4 flex flex-col items-center">
+                                            <span className="text-sm text-grayColor block mt-[6px]">
+                                                Oops.. No Cancellations Found
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="overflow-x-auto">
+                                            <table className="w-full text-[14px]">
+                                                <tbody>
+                                                    <tr className="odd:bg-[#f3f6f9]">
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Activity Name
+                                                        </td>
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Date
+                                                        </td>
+
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Charge
+                                                        </td>
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Remark
+                                                        </td>
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Cancelled By
+                                                        </td>
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Admin
+                                                        </td>
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Status
+                                                        </td>
+                                                    </tr>
+                                                    {attractionOrder?.cancellations?.map(
+                                                        (
+                                                            cancellation,
+                                                            index
+                                                        ) => {
+                                                            return (
+                                                                <AttractionOrderCancellationTableRow
+                                                                    key={index}
+                                                                    cancellation={
+                                                                        cancellation
+                                                                    }
+                                                                    setOrder={
+                                                                        setAttractionOrder
+                                                                    }
+                                                                    order={
+                                                                        attractionOrder
+                                                                    }
+                                                                    section={
+                                                                        "b2c"
+                                                                    }
+
+                                                                    // setHotelOrder={
+                                                                    //     setHotelOrder
+                                                                    // }
+                                                                />
+                                                            );
+                                                        }
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="mt-7">
+                                    <h1 className="font-[600] flex items-center gap-[10px] text-[15px] mb-2">
+                                        <BsFillArrowRightCircleFill /> Refunds
+                                    </h1>
+                                    {attractionOrder?.refunds?.length < 1 ? (
+                                        <div className="p-4 flex flex-col items-center">
+                                            <span className="text-sm text-grayColor block mt-[6px]">
+                                                Oops.. No Refunds Found
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="overflow-x-auto">
+                                            <table className="w-full text-[14px]">
+                                                <tbody>
+                                                    <tr className="odd:bg-[#f3f6f9]">
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Activity Name
+                                                        </td>
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Date
+                                                        </td>
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Payment Method
+                                                        </td>
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Amount
+                                                        </td>
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Note
+                                                        </td>
+                                                        <td className="p-2 text-sm text-grayColor font-medium">
+                                                            Status
+                                                        </td>
+                                                    </tr>
+                                                    {attractionOrder?.refunds?.map(
+                                                        (refund, index) => {
+                                                            return (
+                                                                <tr
+                                                                    key={index}
+                                                                    className="odd:bg-[#f3f6f9]"
+                                                                >
+                                                                    {" "}
+                                                                    <td className="p-2">
+                                                                        {
+                                                                            refund?.activityName
+                                                                        }
+                                                                    </td>
+                                                                    <td className="p-2">
+                                                                        {formatDate(
+                                                                            refund?.createdAt,
+                                                                            true
+                                                                        )}
+                                                                    </td>
+                                                                    <td className="p-2 capitalize">
+                                                                        {
+                                                                            refund?.paymentMethod
+                                                                        }
+                                                                    </td>
+                                                                    <td className="p-2 whitespace-nowrap">
+                                                                        {refund?.amount?.toFixed(
+                                                                            2
+                                                                        )}{" "}
+                                                                        AED
+                                                                    </td>
+                                                                    <td className="p-2">
+                                                                        {refund?.note ||
+                                                                            "N/A"}
+                                                                    </td>
+                                                                    <td className="p-2">
+                                                                        <span
+                                                                            className={
+                                                                                "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
+                                                                                (refund?.status ===
+                                                                                "failed"
+                                                                                    ? "bg-[#f065481A] text-[#f06548]"
+                                                                                    : refund?.status ===
+                                                                                      "success"
+                                                                                    ? "text-[#0ab39c] bg-[#0ab39c1A]"
+                                                                                    : "bg-[#f7b84b1A] text-[#f7b84b]")
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                refund?.status
+                                                                            }
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                                            );
+                                                        }
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
 
                             <div className="mt-10">
@@ -517,163 +686,6 @@ export default function SingleAttractionB2cOrderDetailsPage() {
                                                                             >
                                                                                 {
                                                                                     payment?.paymentState
-                                                                                }
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
-                                                                );
-                                                            }
-                                                        )}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-
-                                {selectedSection === "cancellations" && (
-                                    <div className="mt-2">
-                                        {attractionOrder?.cancellations
-                                            ?.length < 1 ? (
-                                            <div className="p-4 flex flex-col items-center">
-                                                <span className="text-sm text-grayColor block mt-[6px]">
-                                                    Oops.. No Cancellations
-                                                    Found
-                                                </span>
-                                            </div>
-                                        ) : (
-                                            <div className="overflow-x-auto">
-                                                <table className="w-full text-[14px]">
-                                                    <tbody>
-                                                        <tr className="odd:bg-[#f3f6f9]">
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Date
-                                                            </td>
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Provider
-                                                            </td>
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Charge
-                                                            </td>
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Remark
-                                                            </td>
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Cancelled By
-                                                            </td>
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Admin
-                                                            </td>
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Status
-                                                            </td>
-                                                        </tr>
-                                                        {attractionOrder?.cancellations?.map(
-                                                            (
-                                                                cancellation,
-                                                                index
-                                                            ) => {
-                                                                return (
-                                                                    <HotelReservationCancellationTableRow
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        cancellation={
-                                                                            cancellation
-                                                                        }
-                                                                        hotelOrder={
-                                                                            hotelOrder
-                                                                        }
-                                                                        setHotelOrder={
-                                                                            setHotelOrder
-                                                                        }
-                                                                    />
-                                                                );
-                                                            }
-                                                        )}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-
-                                {selectedSection === "refunds" && (
-                                    <div className="mt-2">
-                                        {attractionOrder?.refunds?.length <
-                                        1 ? (
-                                            <div className="p-4 flex flex-col items-center">
-                                                <span className="text-sm text-grayColor block mt-[6px]">
-                                                    Oops.. No Refunds Found
-                                                </span>
-                                            </div>
-                                        ) : (
-                                            <div className="overflow-x-auto">
-                                                <table className="w-full text-[14px]">
-                                                    <tbody>
-                                                        <tr className="odd:bg-[#f3f6f9]">
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Date
-                                                            </td>
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Payment Method
-                                                            </td>
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Amount
-                                                            </td>
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Note
-                                                            </td>
-                                                            <td className="p-2 text-sm text-grayColor font-medium">
-                                                                Status
-                                                            </td>
-                                                        </tr>
-                                                        {attractionOrder?.refunds?.map(
-                                                            (refund, index) => {
-                                                                return (
-                                                                    <tr
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        className="odd:bg-[#f3f6f9]"
-                                                                    >
-                                                                        <td className="p-2">
-                                                                            {moment(
-                                                                                refund?.createdAt
-                                                                            ).format(
-                                                                                "MMM D, YYYY HH:mm"
-                                                                            )}
-                                                                        </td>
-                                                                        <td className="p-2 capitalize">
-                                                                            {
-                                                                                refund?.paymentMethod
-                                                                            }
-                                                                        </td>
-                                                                        <td className="p-2 whitespace-nowrap">
-                                                                            {refund?.amount?.toFixed(
-                                                                                2
-                                                                            )}{" "}
-                                                                            AED
-                                                                        </td>
-                                                                        <td className="p-2">
-                                                                            {refund?.note ||
-                                                                                "N/A"}
-                                                                        </td>
-                                                                        <td className="p-2">
-                                                                            <span
-                                                                                className={
-                                                                                    "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
-                                                                                    (refund?.status ===
-                                                                                    "failed"
-                                                                                        ? "bg-[#f065481A] text-[#f06548]"
-                                                                                        : refund?.status ===
-                                                                                          "success"
-                                                                                        ? "text-[#0ab39c] bg-[#0ab39c1A]"
-                                                                                        : "bg-[#f7b84b1A] text-[#f7b84b]")
-                                                                                }
-                                                                            >
-                                                                                {
-                                                                                    refund?.status
                                                                                 }
                                                                             </span>
                                                                         </td>

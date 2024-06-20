@@ -470,6 +470,12 @@ const adminRoles = [
         category: "Orders",
         permissions: [],
     },
+    {
+        name: "orders-cancellation",
+        displayName: "Orders Cancellation",
+        category: "Orders",
+        permissions: [],
+    },
 
     // seasons
     {
@@ -488,18 +494,18 @@ const adminRoles = [
     },
 
     //orders
-    {
-        name: "attraction-order",
-        displayName: "Attraction ",
-        category: "order",
-        permissions: [],
-    },
-    {
-        name: "attraction-transaction",
-        displayName: "Attraction Transaction",
-        category: "order",
-        permissions: [],
-    },
+    // {
+    //     name: "attraction-order",
+    //     displayName: "Attraction ",
+    //     category: "order",
+    //     permissions: [],
+    // },
+    // {
+    //     name: "attraction-transaction",
+    //     displayName: "Attraction Transaction",
+    //     category: "order",
+    //     permissions: [],
+    // },
     // {
     //     name: "visa-order",
     //     displayName: "Visa",

@@ -21,9 +21,8 @@ import { fetchOrderData } from "./../../redux/slices/generalSlice";
 
 export default function Sidebar() {
     const { admin } = useSelector((state) => state.admin);
-    const { b2bOrderCount, b2cOrderCount } = useSelector(
-        (state) => state.general
-    );
+    const { b2bOrderCount, b2cOrderCount, b2bCancellationOrderCount } =
+        useSelector((state) => state.general);
     const dispatch = useDispatch();
 
     const location = useLocation();
@@ -116,6 +115,9 @@ export default function Sidebar() {
                                             count={
                                                 Number(b2bOrderCount) +
                                                 Number(b2cOrderCount)
+                                            }
+                                            cancellationCount={
+                                                b2bCancellationOrderCount
                                             }
                                         />
                                     );

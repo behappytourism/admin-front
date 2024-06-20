@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { MdNoTransfer } from "react-icons/md";
 import { FaBus } from "react-icons/fa";
@@ -11,16 +11,20 @@ import { useSelector } from "react-redux";
 import { config } from "../../../constants";
 import axios from "../../../axios";
 import BookingConfirmationModal from "../../Orders/components/BookingConfirmationModal";
+import ActivityCancellationModal from "../../Orders/components/ActivityCancellationModal";
 
 export default function SingleAttrOrderActivitiesTableRow({
     orderItem,
-    attractionOrder,
     section,
+    order,
+    setOrder,
 }) {
     const [isTicketsListModalOpen, setIsTicketsListModalOpen] = useState(false);
     const { orderId } = useParams();
     const { jwtToken } = useSelector((state) => state.admin);
     const [isBookingConfirmationModalOpen, setIsBookingConfirmationModalOpen] =
+        useState(false);
+    const [isBookingCancellationModalOpen, setIsBookingCancellationModalOpen] =
         useState(false);
     const [isStatusLoading, setIsStatusLoading] = useState(false);
     const [orderData, setOrderData] = useState({
@@ -29,37 +33,13 @@ export default function SingleAttrOrderActivitiesTableRow({
         drivers: orderItem?.drivers || [],
         driversRequired: 0,
     });
-    const handleOrderStatusChange = async (e) => {
-        try {
-            setIsStatusLoading(true);
 
-            await axios.patch(
-                `/attractions/orders/bookings/cancel`,
-                {
-                    orderId: attractionOrder?._id,
-                    bookingId: orderItem?._id,
-                    orderedBy: section,
-                },
-                {
-                    headers: { authorization: `Bearer ${jwtToken}` },
-                }
-            );
-
-            setOrderData((prev) => {
-                return { ...prev, status: "cancelled" };
-            });
-
-            setIsStatusLoading(false);
-        } catch (err) {
-            e.target.value = "";
-        }
-    };
     const handleDownloadTickets = async () => {
         try {
             let pdfBuffer;
             if (section === "b2b") {
                 pdfBuffer = await axios.get(
-                    `/attractions/orders/b2b/${attractionOrder?._id}/orderItems/${orderItem?._id}/tickets`,
+                    `/attractions/orders/b2b/${order?._id}/orderItems/${orderItem?._id}/tickets`,
                     {
                         headers: { authorization: `Bearer ${jwtToken}` },
                         responseType: "arraybuffer",
@@ -67,7 +47,7 @@ export default function SingleAttrOrderActivitiesTableRow({
                 );
             } else if (section === "b2c") {
                 pdfBuffer = await axios.get(
-                    `/attractions/orders/b2c/${attractionOrder?._id}/orderItems/${orderItem?._id}/tickets`,
+                    `/attractions/orders/b2c/${order?._id}/orderItems/${orderItem?._id}/tickets`,
                     {
                         headers: { authorization: `Bearer ${jwtToken}` },
                         responseType: "arraybuffer",
@@ -81,13 +61,23 @@ export default function SingleAttrOrderActivitiesTableRow({
             });
             const link = document.createElement("a");
             link.href = window.URL.createObjectURL(blob);
-            link.download = `${attractionOrder?._id}.pdf`;
+            link.download = `${order?._id}.pdf`;
             document.body.appendChild(link);
             link.click();
         } catch (err) {
             console.log(err);
         }
     };
+
+    useEffect(() => {
+        setOrderData((prev) => {
+            return {
+                ...prev,
+                status: orderItem?.status,
+                bookingConfirmationNumber: orderItem?.bookingConfirmationNumber,
+            };
+        });
+    }, [order, orderItem]);
 
     return (
         <tr>
@@ -194,7 +184,22 @@ export default function SingleAttrOrderActivitiesTableRow({
             </td>
             <td className="p-3">{orderItem?.grandTotal} AED</td>
             <td className="p-3">
-                {orderData?.status === "booked" ? (
+                {" "}
+                <span
+                    className={
+                        "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
+                        (orderData?.status === "cancelled"
+                            ? "bg-[#f065481A] text-[#f06548]"
+                            : orderData?.status === "confirmed"
+                            ? "text-[#0ab39c] bg-[#0ab39c1A]"
+                            : "bg-[#f7b84b1A] text-[#f7b84b]")
+                    }
+                >
+                    {orderData?.status}
+                </span>
+            </td>
+            <td className="p-3">
+                {orderData?.status === "booked" && (
                     <div onClick={(e) => e.stopPropagation()}>
                         <select
                             className="h-[35px] py-0 w-[90px] mt-5"
@@ -203,7 +208,7 @@ export default function SingleAttrOrderActivitiesTableRow({
                                     setIsBookingConfirmationModalOpen(true);
                                 } else if (e.target.value === "cancel") {
                                     e.target.value = e.target.value;
-                                    handleOrderStatusChange();
+                                    setIsBookingCancellationModalOpen(true);
                                 }
                             }}
                             value={orderData.status}
@@ -215,19 +220,27 @@ export default function SingleAttrOrderActivitiesTableRow({
                             <option value="cancel">Cancel</option>
                         </select>
                     </div>
-                ) : (
-                    <span
-                        className={
-                            "text-[12px] capitalize px-3 rounded py-[2px] font-medium " +
-                            (orderData?.status === "cancelled"
-                                ? "bg-[#f065481A] text-[#f06548]"
-                                : orderData?.status === "confirmed"
-                                ? "text-[#0ab39c] bg-[#0ab39c1A]"
-                                : "bg-[#f7b84b1A] text-[#f7b84b]")
-                        }
-                    >
-                        {orderData?.status}
-                    </span>
+                )}
+
+                {orderData?.status === "confirmed" && (
+                    <div onClick={(e) => e.stopPropagation()}>
+                        <select
+                            className="h-[35px] py-0 w-[90px] mt-5"
+                            onChange={(e) => {
+                                if (e.target.value === "confirm") {
+                                    setIsBookingConfirmationModalOpen(true);
+                                } else if (e.target.value === "cancel") {
+                                    e.target.value = e.target.value;
+                                    setIsBookingCancellationModalOpen(true);
+                                }
+                            }}
+                            value={orderData.status}
+                        >
+                            {" "}
+                            <option value="">Select</option>
+                            <option value="cancel">Cancel</option>
+                        </select>
+                    </div>
                 )}
             </td>
             {isBookingConfirmationModalOpen && (
@@ -236,9 +249,22 @@ export default function SingleAttrOrderActivitiesTableRow({
                         setIsBookingConfirmationModalOpen
                     }
                     setOrderData={setOrderData}
-                    orderId={attractionOrder?._id}
+                    orderId={order?._id}
                     bookingId={orderItem?._id}
                     orderedBy={section}
+                />
+            )}
+            {isBookingCancellationModalOpen && (
+                <ActivityCancellationModal
+                    setIsBookingConfirmationModalOpen={
+                        setIsBookingCancellationModalOpen
+                    }
+                    setOrderData={setOrder}
+                    orderId={order?._id}
+                    bookingId={orderItem?._id}
+                    orderedBy={section}
+                    order={order}
+                    section={section}
                 />
             )}
         </tr>

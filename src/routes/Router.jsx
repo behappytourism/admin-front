@@ -307,6 +307,7 @@ import AddEmailReceiverConfigPage from "../pages/EmailReceiverConfig/AddEmailRec
 import EditEmailReceiverConfigPage from "../pages/EmailReceiverConfig/EditEmailReceiverConfigPage";
 import AddAboutUsB2cPage from "../pages/B2cFrontend/AddAboutUsB2cPage";
 import AddAboutUsB2bPage from "../pages/B2bFrontend/AddAboutUsB2bPage";
+import OrdersCancellationListingPage from "../pages/Orders/OrderCancellationListingPage";
 
 const ThemeRoutes = [
     {
@@ -1453,6 +1454,10 @@ const ThemeRoutes = [
             {
                 path: "/orders",
                 element: <OrdersListingPage />,
+            },
+            {
+                path: "/order/cancellation",
+                element: <OrdersCancellationListingPage />,
             },
 
             {
