@@ -868,7 +868,9 @@ export default function SingleOrderDetailsPage() {
                                                                 setOrder={
                                                                     setAttractionOrder
                                                                 }
-                                                                order={order}
+                                                                order={
+                                                                    attractionOrder
+                                                                }
                                                             />
                                                         );
                                                     }

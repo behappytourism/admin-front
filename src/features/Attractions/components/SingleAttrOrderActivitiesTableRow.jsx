@@ -138,6 +138,13 @@ export default function SingleAttrOrderActivitiesTableRow({
                                         );
                                     }
                                 )}
+                        </div>{" "}
+                        <div>
+                            {orderItem?.hoursCount && (
+                                <span className="block mt-[6px]">
+                                    Hours x {orderItem?.hoursCount}
+                                </span>
+                            )}
                         </div>
                     </div>
                 )}
