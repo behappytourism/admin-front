@@ -15,6 +15,8 @@ export default function FooterLinkModal({
         isRelativeUrl:
             (footerLinkModal?.isEdit && selectedLink?.link?.isRelativeUrl) ||
             false,
+        displayOrder:
+            (footerLinkModal?.isEdit && selectedLink?.link?.displayOrder) || "",
     });
 
     const wrapperRef = useRef();
@@ -103,6 +105,17 @@ export default function FooterLinkModal({
                             <label htmlFor="" className="mb-0">
                                 Relative URL
                             </label>
+                        </div>
+                        <div className="mt-4">
+                            <label htmlFor="">Display Order</label>
+                            <input
+                                type="number"
+                                name="displayOrder"
+                                placeholder="Enter Footer Display Order"
+                                onChange={handleChange}
+                                value={data.displayOrder || ""}
+                                required
+                            />
                         </div>
                         <div className="mt-4 flex items-center justify-end gap-[12px]">
                             <button
