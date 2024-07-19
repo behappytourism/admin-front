@@ -114,7 +114,7 @@ export default function FooterLinkModal({
                                 placeholder="Enter Footer Display Order"
                                 onChange={handleChange}
                                 value={data.displayOrder || ""}
-                                required
+                                
                             />
                         </div>
                         <div className="mt-4 flex items-center justify-end gap-[12px]">
