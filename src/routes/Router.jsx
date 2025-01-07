@@ -290,9 +290,9 @@ import EditBannerB2cPage from "../pages/B2cFrontend/EditBannerB2cPage";
 import B2bEnquiryDetailPage from "../pages/Resellers/B2BEnquiryDetailPage.jsx";
 import SingleUserOrdersPage from "../pages/Users/SingleUserOrderPage";
 import SingleResellerOrdersPage from "../pages/Resellers/SingleReselerOrderPage";
-import EmailConfigListPage from "../pages/EmailConfig/EmailConfigListPage";
-import AddEmailConfigPage from "../pages/EmailConfig/AddEmailConfigPage";
-import EditEmailConfigPage from "../pages/EmailConfig/EditEmailConfigPage";
+// import EmailConfigListPage from "../pages/EmailConfig/EmailConfigListPage";
+// import AddEmailConfigPage from "../pages/EmailConfig/AddEmailConfigPage";
+// import EditEmailConfigPage from "../pages/EmailConfig/EditEmailConfigPage";
 import PromoCodeListPage from "../pages/PromoCode/PromoCodeListPage";
 import AddPromoCodePage from "../pages/PromoCode/AddPromoCodePage";
 import EditPromoCodePage from "../pages/PromoCode/EditPromoCodePage";
@@ -308,6 +308,31 @@ import EditEmailReceiverConfigPage from "../pages/EmailReceiverConfig/EditEmailR
 import AddAboutUsB2cPage from "../pages/B2cFrontend/AddAboutUsB2cPage";
 import AddAboutUsB2bPage from "../pages/B2bFrontend/AddAboutUsB2bPage";
 import OrdersCancellationListingPage from "../pages/Orders/OrderCancellationListingPage";
+import AddEmailListPage from "../pages/Email/AddEmailListPage";
+import EditEmailListPage from "../pages/Email/EditEmailListPage";
+import EmailListsListingPage from "../pages/Email/EmailListsListingPage";
+import EditTemplateListPage from "../pages/Email/EmailTemplateListingPage";
+import AddEmailTemplatePage from "../pages/Email/AddEmailTemplatePage";
+import EditEmailTemplatePage from "../pages/Email/EditEmailTemplatePage";
+import AddEmailCampaignPage from "../pages/Email/AddEmailCampaignPage";
+import EditEmailCampaginPage from "../pages/Email/EditEmailCampaignPage.jsx";
+import EmailCampaignListingPage from "../pages/Email/EmailCampaignListingPage";
+import EmailImageLisitingPage from "../pages/Email/EmailImageLisitingPage";
+import EmailCampaignGroupListingPage from "../pages/Email/EmailCampaignGroupListingPage";
+import AddEmailCampaignGroupPage from "../pages/Email/AddEmailCampaignGroupPage";
+import EditEmailCampaignGroupPage from "../pages/Email/EditEmailCampaignGroupPage.jsx";
+import EmailUnSubscribeListingPage from "../pages/Email/EmailUnsubscribeList";
+import EmailImageLisitingPage2 from "../pages/Email/EmailImageLisitingPage 2";
+import ViewEmailCampaginPage from "../pages/Email/ViewEmailCampaginPage";
+import EmailFooterListingPage from "../pages/Email/EmailFooterLisitingPage";
+import AddEmailFooterPage from "../pages/Email/AddEmailFooterPage";
+import EditEmailFooterPage from "../pages/Email/EditEmailFooterPage";
+import AddEmailConfigPage from "../pages/Email/AddEmailConfigPage";
+import EditEmailConfigPage from "../pages/Email/EditEmailConfigPage";
+import EmailConfigListingPage from "../pages/Email/EmailConfigListingPage";
+import AddStandAlone from "../pages/AttractionStandAlone/AddStandAlone";
+import StandAloneList from "../pages/AttractionStandAlone/StandAloneList";
+import StandAloneEdit from "../pages/AttractionStandAlone/StandAloneEdit";
 
 const ThemeRoutes = [
     {
@@ -412,6 +437,18 @@ const ThemeRoutes = [
             {
                 path: "/attractions/guide/:id/edit",
                 element: <EditGuidePage />,
+            },
+            {
+                path: "/attractions/addStandalone",
+                element: <AddStandAlone />,
+            },
+            {
+                path: "/attractions/standalone",
+                element: <StandAloneList />,
+            },
+            {
+                path: "/attractions/standalone/edit/:id",
+                element: <StandAloneEdit />,
             },
 
             {
@@ -1461,9 +1498,10 @@ const ThemeRoutes = [
             },
 
             {
-                path: "/orders/single/:orderId/:section",
+                path: "/orders/single/:orderType/:orderId/:section",
                 element: <SingleOrderDetailsPage />,
             },
+           
 
             //seo
 
@@ -1487,31 +1525,31 @@ const ThemeRoutes = [
 
             // email config
 
-            {
-                path: "/email-config",
-                element: <EmailConfigListPage />,
-            },
-            {
-                path: "/email-config/add/:section",
-                element: <AddEmailConfigPage />,
-            },
-            {
-                path: "/email-config/:id/edit/:section",
-                element: <EditEmailConfigPage />,
-            },
+            // {
+            //     path: "/email-config",
+            //     element: <EmailConfigListPage />,
+            // },
+            // {
+            //     path: "/email-config/add/:section",
+            //     element: <AddEmailConfigPage />,
+            // },
+            // {
+            //     path: "/email-config/:id/edit/:section",
+            //     element: <EditEmailConfigPage />,
+            // },
 
-            {
-                path: "/email-receiver-config",
-                element: <EmailReceiverConfigListPage />,
-            },
-            {
-                path: "/email-receiver-config/add/:section",
-                element: <AddEmailReceiverConfigPage />,
-            },
-            {
-                path: "/email-receiver-config/:id/edit/:section",
-                element: <EditEmailReceiverConfigPage />,
-            },
+            // {
+            //     path: "/email-receiver-config",
+            //     element: <EmailReceiverConfigListPage />,
+            // },
+            // {
+            //     path: "/email-receiver-config/add/:section",
+            //     element: <AddEmailReceiverConfigPage />,
+            // },
+            // {
+            //     path: "/email-receiver-config/:id/edit/:section",
+            //     element: <EditEmailReceiverConfigPage />,
+            // },
             // promocode
 
             {
@@ -1592,6 +1630,98 @@ const ThemeRoutes = [
             {
                 path: "/vendor/:id/edit/configurations",
                 element: <UpdateVendorConfigPage />,
+            },
+
+            //email
+
+            {
+                path: "/email/lists",
+                element: <EmailListsListingPage />,
+            },
+            {
+                path: "/email/lists/add",
+                element: <AddEmailListPage />,
+            },
+            {
+                path: "/email/lists/:id/edit",
+                element: <EditEmailListPage />,
+            },
+            {
+                path: "/email/templates",
+                element: <EditTemplateListPage />,
+            },
+            {
+                path: "/email/templates/add",
+                element: <AddEmailTemplatePage />,
+            },
+            {
+                path: "/email/templates/:id/edit",
+                element: <EditEmailTemplatePage />,
+            },
+
+            {
+                path: "/email/images",
+                element: <EmailImageLisitingPage2 />,
+            },
+            {
+                path: "/email/campaign-groups",
+                element: <EmailCampaignGroupListingPage />,
+            },
+            {
+                path: "/email/campaign-groups/add",
+                element: <AddEmailCampaignGroupPage />,
+            },
+            {
+                path: "/email/campaign-groups/:id/edit",
+                element: <EditEmailCampaignGroupPage />,
+            },
+            {
+                path: "/email/campaign-groups/:id/campaigns",
+                element: <EmailCampaignListingPage />,
+            },
+            {
+                path: "/email/campaign",
+                element: <EmailCampaignListingPage />,
+            },
+            {
+                path: "/email/campaign-groups/:id/campaigns/add",
+                element: <AddEmailCampaignPage />,
+            },
+            {
+                path: "/email/campaign-groups/:campaign/campaigns/:id/view/edit",
+                element: <EditEmailCampaginPage />,
+            },
+            {
+                path: "/email/campaign-groups/:campaign/campaigns/:id/view",
+                element: <ViewEmailCampaginPage />,
+            },
+            {
+                path: "/email/un-subscribers",
+                element: <EmailUnSubscribeListingPage />,
+            },
+            {
+                path: "/email/footers",
+                element: <EmailFooterListingPage />,
+            },
+            {
+                path: "/email/footers/add",
+                element: <AddEmailFooterPage />,
+            },
+            {
+                path: "/email/footers/:id/edit",
+                element: <EditEmailFooterPage />,
+            },
+            {
+                path: "/email/configs",
+                element: <EmailConfigListingPage />,
+            },
+            {
+                path: "/email/configs/add",
+                element: <AddEmailConfigPage />,
+            },
+            {
+                path: "/email/configs/:id/edit",
+                element: <EditEmailConfigPage />,
             },
         ],
     },

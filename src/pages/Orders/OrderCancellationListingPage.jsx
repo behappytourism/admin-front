@@ -335,7 +335,7 @@ export default function OrdersCancellationListingPage() {
                                                 className="border-b border-tableBorderColor transition-all cursor-pointer hover:bg-[#f3f6f9]"
                                                 onClick={() =>
                                                     navigate(
-                                                        `/orders/single/${order?._id}/${section}`
+                                                        `/orders/single/cancellation/${order?._id}/${section}`
                                                     )
                                                 }
                                             >

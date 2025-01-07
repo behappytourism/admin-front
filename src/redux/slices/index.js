@@ -10,6 +10,7 @@ import quotationListSliceReducer from "./quotationListSlice";
 import quotationsReducer from "./quotationSlice";
 import flightOrderReducer from "./FlightOrderSlice";
 import tourPackageFormReducer from "./tourPackageFormSlice";
+import attrStandAloneReducer from "./attrStandAloneSlice";
 
 export {
     adminReducer,
@@ -24,4 +25,5 @@ export {
     quotationsReducer,
     flightOrderReducer,
     tourPackageFormReducer,
+    attrStandAloneReducer,
 };

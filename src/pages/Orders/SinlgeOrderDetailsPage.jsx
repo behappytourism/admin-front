@@ -42,7 +42,7 @@ export default function SingleOrderDetailsPage() {
 
     const [cancellations, setCancellations] = useState([]);
     const [refunds, setRefunds] = useState([]);
-    const { orderId, section } = useParams();
+    const { orderId, section, orderType } = useParams();
     const { jwtToken } = useSelector((state) => state.admin);
 
     const fetchorder = async () => {
@@ -69,13 +69,24 @@ export default function SingleOrderDetailsPage() {
             setTransferOrder(response?.data?.order?.transferOrder);
             setAttractionOrder(response?.data?.order?.attractionOrder);
 
-            let statusChange = await axios.patch(
-                `/orders/count/${orderId}`,
-                { type: section },
-                {
-                    headers: { authorization: `Bearer ${jwtToken}` },
-                }
-            );
+            if (orderType === "cancelletion") {
+                let statusChange = await axios.patch(
+                    `/cancellation/orders/count/${orderId}`,
+                    { type: section },
+                    {
+                        headers: { authorization: `Bearer ${jwtToken}` },
+                    }
+                );
+            } else {
+                let statusChange = await axios.patch(
+                    `/orders/count/${orderId}`,
+                    { type: section },
+                    {
+                        headers: { authorization: `Bearer ${jwtToken}` },
+                    }
+                );
+            }
+
             setIsPageLoading(false);
         } catch (err) {
             console.log(err);

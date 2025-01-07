@@ -335,7 +335,7 @@ export default function OrdersListingPage() {
                                                 className="border-b border-tableBorderColor transition-all cursor-pointer hover:bg-[#f3f6f9]"
                                                 onClick={() =>
                                                     navigate(
-                                                        `single/${order?._id}/${section}`
+                                                        `single/detail/${order?._id}/${section}`
                                                     )
                                                 }
                                             >

@@ -10,6 +10,7 @@ import {
     MdOutlineCategory,
     MdOutlineFastfood,
     MdOutlineHotelClass,
+    MdOutlineMailOutline,
     MdOutlineSummarize,
     MdOutlineTour,
     MdSegment,
@@ -17,7 +18,7 @@ import {
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { HiMiniTicket, HiTicket } from "react-icons/hi2";
 import { RxDashboard } from "react-icons/rx";
-import { ImAirplane } from "react-icons/im";
+import { ImAirplane, ImBlog } from "react-icons/im";
 import {
     HiOutlineCurrencyDollar,
     HiOutlineDocumentReport,
@@ -59,6 +60,7 @@ import { BsFillChatLeftQuoteFill, BsImage } from "react-icons/bs";
 import { IoBusiness, IoWalletOutline } from "react-icons/io5";
 import { TbLicense } from "react-icons/tb";
 import { CiDiscount1 } from "react-icons/ci";
+import { PiGlobeStand } from "react-icons/pi";
 
 const sidebarMenus = {
     Dashboard: [
@@ -161,6 +163,12 @@ const sidebarMenus = {
             icon: <HiMiniTicket />,
             link: "/attractions/ticket/theme",
             permission: ["attractions-ticket-themes", "view"],
+        },
+        {
+            name: "Stand Alone",
+            icon: <PiGlobeStand />,
+            link: "attractions/standalone",
+            permission: ["attr-stand-alone", "view"],
         },
     ],
     // Marketing: [
@@ -755,6 +763,70 @@ const sidebarMenus = {
             link: "/promo-code",
             icon: <CiDiscount1 />,
             permission: ["promo-code", "view"],
+        },
+        {
+            name: "Blogs",
+            icon: <ImBlog />,
+            link: "#",
+            dropdown: [
+                {
+                    name: "Blogs List",
+                    link: "/blogs",
+                    permission: ["blogs", "view"],
+                },
+                {
+                    name: "Add Blog",
+                    link: "/blogs/add",
+                    permission: ["blogs", "view"],
+                },
+                {
+                    name: "Blogs Categories",
+                    link: "/blogs/categories",
+                    permission: ["blogs", "view"],
+                },
+            ],
+        },
+        {
+            name: "Email",
+            icon: <MdOutlineMailOutline />,
+            link: "#",
+            dropdown: [
+                {
+                    name: "Mailing Lists",
+                    link: "/email/lists",
+                    permission: ["email", "view"],
+                },
+                {
+                    name: "Email Templates",
+                    link: "/email/templates",
+                    permission: ["email", "view"],
+                },
+                {
+                    name: "Email Images",
+                    link: "/email/images",
+                    permission: ["email", "view"],
+                },
+                {
+                    name: "Email Campaign Group",
+                    link: "/email/campaign-groups",
+                    permission: ["email", "view"],
+                },
+                {
+                    name: "Email Unsubscribers ",
+                    link: "/email/un-subscribers",
+                    permission: ["email", "view"],
+                },
+                {
+                    name: "Email Configs ",
+                    link: "/email/configs",
+                    permission: ["email", "view"],
+                },
+                {
+                    name: "Email Footers ",
+                    link: "/email/footers",
+                    permission: ["email", "view"],
+                },
+            ],
         },
         // {
         //     name: "Whatsapp Settings",

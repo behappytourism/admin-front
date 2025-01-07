@@ -48,6 +48,12 @@ const adminRoles = [
         category: "attraction",
         permissions: [],
     },
+    {
+        name: "attr-stand-alone",
+        displayName: "Stand Alone",
+        category: "attraction",
+        permissions: [],
+    },
 
     // HOTEL
     {
@@ -602,6 +608,12 @@ const adminRoles = [
         category: "marketing",
         permissions: [],
     },
+    {
+        name: "blogs",
+        displayName: "Blogs",
+        category: "marketing",
+        permissions: [],
+    },
 
     //email config
 
@@ -618,6 +630,51 @@ const adminRoles = [
         category: "settings",
         permissions: [],
     },
+
+    //email
+
+    {
+        name: "email",
+        displayName: "Email",
+        category: "marketing",
+        permissions: [],
+    },
+    // {
+    //     name: "email-templates",
+    //     displayName: "Email Template",
+    //     category: "marketing",
+    //     permissions: [],
+    // },
+    // {
+    //     name: "email-images",
+    //     displayName: "Email Images",
+    //     category: "marketing",
+    //     permissions: [],
+    // },
+    // {
+    //     name: "email-campaign-groups",
+    //     displayName: "Email Campaign Group",
+    //     category: "marketing",
+    //     permissions: [],
+    // },
+    // {
+    //     name: "email-un-subscribers",
+    //     displayName: "Email Unsubscribers ",
+    //     category: "marketing",
+    //     permissions: [],
+    // },
+    // {
+    //     name: "email-footers",
+    //     displayName: "Email Footers ",
+    //     category: "marketing",
+    //     permissions: [],
+    // },
+    // {
+    //     name: "email-configs",
+    //     displayName: "Email Configs",
+    //     category: "marketing",
+    //     permissions: [],
+    // },
 ];
 
 export default adminRoles;
