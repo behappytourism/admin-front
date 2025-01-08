@@ -48,12 +48,6 @@ const adminRoles = [
         category: "attraction",
         permissions: [],
     },
-    {
-        name: "attr-stand-alone",
-        displayName: "Stand Alone",
-        category: "attraction",
-        permissions: [],
-    },
 
     // HOTEL
     {
@@ -611,6 +605,12 @@ const adminRoles = [
     {
         name: "blogs",
         displayName: "Blogs",
+        category: "marketing",
+        permissions: [],
+    },
+    {
+        name: "stand-alone",
+        displayName: "Stand Alone",
         category: "marketing",
         permissions: [],
     },

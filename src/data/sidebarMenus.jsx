@@ -164,12 +164,6 @@ const sidebarMenus = {
             link: "/attractions/ticket/theme",
             permission: ["attractions-ticket-themes", "view"],
         },
-        {
-            name: "Stand Alone",
-            icon: <PiGlobeStand />,
-            link: "attractions/standalone",
-            permission: ["attr-stand-alone", "view"],
-        },
     ],
     // Marketing: [
     //     {
@@ -827,6 +821,12 @@ const sidebarMenus = {
                     permission: ["email", "view"],
                 },
             ],
+        },
+        {
+            name: "Stand Alone",
+            icon: <PiGlobeStand />,
+            link: "/standalone",
+            permission: ["stand-alone", "view"],
         },
         // {
         //     name: "Whatsapp Settings",

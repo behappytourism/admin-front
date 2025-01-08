@@ -8,6 +8,7 @@ import axios from "../../axios";
 import { PageLoader, Pagination } from "../../components";
 import SeoAttractionSubCategoryTablePage from "../../features/Seo/components/SeoAttractionSubCategoryTable";
 import SeoBlogSubCategoryTablePage from "../../features/Seo/components/SeoBlogSubCategoryPage";
+import SeoStandAloneSubCategoryTablePage from "../../features/Seo/components/seoStandAloneSubCategoryPage";
 import SeoToursSubCategoryTablePage from "../../features/Seo/components/SeoToursSubCategoryTablePage";
 import SeoVisaSubCategoryTablePage from "../../features/Seo/components/SeoVisaSubCategoryPage";
 
@@ -90,6 +91,9 @@ export default function SeoSubCategoryPage() {
             {categoryId === "visa" && <SeoVisaSubCategoryTablePage />}
             {categoryId === "tours" && <SeoToursSubCategoryTablePage />}
             {categoryId === "blog" && <SeoBlogSubCategoryTablePage />}
+            {categoryId === "stand-alone" && (
+                <SeoStandAloneSubCategoryTablePage />
+            )}
         </div>
     );
 }

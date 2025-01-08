@@ -439,15 +439,15 @@ const ThemeRoutes = [
                 element: <EditGuidePage />,
             },
             {
-                path: "/attractions/addStandalone",
+                path: "/addStandalone",
                 element: <AddStandAlone />,
             },
             {
-                path: "/attractions/standalone",
+                path: "/standalone",
                 element: <StandAloneList />,
             },
             {
-                path: "/attractions/standalone/edit/:id",
+                path: "/standalone/edit/:id",
                 element: <StandAloneEdit />,
             },
 
