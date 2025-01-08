@@ -29,11 +29,13 @@ function StandAloneList() {
         }
         return params;
     };
+    const [isPageLoading, setIsPageLoading] = useState(false);
 
     const navigate = useNavigate();
 
     const fetchAllDetails = async ({ skip, limit, searchInput }) => {
         try {
+            setIsPageLoading(true);
             const res = await axios.get(
                 `/attractions/standalone/all?=skip=${skip}&limit=${limit}&search=${searchInput}`,
                 {
@@ -45,7 +47,10 @@ function StandAloneList() {
                 totalStandAlone: res?.data?.totalStandAlone,
             });
             setStandAlone(res?.data?.attractionStandAlone);
+            setIsPageLoading(false);
         } catch (error) {
+            setIsPageLoading(false);
+
             console.log(error);
         }
     };
@@ -75,7 +80,9 @@ function StandAloneList() {
         <div>
             <div className="bg-white flex items-center justify-between gap-[10px] px-6 shadow-sm border-t py-2">
                 <div>
-                    <h1>Attraction Stand Alone</h1>
+                    <h1 className="font-[600] text-[15px] uppercase">
+                        Attraction Stand Alone
+                    </h1>
                 </div>
                 <div>
                     <div className="text-sm text-grayColor">
@@ -93,119 +100,125 @@ function StandAloneList() {
                     </div>
                 </div>
             </div>
-            <div className="p-6 ">
-                <div className="bg-white rounded shadow-sm">
-                    <div className="flex items-center justify-between border-b border-dashed p-4">
-                        <h1 className="font-medium">
-                            All Attractions Stand Alone
-                        </h1>
-                        <div className="flex items-center gap-[15px]">
-                            <form
-                                action=""
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    fetchAllDetails({ ...filters });
-                                    let params = prevSearchParams();
-                                    setSearchParams({
-                                        ...params,
-                                        search: filters.searchInput,
-                                        skip: 0,
-                                    });
-                                }}
-                                className="flex items-center gap-[10px]"
-                            >
-                                <input
-                                    type="text"
-                                    placeholder="Search here..."
-                                    value={filters.searchInput || ""}
-                                    onChange={(e) =>
-                                        setFilters((prev) => {
-                                            return {
-                                                ...prev,
-                                                searchInput: e.target.value,
-                                            };
-                                        })
-                                    }
-                                />
-                                <button className="px-5">Search</button>
-                            </form>
-                            <button
-                                className="w-[150px] bg-orange-500"
-                                onClick={() => {
-                                    navigate("/attractions/addStandalone");
-                                }}
-                            >
-                                + Add StandAlone
-                            </button>
-                        </div>
-                    </div>
-                    {isLoading ? (
-                        <PageLoader />
-                    ) : standAlone?.length < 1 ? (
-                        <div className="p-6 flex flex-col items-center">
-                            <span className="text-sm  text-grayColor block mt-[6px]">
-                                Oops.. No Attractions found
-                            </span>
-                        </div>
-                    ) : (
-                        <div>
-                            <table className="w-full">
-                                <thead className="bg-[#f3f6f9] text-grayColor text-[14px] text-left">
-                                    <tr>
-                                        <th className="font-[500] p-3">
-                                            Title
-                                        </th>
-                                        <th className="font-[500] p-3">slug</th>
-                                        <th className="font-[500] p-3">
-                                            Attraction's
-                                        </th>
-                                        <th className="font-[500] p-3">
-                                            images
-                                        </th>
-                                        <th className="font-[500] p-3">
-                                            Action
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody className="text-sm">
-                                    {standAlone?.map((ele) => {
-                                        return (
-                                            <StandAloneTableList
-                                                ele={ele}
-                                                fetchAllDetails={
-                                                    fetchAllDetails
-                                                }
-                                            />
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-
-                            <div className="p-4">
-                                <Pagination
-                                    limit={filters?.limit}
-                                    skip={filters?.skip}
-                                    total={filters?.totalStandAlone}
-                                    incOrDecSkip={(number) => {
+            {isPageLoading ? (
+                <PageLoader />
+            ) : (
+                <div className="p-6 ">
+                    <div className="bg-white rounded shadow-sm">
+                        <div className="flex items-center justify-between border-b border-dashed p-4">
+                            <h1 className="font-medium">
+                                All Attractions Stand Alone
+                            </h1>
+                            <div className="flex items-center gap-[15px]">
+                                <form
+                                    action=""
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        fetchAllDetails({ ...filters });
                                         let params = prevSearchParams();
                                         setSearchParams({
                                             ...params,
-                                            skip: filters.skip + number + 1,
+                                            search: filters.searchInput,
+                                            skip: 0,
                                         });
                                     }}
-                                    updateSkip={(skip) => {
-                                        let params = prevSearchParams();
-                                        setSearchParams({
-                                            ...params,
-                                            skip: skip + 1,
-                                        });
+                                    className="flex items-center gap-[10px]"
+                                >
+                                    <input
+                                        type="text"
+                                        placeholder="Search here..."
+                                        value={filters.searchInput || ""}
+                                        onChange={(e) =>
+                                            setFilters((prev) => {
+                                                return {
+                                                    ...prev,
+                                                    searchInput: e.target.value,
+                                                };
+                                            })
+                                        }
+                                    />
+                                    <button className="px-5">Search</button>
+                                </form>
+                                <button
+                                    className="w-[150px] bg-orange-500"
+                                    onClick={() => {
+                                        navigate("/addStandalone");
                                     }}
-                                />
+                                >
+                                    + Add StandAlone
+                                </button>
                             </div>
                         </div>
-                    )}
+                        {isLoading ? (
+                            <PageLoader />
+                        ) : standAlone?.length < 1 ? (
+                            <div className="p-6 flex flex-col items-center">
+                                <span className="text-sm  text-grayColor block mt-[6px]">
+                                    Oops.. No Attractions found
+                                </span>
+                            </div>
+                        ) : (
+                            <div>
+                                <table className="w-full">
+                                    <thead className="bg-[#f3f6f9] text-grayColor text-[14px] text-left">
+                                        <tr>
+                                            <th className="font-[500] p-3">
+                                                Title
+                                            </th>
+                                            <th className="font-[500] p-3">
+                                                slug
+                                            </th>
+                                            <th className="font-[500] p-3">
+                                                Attraction's
+                                            </th>
+                                            <th className="font-[500] p-3">
+                                                images
+                                            </th>
+                                            <th className="font-[500] p-3">
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-sm">
+                                        {standAlone?.map((ele) => {
+                                            return (
+                                                <StandAloneTableList
+                                                    ele={ele}
+                                                    fetchAllDetails={
+                                                        fetchAllDetails
+                                                    }
+                                                />
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+
+                                <div className="p-4">
+                                    <Pagination
+                                        limit={filters?.limit}
+                                        skip={filters?.skip}
+                                        total={filters?.totalStandAlone}
+                                        incOrDecSkip={(number) => {
+                                            let params = prevSearchParams();
+                                            setSearchParams({
+                                                ...params,
+                                                skip: filters.skip + number + 1,
+                                            });
+                                        }}
+                                        updateSkip={(skip) => {
+                                            let params = prevSearchParams();
+                                            setSearchParams({
+                                                ...params,
+                                                skip: skip + 1,
+                                            });
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 }

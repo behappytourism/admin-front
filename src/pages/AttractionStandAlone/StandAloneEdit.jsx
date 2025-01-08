@@ -28,9 +28,12 @@ function StandAloneEdit() {
     const [gallery, setGallery] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [initialImg, setInitialImg] = useState();
+    const [isPageLoading, setIsPageLoading] = useState(false);
 
     const fetchDetails = async () => {
         try {
+            setIsPageLoading(true);
+
             const res = await axios.get(
                 `/attractions/standalone/single-details/${params.id}`,
                 {
@@ -40,7 +43,9 @@ function StandAloneEdit() {
 
             dispatch(addEditEnitial(res?.data));
             setInitialImg(res?.data?.images);
+            setIsPageLoading(false);
         } catch (err) {
+            setIsPageLoading(false);
             console.log(err);
         }
     };
@@ -119,7 +124,7 @@ function StandAloneEdit() {
                 }
             );
 
-            navigate("/attractions/standalone");
+            navigate("/standalone");
             dispatch(clearAttractionStandAloneDataAfterAdding());
             setIsLoading(false);
         } catch (error) {
@@ -132,7 +137,9 @@ function StandAloneEdit() {
         <div className="">
             <div className="bg-white flex items-center justify-between gap-[10px] px-6 shadow-sm border-t  py-2">
                 <div>
-                    <h1>Edit Attraction Stand Alone</h1>
+                    <h1 className="font-[600] text-[15px] uppercase">
+                        Edit Attraction Stand Alone
+                    </h1>
                 </div>
                 <div>
                     <div className="text-sm text-grayColor">

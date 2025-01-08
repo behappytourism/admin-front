@@ -95,7 +95,7 @@ function AddStandAlone() {
 
             dispatch(clearAttractionStandAloneDataAfterAdding());
             setIsLoading(false);
-            navigate("/attractions/standalone");
+            navigate("/standalone");
         } catch (error) {
             setIsLoading(false);
             console.log(error);
@@ -107,7 +107,9 @@ function AddStandAlone() {
         <div className="">
             <div className="bg-white flex items-center  justify-between gap-[10px] px-6 shadow-sm border-t  py-2">
                 <div>
-                    <h1>Add Attraction Stand Alone</h1>
+                    <h1 className="font-[600] text-[15px] uppercase">
+                        Add Attraction Stand Alone
+                    </h1>
                 </div>
                 <div>
                     <div className="text-sm text-grayColor">

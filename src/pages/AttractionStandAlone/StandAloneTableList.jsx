@@ -58,7 +58,7 @@ function StandAloneTableList({ ele }) {
                     </button>
                     
                         <button className="h-auto bg-transparent text-green-500 text-xl" 
-                        onClick={()=> navigate(`/attractions/standalone/edit/${ele?._id}`)}
+                        onClick={()=> navigate(`/standalone/edit/${ele?._id}`)}
                         >
                             <BiEditAlt />
                         </button>
