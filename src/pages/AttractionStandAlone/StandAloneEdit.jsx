@@ -105,6 +105,7 @@ function StandAloneEdit() {
             formData.append("attractions[]", JSON.stringify(attractions));
             formData.append("title", attrData?.title);
             formData.append("description", attrData?.description);
+            formData.append("shortDesc", attrData?.shortDesc);
 
             if (gallery?.length) {
                 for (let i = 0; i < gallery.length; i++) {
@@ -289,6 +290,23 @@ function StandAloneEdit() {
                                     </div>
                                 )}
                             </div>
+                        </div>
+                        <div>
+                            <label>Short Description</label>
+                            <input
+                                onChange={(e) => {
+                                    dispatch(
+                                        addAttractionStandAloneDatas({
+                                            name: "shortDesc",
+                                            value: e.target.value,
+                                        })
+                                    );
+                                    setError("");
+                                }}
+                                value={attrData?.shortDesc}
+                                type="text"
+                                className="w-full h-10 outline-none border"
+                            />
                         </div>
                         <div
                             className={`${gallery?.length ? "pt-16" : "pt-3"}`}

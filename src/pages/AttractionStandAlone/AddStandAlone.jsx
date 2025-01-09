@@ -80,6 +80,8 @@ function AddStandAlone() {
             formData.append("attractions[]", JSON.stringify(attractions));
             formData.append("title", attrData?.title);
             formData.append("description", attrData?.description);
+            formData.append("shortDesc", attrData?.shortDesc);
+
             for (let i = 0; i < gallery.length; i++) {
                 formData.append("images", gallery[i]);
             }
@@ -116,10 +118,7 @@ function AddStandAlone() {
                         <Link to="/" className="text-textColor">
                             Dashboard{" "}
                         </Link>
-                        <span>{">"} </span>
-                        <Link to="/attractions" className="text-textColor">
-                            Attractions
-                        </Link>
+
                         <span>{">"} </span>
                         <span>StandAlone </span>
                         <span>{">"} </span>
@@ -245,6 +244,23 @@ function AddStandAlone() {
                                     ""
                                 )}
                             </div>
+                        </div>
+                        <div>
+                            <label>Short Description</label>
+                            <input
+                                onChange={(e) => {
+                                    dispatch(
+                                        addAttractionStandAloneDatas({
+                                            name: "shortDesc",
+                                            value: e.target.value,
+                                        })
+                                    );
+                                    setError("");
+                                }}
+                                value={attrData?.shortDesc}
+                                type="text"
+                                className="w-full h-10 outline-none border"
+                            />
                         </div>
                         <div
                             className={`${gallery?.length ? "pt-16" : "pt-3"}`}
