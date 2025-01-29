@@ -558,6 +558,11 @@ const sidebarMenus = {
                     permission: ["b2c-frontend", "view"],
                 },
                 {
+                    name: "Review",
+                    link: "/b2c/frontend/home/settings/review",
+                    permission: ["b2c-frontend", "view"],
+                },
+                {
                     name: "Cards",
                     link: "/b2c/frontend/home/settings/cards",
                     permission: ["b2c-frontend", "view"],

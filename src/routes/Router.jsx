@@ -333,6 +333,7 @@ import EmailConfigListingPage from "../pages/Email/EmailConfigListingPage";
 import AddStandAlone from "../pages/AttractionStandAlone/AddStandAlone";
 import StandAloneList from "../pages/AttractionStandAlone/StandAloneList";
 import StandAloneEdit from "../pages/AttractionStandAlone/StandAloneEdit";
+import ReviewSettingsB2cPage from "../pages/B2cFrontend/ReviewSettingsB2cPage";
 
 const ThemeRoutes = [
     {
@@ -905,6 +906,10 @@ const ThemeRoutes = [
             {
                 path: "/b2c/frontend/home/settings/hero",
                 element: <HeroSettingsB2cPage />,
+            },
+            {
+                path: "/b2c/frontend/home/settings/review",
+                element: <ReviewSettingsB2cPage />,
             },
             {
                 path: "/b2c/frontend/home/settings/cards",
@@ -1501,7 +1506,6 @@ const ThemeRoutes = [
                 path: "/orders/single/:orderType/:orderId/:section",
                 element: <SingleOrderDetailsPage />,
             },
-           
 
             //seo
 
